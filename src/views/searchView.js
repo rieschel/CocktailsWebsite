@@ -6,8 +6,10 @@ import {ThemeProvider} from '@mui/material/styles';
 import Box from "@mui/material/Box"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Typography from '@mui/material/Typography';
+import Popover from '@mui/material/Popover';
 
 import theme from "./theme.js";
+import CheckboxesGroup from './checkboxes.js';
 
 function SearchView(props) {
 
@@ -18,6 +20,12 @@ function SearchView(props) {
             </ThemeProvider>
         );
     }
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const handleClick = (event) => {setAnchorEl(event.currentTarget);};
+    const handleClose = () => {setAnchorEl(null);};
+    const open = Boolean(anchorEl)
+    const id = open ? 'simple-popover' : undefined;
 
     return (
             <ThemeProvider theme = {theme}>
@@ -30,6 +38,7 @@ function SearchView(props) {
                         sx={{m:2}}
                         variant="outlined"
                         color="primary" focused
+                        placeholder="Type something..."
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -39,7 +48,10 @@ function SearchView(props) {
                         }}
                     ></TextField>
                     <Button sx={{p:1.5, m:2}} variant="outlined" color="primary">Search</Button>
-                    <Button sx={{p:1.5, m:2}} variant="outlined" color="primary" startIcon={<FilterAltIcon></FilterAltIcon>}>Filter</Button>
+                    <Button aria-describedby={id} onClick={handleClick} sx={{p:1.5, m:2}} variant="outlined" color="primary" startIcon={<FilterAltIcon></FilterAltIcon>}>Filter</Button>
+                    <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrgin={{vertical:'bottom', horizontal:'left',}}>
+                        <CheckboxesGroup></CheckboxesGroup>
+                    </Popover>
                     {props.drinks.map(renderDrinkCB)}
                 </Box>
             </ThemeProvider>

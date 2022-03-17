@@ -1,10 +1,12 @@
+import Box from '@mui/material/Box';
+
 const Search=require("../reactjs/searchPresenter.js").default;
 
 function App(props) {
     return (
-        <div>
+        <Box>
             <Search model = {props.model}></Search>
-        </div>
+        </Box>
     );
 }
 
