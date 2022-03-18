@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -12,11 +13,19 @@ class Search extends React.Component {
             valid : ""
         }
     }
+    
+    onFilterACB(){
+        console.log("filterclick");
+    }
 
     render() {
         return (
             <div>
-                <SearchView drinks = {this.props.model.drinks}></SearchView>
+                <SearchView 
+                    drinks = {this.props.model.drinks}
+                    onFilterClick = {this.onFilterACB}    
+                    >
+                </SearchView>
             </div>
         );
     }
