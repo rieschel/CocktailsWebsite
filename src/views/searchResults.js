@@ -1,5 +1,6 @@
 function SearchResults(props){
 
+    // console.log(props.searchResults)
     //function showResultACB(result){
         
         /*function choseResultACB(){
@@ -18,7 +19,7 @@ function SearchResults(props){
     return (
         <div>
             {/* {props.searchResults.map(showResultACB)} */}
-            {props.searchResults}
+            {props.searchResults[0]['strDrink']}
         </div>
     )
 }

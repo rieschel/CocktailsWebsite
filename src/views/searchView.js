@@ -22,16 +22,25 @@ function SearchView(props) {
         );
     }
 
-    function renderDrink2(){
-        console.log("test")
+    /* function renderDrink2(){
+        console.log("test")s
         console.log(searchDrinks())
         return(
             <div>{searchDrinks()['drinks'][0]['strDrink']}</div>
         )
-    }
+    } */
 
     function searchACB(){
         props.onSearch();
+    }
+
+    function textInputACB(event){
+        console.log("inside search view")
+        console.log(event)
+        console.log(event[0])
+        console.log(event.currentTaget)
+        console.log(event.taget.value)
+        props.onTextInput(event.target.value);
     }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,6 +56,7 @@ function SearchView(props) {
                     <Typography align="center" variant="h2" color="primary">ShakerItUp!</Typography>
                     <br></br>
                     <TextField 
+                        onChange={textInputACB}
                         width="70%"
                         sx={{m:2}}
                         variant="outlined"
@@ -66,8 +76,6 @@ function SearchView(props) {
                         <CheckboxesGroup></CheckboxesGroup>
                     </Popover>
                     {props.drinks.map(renderDrinkCB)}
-                    <h1>hello</h1>
-                    {renderDrink2()}
                 </Box>
             </ThemeProvider>
     );
