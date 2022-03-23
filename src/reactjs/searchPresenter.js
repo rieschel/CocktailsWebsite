@@ -8,12 +8,19 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
+import {searchDrinks} from '../drinkSource.js';
 
 window.React= React;
 
 import SearchView from '../views/searchView';
 
 class Search extends React.Component {
+    const [error, setError] = React.useState();
+    const [data, setData] = React.useState();
+    // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
+    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinks({})});
+
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -25,7 +32,7 @@ class Search extends React.Component {
         const comp = this;
         const renderView = () => {
             if(comp.state.currentView=="Search") {
-                return <SearchView drinks = {comp.props.model.drinks}></SearchView>;
+                return <SearchView drinks = {comp.props.model.drinks}> </SearchView>;
             }
             else {
                 return <h1>Saved Drinks!</h1>;

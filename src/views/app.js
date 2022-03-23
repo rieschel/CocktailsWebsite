@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 
-const Search=require("../reactjs/searchPresenter.js").default;
+const Search=require("../reactjs/searchPresenter2.js").default;
 
 function App(props) {
     return (

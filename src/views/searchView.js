@@ -8,6 +8,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
 
+import { searchDrinks } from '../drinkSource.js';
 import theme from "./theme.js";
 import CheckboxesGroup from './checkboxes.js';
 
@@ -19,6 +20,18 @@ function SearchView(props) {
                 <Typography sx={{m:2}} variant="h6" color="primary">{drink}</Typography>
             </ThemeProvider>
         );
+    }
+
+    function renderDrink2(){
+        console.log("test")
+        console.log(searchDrinks())
+        return(
+            <div>{searchDrinks()['drinks'][0]['strDrink']}</div>
+        )
+    }
+
+    function searchACB(){
+        props.onSearch();
     }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,12 +60,14 @@ function SearchView(props) {
                             ),
                         }}
                     ></TextField>
-                    <Button sx={{p:1.5, m:2}} variant="outlined" color="primary">Search</Button>
+                    <Button sx={{p:1.5, m:2}} onClick={searchACB} variant="outlined" color="primary">Search</Button>
                     <Button aria-describedby={id} onClick={handleClick} sx={{p:1.5, m:2}} variant="outlined" color="primary" startIcon={<FilterAltIcon></FilterAltIcon>}>Filter</Button>
                     <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrgin={{vertical:'bottom', horizontal:'left',}}>
                         <CheckboxesGroup></CheckboxesGroup>
                     </Popover>
                     {props.drinks.map(renderDrinkCB)}
+                    <h1>hello</h1>
+                    {renderDrink2()}
                 </Box>
             </ThemeProvider>
     );
