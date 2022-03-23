@@ -36,10 +36,7 @@ function SearchView(props) {
 
     function textInputACB(event){
         console.log("inside search view")
-        console.log(event)
-        console.log(event[0])
-        console.log(event.currentTaget)
-        console.log(event.taget.value)
+        console.log(event.target.value)
         props.onTextInput(event.target.value);
     }
 

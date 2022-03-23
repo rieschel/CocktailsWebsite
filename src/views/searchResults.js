@@ -1,26 +1,24 @@
+import theme from "../views/theme.js";
+import {ThemeProvider} from '@mui/material/styles';
+
 function SearchResults(props){
 
     // console.log(props.searchResults)
-    //function showResultACB(result){
-        
-        /*function choseResultACB(){
-            // dish click should navigate to Details
-            //window.location.hash = "#details";
-            //props.onChosenResult(result);
-            
-        }
+    function showResultACB(result){
         return (
-            <span onClick={choseResultACB} class = "dish">
-                <img src={"https://spoonacular.com/recipeImages/"  + result.image } height={'100'}></img>
-                <div>{result.title}</div>
-            </span>
+            <ThemeProvider theme = {theme}>
+            <div>{result['strDrink']}</div>
+            </ThemeProvider>
         )
-    }*/
+    }
+
     return (
+        <ThemeProvider theme = {theme}>
         <div>
-            {/* {props.searchResults.map(showResultACB)} */}
-            {props.searchResults[0]['strDrink']}
+            {props.searchResults.map(showResultACB)}
+            {/* {props.searchResults[0]['strDrink']} */}
         </div>
+        </ThemeProvider>
     )
 }
 

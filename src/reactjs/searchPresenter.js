@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
+import { searchDrinkByIngredient } from "../drinkSource";
 
 // Component state:
 // Basic principle: Component state changes => component re-renders (updates)
@@ -21,11 +22,11 @@ import {ThemeProvider} from '@mui/material/styles';
 // SearchPresenter does not need to be an observer, because it will only use component state, not application state.
 
 function SearchPresenter(props){
-    const [ingredient, setIngrediet] = React.useState();
+    const [i, setIngredient] = React.useState('Gin');
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
-    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinks({})});
+    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
 
     // To avoid race conditions in React, you need to use an effect that triggers every time the promise changes in state. 
     // If the promise changes again (danger for race condition) the effect cleanup code will be invoked.
@@ -49,12 +50,15 @@ function SearchPresenter(props){
 
     function doSearchACB(){
         //setPromise(searchDishes({type, query}));
-        setPromise(searchDrinks({ingredient}));
+        //setPromise(searchDrinks());
+        setPromise(searchDrinkByIngredient({i}));
     }
 
-    function setIngredientACB(ingredient){
+    function setIngredientACB(i){
         //console.log("setting type ", type);
-        setIngredient(ingredient);
+        console.log("setting ingredient")
+        console.log(i)
+        setIngredient(i);
     }
 
     /*function setCurrentDishACB(dish){
@@ -62,6 +66,7 @@ function SearchPresenter(props){
     }*/
         
     return (
+        <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position='static'>
                     <Toolbar>
@@ -69,9 +74,10 @@ function SearchPresenter(props){
                         <Button sx={{m:2}} variant='outlined' color='secondary' onClick={() => {comp.state.currentView="Saved"; console.log(comp.state.currentView)}}>Saved Drinks</Button>
                     </Toolbar>
                 </AppBar>
-                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  > </SearchView>
+                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data}/>}
             </Box>
+        </ThemeProvider>
     );
 
 
