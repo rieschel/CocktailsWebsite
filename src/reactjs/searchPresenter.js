@@ -1,6 +1,7 @@
 import promiseNoData from "../views/promiseNoData";
 // import SearchFormView from "../views/searchFormView";
 import SearchResults from "../views/searchResults";
+import NavbarView from "../views/navbarView";
 // import { searchDishes } from "../dishSource";
 import { searchDrinks } from "../drinkSource";
 import SearchView from "../views/searchView";
@@ -76,6 +77,10 @@ function SearchPresenter(props){
         props.model.saveDrink(drink);
     }
 
+    function doPageChange(){
+        console.log("page change");
+    }
+
     /*function setCurrentDishACB(dish){
         props.model.setCurrentDish(dish.id)
     }*/
@@ -100,12 +105,7 @@ function SearchPresenter(props){
     return (
         <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position='static'>
-                    <Toolbar>
-                        <Button sx={{m:2}} variant='outlined' color='secondary'>Search</Button>
-                        <Button sx={{m:2}} variant='outlined' color='secondary'>Saved Drinks</Button>
-                    </Toolbar>
-                </AppBar>
+                <NavbarView onChangePage = {doPageChange}></NavbarView>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
                 
