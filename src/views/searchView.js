@@ -14,14 +14,6 @@ import CheckboxesGroup from './checkboxes.js';
 
 function SearchView(props) {
 
-    function renderDrinkCB(drink) { 
-        return (
-            <ThemeProvider theme = {theme}>
-                <Typography sx={{m:2}} variant="h6" color="primary">{drink}</Typography>
-            </ThemeProvider>
-        );
-    }
-
     /* function renderDrink2(){
         console.log("test")s
         console.log(searchDrinks())
@@ -42,13 +34,16 @@ function SearchView(props) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {setAnchorEl(event.currentTarget);};
-    const handleClose = () => {setAnchorEl(null);};
+    const handleClose = () => {
+        setAnchorEl(null);
+        searchACB();
+    };
     const open = Boolean(anchorEl)
     const id = open ? 'simple-popover' : undefined;
 
     return (
             <ThemeProvider theme = {theme}>
-                <Box sx={{ width: '100%', height: '100%', p:2}}>
+                <Box sx={{ width: '80%', height: '100%', p:2}}>
                     <br></br>
                     <Typography align="center" variant="h2" color="primary">ShakerItUp!</Typography>
                     <br></br>
@@ -70,9 +65,8 @@ function SearchView(props) {
                     <Button sx={{p:1.5, m:2}} onClick={searchACB} variant="outlined" color="primary">Search</Button>
                     <Button aria-describedby={id} onClick={handleClick} sx={{p:1.5, m:2}} variant="outlined" color="primary" startIcon={<FilterAltIcon></FilterAltIcon>}>Filter</Button>
                     <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrgin={{vertical:'bottom', horizontal:'left',}}>
-                        <CheckboxesGroup></CheckboxesGroup>
+                        <CheckboxesGroup onFilterInput={props.onTextInput}></CheckboxesGroup>
                     </Popover>
-                    {props.drinks.map(renderDrinkCB)}
                 </Box>
             </ThemeProvider>
     );

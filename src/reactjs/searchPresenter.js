@@ -26,6 +26,7 @@ function SearchPresenter(props){
     const [i, setIngredient] = React.useState('Gin');
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
+    
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
     const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
     
@@ -70,6 +71,11 @@ function SearchPresenter(props){
         setIngredient(i);
     }
 
+    function saveDrinkACB() {
+        console.log("drink saved!");
+        props.model.saveDrink(drink);
+    }
+
     /*function setCurrentDishACB(dish){
         props.model.setCurrentDish(dish.id)
     }*/
@@ -101,7 +107,7 @@ function SearchPresenter(props){
                     </Toolbar>
                 </AppBar>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
-                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data}/>}
+                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
                 
             </Box>
         </ThemeProvider>

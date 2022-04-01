@@ -7,9 +7,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
+import { PropaneSharp } from '@mui/icons-material';
+import Button from '@mui/material/Button'
 
 
-export default function CheckboxesGroup() {
+export default function CheckboxesGroup(props) {
   const [state, setState] = React.useState({
     gin: false,
     vodka: false,
@@ -24,7 +26,8 @@ export default function CheckboxesGroup() {
       ...state,
       [event.target.name]: event.target.checked,
     });
-    
+    console.log(event.target.name);
+    props.onFilterInput(event.target.name);
   };
 
   const { gin,vodka,whisky,lemon,lime,orange } = state; 
