@@ -71,10 +71,11 @@ function SearchPresenter(props){
         setIngredient(i);
     }
 
-    function saveDrinkACB() {
-        console.log("drink saved!");
+    function saveDrinkACB(drink) {
+        console.log("presenter saved");
         props.model.saveDrink(drink);
     }
+    
 
     /*function setCurrentDishACB(dish){
         props.model.setCurrentDish(dish.id)

@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 function SavedView(props) {
 
     function renderDrinkCB(drink) { 
-        console.log("In saved drinks");
+        console.log("render saved drink");
         return (
             <ThemeProvider theme = {theme}>
-                <Typography sx={{m:2}}>{drink}</Typography>
+                <Typography key = {drink['idDrink']} sx={{m:2}}>{drink['strDrink']}</Typography>
             </ThemeProvider>
         );
     }

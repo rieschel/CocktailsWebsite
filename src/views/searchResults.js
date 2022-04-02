@@ -12,7 +12,8 @@ function SearchResults(props){
     function showResultACB(result){
 
         function saveDrinkACB() {
-            props.onSaveDrink();
+            console.log("view saved");
+            props.onSaveDrink(result);
         }
 
         return (
