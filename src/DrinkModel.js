@@ -3,6 +3,7 @@ class DrinkModel {
     constructor() {
         this.observers = [];
         this.drinks = [];
+        this.ratings = [];
     }
 
     saveDrink(drink) {
@@ -25,6 +26,13 @@ class DrinkModel {
             this.notifyObservers({removeDrink: drink});
             console.log("in remove drink");
         }
+    }
+
+    rateDrink(drink, rating) {
+        this.ratings = [...this.ratings, {d: drink['idDrink'], r: rating}];
+        this.notifyObservers({rateDrink: {d: drink['idDrink'], r: rating}});
+        console.log("rate drink in model");
+        console.log(this.ratings);
     }
 
     addObserver(obs) {

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import StarIcon from '@mui/icons-material/Star';
 
 function SearchResults(props){
 
@@ -21,7 +22,7 @@ function SearchResults(props){
                 <Grid item key = {result['idDrink']}>
                     <Box>
                         <Typography variant='h6' align='center'>{result['strDrink']}</Typography>
-                        <Button onClick={saveDrinkACB}>Save Drink</Button>
+                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
                         <br></br>
                         <img src = {result['strDrinkThumb']} height='300px' align='center'></img>
                     </Box>
