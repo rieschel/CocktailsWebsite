@@ -28,38 +28,14 @@ function SearchView(props) {
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
 
-    /* function renderDrink2(){
-        console.log("test")s
-        console.log(searchDrinks())
-        return(
-            <div>{searchDrinks()['drinks'][0]['strDrink']}</div>
-        )
-    } */
-
     function searchACB(){
         props.onSearch();
     }
-
 
     function textInputACB(event){
         console.log("inside search view")
         console.log(event.target.value)
         props.onTextInput(event.target.value);
-    }
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClick = (event) => {setAnchorEl(event.currentTarget);};
-    const handleClose = () => {
-        setAnchorEl(null);
-        searchACB();
-    };
-    const open = Boolean(anchorEl)
-    const id = open ? 'simple-popover' : undefined;
-
-=======
-    function handleFilterACB(){
-        console.log("Searchview handled filterclick");
-        props.onFilterClick();
     }
 
     return (
@@ -102,9 +78,6 @@ function SearchView(props) {
                         >
                         Filter
                     </Button>
-                    {/* <Button  sx={{p:1.5, m:2}} aria-describedby={id} variant="outlined" color="primary" onClick={handleToggle}>
-                        Open Popover
-                    </Button> */}
                     <Popover
                         sx={{height: 700 ,maxHeight: 1000 , width:700}}
                         id={id}
@@ -121,11 +94,9 @@ function SearchView(props) {
                         }}
                     >
                         <CheckboxesGroup/>
-                        {/* <Typography>The content of the Popover.</Typography> */}
-                    </Popover>
-                           
+                    </Popover>    
                     {props.drinks.map(renderDrinkCB)}
->
+
                 </Box>
             </ThemeProvider>
     );
