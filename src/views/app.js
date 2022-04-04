@@ -8,7 +8,7 @@ function App(props) {
     return (
         <div>
            {/*  <MenuListComposition/>   */}
-            <Filtermenu/>
+            {/* <Filtermenu/> */}
             <Search model = {props.model}></Search>
         </div>
     );

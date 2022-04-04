@@ -3,6 +3,7 @@ import { Checkbox, Paper } from "@mui/material";
 import { Button } from "@mui/material";
 import { Popover } from "@mui/material";
 import { Typography } from "@mui/material";
+import CheckboxesGroup from "./checkboxesGroup";
 
 export default function Filtermenu(){
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,6 +26,7 @@ export default function Filtermenu(){
             Open Popover
         </Button>
         <Popover
+            sx={{maxHeight: 1000 , width:700}}
             id={id}
             open={open}
             anchorEl={anchorEl}
@@ -38,8 +40,8 @@ export default function Filtermenu(){
             horizontal: "center"
             }}
         >
-            <Checkbox/>
-            <Typography>The content of the Popover.</Typography>
+            <CheckboxesGroup/>
+            {/* <Typography>The content of the Popover.</Typography> */}
         </Popover>
         </div>
     );
