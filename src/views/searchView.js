@@ -12,7 +12,7 @@ import CheckboxesGroup from './checkboxesGroup.js';
 
 import { searchDrinks } from '../drinkSource.js';
 import theme from "./theme.js";
-import CheckboxesGroup from './checkboxes.js';
+/* import CheckboxesGroup from './checkboxes.js'; */
 
 function SearchView(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,12 +61,6 @@ function SearchView(props) {
                     ></TextField>
 
                     <Button sx={{p:1.5, m:2}} onClick={searchACB} variant="outlined" color="primary">Search</Button>
-                    <Button aria-describedby={id} onClick={handleClick} sx={{p:1.5, m:2}} variant="outlined" color="primary" startIcon={<FilterAltIcon></FilterAltIcon>}>Filter</Button>
-                    <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrgin={{vertical:'bottom', horizontal:'left',}}>
-                        <CheckboxesGroup onFilterInput={props.onTextInput}></CheckboxesGroup>
-                    </Popover>
-
-                    <Button sx={{p:1.5, m:2}} variant="outlined" color="primary">Search</Button>
                     <Button
                         ref={buttonRef}
                         id={1} 
@@ -93,9 +87,9 @@ function SearchView(props) {
                         horizontal: "center"
                         }}
                     >
-                        <CheckboxesGroup/>
+                        <CheckboxesGroup onFilterInput={props.onTextInput} />
                     </Popover>    
-                    {props.drinks.map(renderDrinkCB)}
+                    {/* {props.drinks.map(renderDrinkCB)} */}
 
                 </Box>
             </ThemeProvider>

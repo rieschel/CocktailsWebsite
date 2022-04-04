@@ -21,11 +21,6 @@ import {ThemeProvider} from '@mui/material/styles';
 import { searchDrinkByIngredient } from "../drinkSource";
 
 
-// Component state:
-// Basic principle: Component state changes => component re-renders (updates)
-
-// SearchPresenter does not need to be an observer, because it will only use component state, not application state.
-
 function SearchPresenter(props){
     const [i, setIngredient] = React.useState('Gin');
     const [error, setError] = React.useState();
@@ -33,18 +28,7 @@ function SearchPresenter(props){
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
     const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
-    
-    // const currentView = '';
-
-    // function setCurrentViewACB(view) {
-    //     console.log("Setting current view");
-    //     console.log(view);
-    //     currentView = view;
-    // }
-    
-    // To avoid race conditions in React, you need to use an effect that triggers every time the promise changes in state. 
-    // If the promise changes again (danger for race condition) the effect cleanup code will be invoked.
-    // The cleanup code can mark the promise as cancelled so it does not save data (or error) in component state, thus avoiding the race condition.
+   
     function promiseChangedACB(){ 
         setData(null); 
         setError(null); 
@@ -75,12 +59,13 @@ function SearchPresenter(props){
         console.log(i)
         setIngredient(i);
       
-    
-    onFilterACB(){
+    }
+
+    function onFilterACB(){
         console.log("filterclick");
     }
 
-    render() {
+   /*  render() {
         return (
             <div>
                 <SearchView 
@@ -90,33 +75,12 @@ function SearchPresenter(props){
                 </SearchView>
             </div>
         );
-    }
+    } */
 
     function saveDrinkACB(drink) {
         console.log("presenter saved");
         props.model.saveDrink(drink);
     }
-    
-
-    /*function setCurrentDishACB(dish){
-        props.model.setCurrentDish(dish.id)
-    }*/
-
-    // function renderCurrentView() {
-    //     if(currentView=='Search') {
-    //         return (
-    //             <html>
-    //                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
-    //                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data}/>}
-    //             </html>
-    //         );
-    //     }
-    //     if(currentView=='Saved') {
-    //         return (
-    //             <h1>SAVED</h1>
-    //         );
-    //     }
-    // }
 
         
     return (
