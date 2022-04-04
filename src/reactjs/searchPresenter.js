@@ -1,9 +1,13 @@
+
 import promiseNoData from "../views/promiseNoData";
 // import SearchFormView from "../views/searchFormView";
 import SearchResults from "../views/searchResults";
 // import { searchDishes } from "../dishSource";
 import { searchDrinks } from "../drinkSource";
 import SearchView from "../views/searchView";
+
+import { Alert } from '@mui/material';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppBar from '@mui/material/AppBar';
@@ -56,6 +60,7 @@ function SearchPresenter(props){
         
         return changedAgainACB;  // promiseChangedACB will be called for the new value!
     }
+
     React.useEffect(promiseChangedACB , [promise] );
 
     function doSearchACB(){
@@ -69,6 +74,22 @@ function SearchPresenter(props){
         console.log("setting ingredient")
         console.log(i)
         setIngredient(i);
+      
+    
+    onFilterACB(){
+        console.log("filterclick");
+    }
+
+    render() {
+        return (
+            <div>
+                <SearchView 
+                    drinks = {this.props.model.drinks}
+                    onFilterClick = {this.onFilterACB}    
+                    >
+                </SearchView>
+            </div>
+        );
     }
 
     function saveDrinkACB(drink) {
