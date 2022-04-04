@@ -1,16 +1,15 @@
-import Filtermenu from "./filterMenu.js";
-import MenuListComposition from "./MenuListComposition.js";
 
+import Box from '@mui/material/Box';
 
-const Search=require("../reactjs/searchPresenter.js").default;
+const Search=require("../reactjs/SearchPresenter.js").default;
+const Saved=require("../reactjs/SavedPresenter.js").default
 
 function App(props) {
     return (
-        <div>
-           {/*  <MenuListComposition/>   */}
-            {/* <Filtermenu/> */}
+         <Box>
             <Search model = {props.model}></Search>
-        </div>
+            <Saved model = {props.model}></Saved>
+        </Box>
     );
 }
 

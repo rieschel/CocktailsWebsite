@@ -20,13 +20,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 
 /***/ }),
 
-/***/ "./src/reactjs/searchPresenter.js":
+/***/ "./src/reactjs/searchPresenter2.js":
 /*!****************************************!*\
-  !*** ./src/reactjs/searchPresenter.js ***!
+  !*** ./src/reactjs/searchPresenter2.js ***!
   \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _views_searchView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/searchView */ \"./src/views/searchView.js\");\n\n\n\n\nvar Search = function Search() {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_views_searchView__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null);\n};\n\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Search, null), document.getElementById(\"root\"));\n\n//# sourceURL=webpack://dynwebb-projekt/./src/reactjs/searchPresenter.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _views_searchView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/searchView */ \"./src/views/searchView.js\");\n\n\n\n\nvar Search = function Search() {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_views_searchView__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null);\n};\n\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Search, null), document.getElementById(\"root\"));\n\n//# sourceURL=webpack://dynwebb-projekt/./src/reactjs/searchPresenter2.js?");
 
 /***/ }),
 
@@ -36,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ App)\n/* harmony export */ });\nvar Search = (__webpack_require__(/*! ../reactjs/searchPresenter.js */ \"./src/reactjs/searchPresenter.js\")[\"default\"]);\n\nfunction App(props) {\n  {\n    console.log(\"APP\");\n  }\n  return /*#__PURE__*/React.createElement(Search, null);\n}\n\n//# sourceURL=webpack://dynwebb-projekt/./src/views/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ App)\n/* harmony export */ });\nvar Search = (__webpack_require__(/*! ../reactjs/searchPresenter2.js */ \"./src/reactjs/searchPresenter2.js\")[\"default\"]);\n\nfunction App(props) {\n  {\n    console.log(\"APP\");\n  }\n  return /*#__PURE__*/React.createElement(Search, null);\n}\n\n//# sourceURL=webpack://dynwebb-projekt/./src/views/app.js?");
 
 /***/ }),
 
