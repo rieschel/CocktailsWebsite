@@ -22,7 +22,7 @@ import { searchDrinkByIngredient } from "../drinkSource";
 
 
 function SearchPresenter(props){
-    const [i, setIngredient] = React.useState('Gin');
+    const [i, setIngredient] = React.useState("gin");
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
     
@@ -48,15 +48,12 @@ function SearchPresenter(props){
     React.useEffect(promiseChangedACB , [promise] );
 
     function doSearchACB(){
-        //setPromise(searchDishes({type, query}));
-        //setPromise(searchDrinks());
         setPromise(searchDrinkByIngredient({i}));
     }
 
     function setIngredientACB(i){
-        //console.log("setting type ", type);
         console.log("setting ingredient")
-        console.log(i)
+        //console.log("trimmed " + i.trim());
         setIngredient(i);
       
     }
@@ -64,18 +61,6 @@ function SearchPresenter(props){
     function onFilterACB(){
         console.log("filterclick");
     }
-
-   /*  render() {
-        return (
-            <div>
-                <SearchView 
-                    drinks = {this.props.model.drinks}
-                    onFilterClick = {this.onFilterACB}    
-                    >
-                </SearchView>
-            </div>
-        );
-    } */
 
     function saveDrinkACB(drink) {
         console.log("presenter saved");
@@ -92,7 +77,7 @@ function SearchPresenter(props){
                         <Button sx={{m:2}} variant='outlined' color='secondary'>Saved Drinks</Button>
                     </Toolbar>
                 </AppBar>
-                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
+                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
                 
             </Box>

@@ -6,7 +6,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
-import { Divider } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 
 export default function CheckboxesGroup() {
   const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}];
@@ -78,7 +78,9 @@ export default function CheckboxesGroup() {
           { garnishList.map(renderGCheckbox)}  
         </FormGroup>
       </FormControl>
-     
+      <Button ariant="outlined" sx={{p:1.5, m:2, height:20}}>
+        Search
+      </Button>
     </Box>
   );
 }
