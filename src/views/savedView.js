@@ -28,7 +28,7 @@ function SavedView(props) {
 
         function getRatingACB() {
             console.log("in get rating");
-            function sameDrinkCB(d) {if (d['idDrink']!=drink['idDrink']) return true }
+            function sameDrinkCB(e) {if (e.d==drink['idDrink']) return true }
             let drinkRating = props.ratingList.filter(sameDrinkCB);
             if(drinkRating.length==0) return "not rated yet";
             else return drinkRating[drinkRating.length-1].r;
