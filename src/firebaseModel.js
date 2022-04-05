@@ -16,7 +16,7 @@ const REF="drinksModel";
 function updateFirebaseFromModel(model){
     function observerACB(payload){
         console.log(payload)
-        console.log(payload.addDrink.idDrink)
+        //console.log(payload.addDrink.idDrink)
         // The observer will need to check the payload to see if the change is relevant for persistence. 
         if (payload) {
             if(payload.addDrink){
@@ -24,6 +24,12 @@ function updateFirebaseFromModel(model){
                 const db = getDatabase();
                 set(ref(db, REF + "/savedDrinks/" + payload.addDrink.idDrink), {
                     id:payload.addDrink.idDrink
+                  });
+            }
+            else if(payload.rateDrink){
+                const db = getDatabase();
+                set(ref(db, REF + "/savedDrinks/" + payload.rateDrink.d), {
+                    rating:payload.rateDrink.r
                   });
             }
         }
