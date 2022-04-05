@@ -19,7 +19,9 @@ import Button from '@mui/material/Button';
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 import { searchDrinkByIngredient } from "../drinkSource";
-
+import { updateFirebaseFromModel } from "../firebaseModel";
+//import {getDishDetails} from "/src/dishSource.js";
+//import DinnerModel from "/src/DinnerModel.js";
 
 function SearchPresenter(props){
     const [i, setIngredient] = React.useState("gin");
@@ -65,6 +67,7 @@ function SearchPresenter(props){
 
     function saveDrinkACB(drink) {
         console.log("presenter saved");
+        updateFirebaseFromModel(props.model);
         props.model.saveDrink(drink);
     }
 
