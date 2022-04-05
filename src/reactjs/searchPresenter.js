@@ -18,13 +18,14 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
-import { searchDrinkByIngredient } from "../drinkSource";
+import { searchDrinkByIngredient, searchDrinkByName } from "../drinkSource";
 
 
 function SearchPresenter(props){
     const [i, setIngredient] = React.useState("gin");
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
+    const [s, setDrinkName] = React.useState();
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
     const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
@@ -47,14 +48,25 @@ function SearchPresenter(props){
 
     React.useEffect(promiseChangedACB , [promise] );
 
-    function doSearchACB(){
+    /* function doIngredientSearchACB(){
         setPromise(searchDrinkByIngredient({i}));
+    } */
+
+    function doDrinkSearchACB(){
+        setPromise(searchDrinkByName({s}));
     }
 
-    function setIngredientACB(i){
-        console.log("setting ingredient")
+    /* function setIngredientACB(i){
+        //console.log("setting ingredient")
         //console.log("trimmed " + i.trim());
         setIngredient(i);
+      
+    } */
+
+    function setDrinkNameACB(s){
+        console.log("setting drink name")
+        //console.log("trimmed " + i.trim());
+        setDrinkName(s); 
       
     }
 
@@ -77,7 +89,7 @@ function SearchPresenter(props){
                         <Button sx={{m:2}} variant='outlined' color='secondary'>Saved Drinks</Button>
                     </Toolbar>
                 </AppBar>
-                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB}> </SearchView>
+                <SearchView drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
                 
             </Box>

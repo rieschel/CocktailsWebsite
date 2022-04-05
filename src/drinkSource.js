@@ -52,6 +52,13 @@ function transformResultACB(results) {
     return Object.values(results)[0];
 }
 
+function searchDrinkByName(params){
+    console.log(params.s)
+    return (        
+        fetch('https://www.thecocktaildb.com/api/json/v2/' + API_KEY + '/search.php?s=' + params.s)
+        .then(treatHTTPResponseACB).then(transformResultACB));
+} 
+
 function searchDrinkByIngredient(params){
     console.log(params.i)
        
@@ -60,4 +67,4 @@ function searchDrinkByIngredient(params){
         .then(treatHTTPResponseACB).then(transformResultACB));
 } 
 
-export {searchDrinks, searchDrinkByIngredient}
+export {searchDrinks, searchDrinkByIngredient, searchDrinkByName}

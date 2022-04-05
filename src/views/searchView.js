@@ -33,7 +33,7 @@ function SearchView(props) {
     }
 
     function textInputACB(event){
-        console.log("inside search view")
+        /* console.log("inside search view") */
         console.log(event.target.value)
         props.onTextInput(event.target.value);
     }
