@@ -38,6 +38,11 @@ function SearchView(props) {
         props.onTextInput(event.target.value);
     }
 
+    function filterACB() {
+        console.log("filter in search view");
+        props.onFilterInput();
+    }
+
     return (
             <ThemeProvider theme = {theme}>
                 <Box sx={{ width: '80%', height: '100%', p:2}}>
@@ -87,7 +92,7 @@ function SearchView(props) {
                         horizontal: "center"
                         }}
                     >
-                        <CheckboxesGroup onFilterInput={props.onTextInput} />
+                        <CheckboxesGroup onFilter={filterACB} />
                     </Popover>    
                     {/* {props.drinks.map(renderDrinkCB)} */}
 
