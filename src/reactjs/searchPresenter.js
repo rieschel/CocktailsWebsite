@@ -68,6 +68,26 @@ function SearchPresenter(props){
         props.model.saveDrink(drink);
     }
 
+    //Ratings
+    const [ratings, setRatings] = React.useState([]);
+
+    function observerACB() {
+        console.log("in observerACB");
+        setRatings(props.model.ratings);
+    }
+
+    function onCreateACB() {
+        console.log("in onCreateACB");
+        observerACB();
+        props.model.addObserver(observerACB);
+        return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
+    }
+    React.useEffect(onCreateACB, []);
+
+    function rateDrinkACB(drink, rating) {
+        console.log("presenter rate");
+        props.model.rateDrink(drink, rating);
+    }
         
     return (
         <ThemeProvider theme = {theme}>
@@ -79,7 +99,7 @@ function SearchPresenter(props){
                     </Toolbar>
                 </AppBar>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB} onFilterInput={filterACB}> </SearchView>
-                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
+                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
                 
             </Box>
         </ThemeProvider>
