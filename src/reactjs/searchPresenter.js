@@ -16,6 +16,7 @@ import Button from '@mui/material/Button';
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 import { searchDrinkByIngredient } from "../drinkSource";
+import SavedPresenter from "../reactjs/SavedPresenter";
 
 
 // Component state:
@@ -77,10 +78,6 @@ function SearchPresenter(props){
         props.model.saveDrink(drink);
     }
 
-    function doPageChange(){
-        console.log("page change");
-    }
-
     /*function setCurrentDishACB(dish){
         props.model.setCurrentDish(dish.id)
     }*/
@@ -105,7 +102,7 @@ function SearchPresenter(props){
     return (
         <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
-                <NavbarView onChangePage = {doPageChange}></NavbarView>
+                <NavbarView></NavbarView>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
                 
