@@ -5,22 +5,48 @@ import Box from '@mui/material/Box';
 import { Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import StarIcon from '@mui/icons-material/Star';
+import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
+import Slider from '@mui/material/Slider';
+
+
 
 function SearchResults(props){
 
     // console.log(props.searchResults)
     function showResultACB(result){
 
+        let sliderVal = 5;
+        function handleChangeCB(event, value) {sliderVal=value}
+
         function saveDrinkACB() {
-            props.onSaveDrink();
+            console.log("view saved");
+            props.onSaveDrink(result);
         }
+
+        function rateDrinkACB() {
+            console.log("rate drink view");
+            props.onDrinkRate(result, sliderVal);
+        }
+
+        function getRatingACB() {
+            function sameDrinkCB(e) {if (e.d==result['idDrink']) return true }
+            let drinkRating = props.ratingList.filter(sameDrinkCB);
+            if(drinkRating.length==0) return "not rated yet";
+            else return drinkRating[drinkRating.length-1].r;
+        }
+        
+        const rating = getRatingACB();
 
         return (
             <ThemeProvider theme = {theme}>
                 <Grid item key = {result['idDrink']}>
                     <Box>
                         <Typography variant='h6' align='center'>{result['strDrink']}</Typography>
-                        <Button onClick={saveDrinkACB}>Save Drink</Button>
+                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
+                        <Button onClick={rateDrinkACB} startIcon={<ReviewsOutlinedIcon></ReviewsOutlinedIcon>}></Button>
+                        Rating: {rating}
+                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
                         <br></br>
                         <img src = {result['strDrinkThumb']} height='300px' align='center'></img>
                     </Box>

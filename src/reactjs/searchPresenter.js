@@ -1,3 +1,4 @@
+
 import promiseNoData from "../views/promiseNoData";
 // import SearchFormView from "../views/searchFormView";
 import SearchResults from "../views/searchResults";
@@ -5,6 +6,9 @@ import NavbarView from "../views/navbarView";
 // import { searchDishes } from "../dishSource";
 import { searchDrinks } from "../drinkSource";
 import SearchView from "../views/searchView";
+
+import { Alert } from '@mui/material';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppBar from '@mui/material/AppBar';
@@ -15,34 +19,22 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
-import { searchDrinkByIngredient } from "../drinkSource";
+
+=======
+import { searchDrinkByIngredient, getDrinkDetails } from "../drinkSource";
+import { updateFirebaseFromModel, updateModelFromFirebase } from "../firebaseModel";
 import SavedPresenter from "../reactjs/SavedPresenter";
-
-
-// Component state:
-// Basic principle: Component state changes => component re-renders (updates)
-
-// SearchPresenter does not need to be an observer, because it will only use component state, not application state.
+//import {getDishDetails} from "/src/dishSource.js";
+//import DinnerModel from "/src/DinnerModel.js";
 
 function SearchPresenter(props){
-    const [i, setIngredient] = React.useState('Gin');
+    const [i, setIngredient] = React.useState("gin");
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
     const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
-    
-    // const currentView = '';
-
-    // function setCurrentViewACB(view) {
-    //     console.log("Setting current view");
-    //     console.log(view);
-    //     currentView = view;
-    // }
-    
-    // To avoid race conditions in React, you need to use an effect that triggers every time the promise changes in state. 
-    // If the promise changes again (danger for race condition) the effect cleanup code will be invoked.
-    // The cleanup code can mark the promise as cancelled so it does not save data (or error) in component state, thus avoiding the race condition.
+   
     function promiseChangedACB(){ 
         setData(null); 
         setError(null); 
@@ -58,54 +50,63 @@ function SearchPresenter(props){
         
         return changedAgainACB;  // promiseChangedACB will be called for the new value!
     }
+
     React.useEffect(promiseChangedACB , [promise] );
 
     function doSearchACB(){
-        //setPromise(searchDishes({type, query}));
-        //setPromise(searchDrinks());
         setPromise(searchDrinkByIngredient({i}));
     }
 
     function setIngredientACB(i){
-        //console.log("setting type ", type);
         console.log("setting ingredient")
-        console.log(i)
+        //console.log("trimmed " + i.trim());
         setIngredient(i);
+      
     }
 
-    function saveDrinkACB() {
-        console.log("drink saved!");
+    function filterACB(){
+        console.log("filter in presenter");
+    }
+
+
+    function saveDrinkACB(drink) {
+        console.log("presenter saved");
+        console.log("getDrinkDetails")
+        getDrinkDetails(17228);
+        updateFirebaseFromModel(props.model);
+        updateModelFromFirebase(props.model);
         props.model.saveDrink(drink);
     }
 
-    /*function setCurrentDishACB(dish){
-        props.model.setCurrentDish(dish.id)
-    }*/
+    //Ratings
+    const [ratings, setRatings] = React.useState([]);
 
-    // function renderCurrentView() {
-    //     if(currentView=='Search') {
-    //         return (
-    //             <html>
-    //                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
-    //                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data}/>}
-    //             </html>
-    //         );
-    //     }
-    //     if(currentView=='Saved') {
-    //         return (
-    //             <h1>SAVED</h1>
-    //         );
-    //     }
-    // }
+    function observerACB() {
+        console.log("in observerACB");
+        setRatings(props.model.ratings);
+    }
 
+    function onCreateACB() {
+        console.log("in onCreateACB");
+        observerACB();
+        props.model.addObserver(observerACB);
+        return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
+    }
+    React.useEffect(onCreateACB, []);
+
+    function rateDrinkACB(drink, rating) {
+        console.log("presenter rate");
+        props.model.rateDrink(drink, rating);
+    }
         
     return (
         <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
+
                 <NavbarView></NavbarView>
-                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredient}> </SearchView>
-                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
-                
+                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB} onFilterInput={filterACB}> </SearchView>
+                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
+
             </Box>
         </ThemeProvider>
     );
