@@ -1,0 +1,1 @@
+if(window.location.hash != "#saved_drinks"){ window.location.hash = "#search"}
