@@ -57,8 +57,6 @@ function SearchPresenter(props){
     }
 
     function setIngredientACB(i){
-        console.log("setting ingredient")
-        //console.log("trimmed " + i.trim());
         setIngredient(i);
       
     }
@@ -69,11 +67,6 @@ function SearchPresenter(props){
 
 
     function saveDrinkACB(drink) {
-        console.log("presenter saved");
-        console.log("getDrinkDetails")
-        getDrinkDetails(17228);
-        updateFirebaseFromModel(props.model);
-        updateModelFromFirebase(props.model);
         props.model.saveDrink(drink);
     }
 
@@ -81,12 +74,10 @@ function SearchPresenter(props){
     const [ratings, setRatings] = React.useState([]);
 
     function observerACB() {
-        console.log("in observerACB");
         setRatings(props.model.ratings);
     }
 
     function onCreateACB() {
-        console.log("in onCreateACB");
         observerACB();
         props.model.addObserver(observerACB);
         return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
@@ -94,7 +85,6 @@ function SearchPresenter(props){
     React.useEffect(onCreateACB, []);
 
     function rateDrinkACB(drink, rating) {
-        console.log("presenter rate");
         props.model.rateDrink(drink, rating);
     }
         

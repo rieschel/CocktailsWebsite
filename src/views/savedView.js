@@ -11,18 +11,15 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 function SavedView(props) {
 
     function renderDrinkCB(drink) { 
-        console.log("render saved drink");
 
         let sliderVal = 5;
         function handleChangeCB(event, value) {sliderVal=value}
 
         function removeDrinkACB() {
-            console.log("remove drink view");
             props.onDrinkRemove(drink);
         }
 
         function rateDrinkACB() {
-            console.log("rate drink view");
             props.onDrinkRate(drink, sliderVal);
         }
 
