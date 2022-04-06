@@ -1,12 +1,28 @@
 # dynwebb-projekt
 
 ## Description
+Our project is a drink website that can provide users with drink recepies and inspiration. The website allows users to search for drinks and filter drinks by ingredients. The drink data is fetched from an API called the Cocktails DB which contains o large number of drink recepies. The user can also rate drinks and save their favourites.
 
 ## What we have done
+So far in the project we have set up the basic stucture of the drink website with webpack, model-view-presenter and persistance with firebase. We have implemented a Drinkmodel which contains functions to save, delete and rate drinks. We also have implemented some styling using the Materials UI Framework. So far, the website has two main views. 
+
+One view is the search page where the user can search for drinks and filter them by ingedients. The search page renders drinks from the API with images and drink names. In the search view, the user can save and rate drinks.
+
+The other view is the saved drink pages, where the user can see their saved drinks, remove drinks from the saved page and rate drinks. The ratings are updated between the search and saved drink pages.
+
+We have also implemented a navbar, where the user can switch between different views. The initial view is the search view.
 
 ## What we plan to do
+Further on in the project we plan to implement a details view, where the user can see the recipe for each drink. The details view should be displayed when a user clicks on a drink in the search och saved view.
+
+We also plan to implement profiles for different users. For this function, we will implement a login page and the saved drinks will be connected to a specific user.
+
+If we have time, we also plan to implement a function which lets users add their own drinks. The user will then be able to add a drink with a corresponding image and recipe. 
+
+In the upcoming part of the project, we are also going to work a lot on the design. So far, we have focused mainly on the functionality of the website, but in the later part of the project we are going to focus more on the design. We aim to create a nice-looking website with great usability.
 
 ## Project file structure
+Project file structure of the source directory
 
 ```
 src
