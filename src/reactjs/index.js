@@ -1,84 +1,64 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import DrinkModel from '../DrinkModel.js';
-
-window.React= React;
-
-const drinkModel = new DrinkModel();
-const App=require("../views/app.js").default;
-
-ReactDOM.render(<App model = {drinkModel}/>, document.getElementById("root"));
-
-// /*import React from 'react';
+// import React from 'react';
 // import ReactDOM from 'react-dom';
 // import DrinkModel from '../DrinkModel.js';
-// import firebase from "firebase/compat/app";
-// import "firebase/database";
 
 // window.React= React;
 
-// /*const drinkModel = new DrinkModel();
+// const drinkModel = new DrinkModel();
 // const App=require("../views/app.js").default;
 
-// ReactDOM.render(<App model = {drinkModel}/>, document.getElementById("root"));*/
+// ReactDOM.render(<App model = {drinkModel}/>, document.getElementById("root"));
 
 
-// // needed for plugging in a "mock" firebase for testing. In the project simply import firebase where needed, as above
-// window.firebase=firebase;
+import React from "react";
+import {render} from "react-dom";
 
-// // uncomment when you implemented firebaseModel in TW3.5. require() is needed, to use window.firebase above
-// const {firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase}=require("/src/firebaseModel.js");
+window.React= React;
 
-// // require() because the lab App loads React/Vue presenters
-// const App=require("/src/views/app.js").default;
+import firebase from "firebase/compat/app";
+import "firebase/database";
 
-// // import DinnerModel, navigation,
-// import promiseNoData from "../views/promiseNoData";
+window.firebase=firebase;
 
-// // import promiseNoData, you will need it during resolve of firebaseModelPromise
+const {firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase}=require("/src/firebaseModel.js");
+const App=require("/src/views/app.js").default;
 
-// // render a ReactRoot that resolves firebaseModelPromise, then displays the App (see tw/tw3.5-react.js)
-// //import "./teacherFirebase.js";
+import promiseNoData from "../views/promiseNoData";
 
-// // make webpack load the file only if it exists
-// const X= TEST_PREFIX;
+const DishModel=require("/src/DrinkModel.js").default;
 
-// const DinnerModel=require("/src/"+X+"DrinkModel.js").default;
-// //const App=require("/src/views/"+X+"app.js").default;
+const bigPromise= firebaseModelPromise(); 
+let firebaseModel;
 
-// const bigPromise= firebaseModelPromise(); 
-// let firebaseModel;
+try{
+    firebaseModel=require("/src/firebaseModel.js");
+    if(!firebaseModel.updateFirebaseFromModel)
+        throw "not found";
+    //require("/src/views/"+X+"navigation.js");
+}catch(e){
+    render(<div>
+             Please write /src/firebaseModel.js and updateFirebaseFromModel
+           </div>,  document.getElementById('root'));
+}
+if(firebaseModel && firebaseModel.updateFirebaseFromModel){
+    const {updateFirebaseFromModel, updateModelFromFirebase}=firebaseModel;
+    function ReactRoot(){
+        const [model, setModel] = React.useState();
+        const [error, setError] = React.useState();
 
-// try{
-//     firebaseModel=require("/src/"+X+"firebaseModel.js");
-//     if(!firebaseModel.updateFirebaseFromModel)
-//         throw "not found";
-//     //require("/src/views/"+X+"navigation.js");
-// }catch(e){
-//     render(<div>
-//              Please write /src/firebaseModel.js and updateFirebaseFromModel
-//            </div>,  document.getElementById('root'));
-// }
-// if(firebaseModel && firebaseModel.updateFirebaseFromModel){
-//     const {updateFirebaseFromModel, updateModelFromFirebase}=firebaseModel;
-//     function ReactRoot(){
-//         const [model, setModel] = React.useState();
-//         const [error, setError] = React.useState();
-
-//         React.useEffect(function onStartACB(){
-//             bigPromise.then(function saveResultACB(result){
-//                 setModel(result);
-//                 updateFirebaseFromModel(result);
-//                 if(updateModelFromFirebase) 
-//                     updateModelFromFirebase(result);
-//             }).catch(function saveErrorACB(error){setError(error)})
-//         }, []);
-//         return  promiseNoData({promise: bigPromise, data: model, error: error}) || <App model={model}/>;
-//     }
+        React.useEffect(function onStartACB(){
+            bigPromise.then(function saveResultACB(result){
+                setModel(result);
+                updateFirebaseFromModel(result);
+                if(updateModelFromFirebase) 
+                    updateModelFromFirebase(result);
+            }).catch(function saveErrorACB(error){setError(error)})
+        }, []);
+        return  promiseNoData({promise: bigPromise, data: model, error: error}) || <App model={model}/>;
+    }
     
-//     render(
-//         <ReactRoot/>,
-//         document.getElementById('root')
-//     );       
-// }
-
+    render(
+        <ReactRoot/>,
+        document.getElementById('root')
+    );       
+}

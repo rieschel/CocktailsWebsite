@@ -5,9 +5,11 @@ import 'firebase/compat/firestore';
 //import database from "firebase/compat/app"
 //import {getDishDetails} from "/src/dishSource.js";
 //import DinnerModel from "/src/DinnerModel.js";
-import { getDatabase } from "firebase/database";
+import { getDatabase, onValue } from "firebase/database";
 
-import {ref, set } from "firebase/database";
+import {ref, set, get, child } from "firebase/database";
+import {getDrinkDetails} from "./drinkSource.js";
+import DrinkModel from "/src/DrinkModel.js";
 
 firebase.initializeApp(firebaseConfig);  
 //  REF is the “root” Firebase path. NN is your TW2_TW3 group number
@@ -20,17 +22,14 @@ function updateFirebaseFromModel(model){
         // The observer will need to check the payload to see if the change is relevant for persistence. 
         if (payload) {
             if(payload.addDrink){
+                console.log(payload.addDrink)
                 //firebase.database.ref(REF + "/savedDrinks").set(payload.addDrink.idDrink);
                 const db = getDatabase();
-                set(ref(db, REF + "/savedDrinks/" + payload.addDrink.idDrink), {
-                    id:payload.addDrink.idDrink
-                  });
+                set(ref(db, REF + "/savedDrinks/" + payload.addDrink.idDrink), payload.addDrink.strDrink);
             }
             else if(payload.rateDrink){
                 const db = getDatabase();
-                set(ref(db, REF + "/savedDrinks/" + payload.rateDrink.d), {
-                    rating:payload.rateDrink.r
-                  });
+                set(ref(db, REF + "/ratings/" + payload.rateDrink.d), payload.rateDrink.r);
             }
         }
     }
@@ -46,6 +45,8 @@ function updateModelFromFirebase(model){
         return (model.dishes.filter(inMenuCB).length > 0)
     }
 
+    
+
     // Listen (on()) to the value firebase event on the path where we saved the number of guests. When the event comes, set the number of guest in the model.
     firebase.database().ref(REF+"/numberOfGuests").on("value",  
         function guestsChangedInFirebaseACB(firebaseData){ 
@@ -59,24 +60,39 @@ function updateModelFromFirebase(model){
         }
     )*/
 
+    function addToDrinkListCB(drinkid){
+        console.log(drinkid);
+
+        getDrinkDetails(drinkid).then(function addDishToMenuChangedInFirebaseACB(drink){
+            console.log("saving drink")
+            console.log(drink[0])
+            model.saveDrink(drink[0]);
+        })
+    }
+
     // We go from dish id to dish data via a promise. 
-    firebase.database().ref(REF+"/savedDrinks").on("child_added",
+    console.log("inside updating model from firebase")
+    const db = getDatabase();
+    //const ref = ref(db, REF + "/savedDrinks");
+    onValue(ref(db, REF + "/savedDrinks"),
+    //ref(db, REF+"/savedDrinks").on("child_added",
         function addedDrinkACB(firebaseData){
-            /*if(!inMenu(+firebaseData.key)){
-                getDishDetails(+firebaseData.key).then(function addDishToMenuChangedInFirebaseACB(dish){
-                    model.addToMenu(dish);
-                })
-            }*/
-            model.saveDrink(firebaseData.val());
+            console.log("testing updating model from firebase")
+            console.log(firebaseData)
+            console.log(firebaseData.key)
+            console.log(firebaseData.val())
+            console.log(Object.keys(firebaseData.val()))
+            Object.keys(firebaseData.val()).map(addToDrinkListCB)
+
         }
     )
 
     // The model method removeFromMenu expects a dish but only uses the ID from that. -> build a dummy dish using an object literal
-    firebase.database().ref(REF+"/dishes").on("child_removed",
+    /*firebase.database().ref(REF+"/dishes").on("child_removed",
         function removeDishACB(firebaseData){
             model.removeFromMenu({ id: +firebaseData.key })
         }
-    )
+    )*/
 
 }
 
@@ -85,19 +101,24 @@ function updateModelFromFirebase(model){
 function firebaseModelPromise(){
 
     function makeBigPromiseACB(firebaseData){
-        function makeDishPromiseCB(dishId){
-            return getDishDetails(dishId);
+        function makeDrinkPromiseCB(dishId){
+            return getDrinkDetails(dishId);
         }
 
-        function createModelACB(dishArray){
-            return new DinnerModel(firebaseData.val().numberOfGuests, dishArray);
+        function createModelACB(drinkArray){
+            return new DrinkModel(drinkArray);
         }
 
-        const dishPromiseArray= Object.keys(firebaseData.val().dishes).map(makeDishPromiseCB);
-        return Promise.all(dishPromiseArray).then(createModelACB)
+        //const dishPromiseArray= Object.keys(firebaseData.val().dishes).map(makeDishPromiseCB);
+        console.log("inside big promise")
+        console.log(firebaseData.val().savedDrinks)
+        const drinkPromiseArray= Object.keys(firebaseData.val().savedDrinks).map(makeDrinkPromiseCB);
+        return Promise.all(drinkPromiseArray).then(createModelACB)
     }
 
-    return firebase.database().ref(REF).once("value").then(makeBigPromiseACB);
+    //return firebase.database().ref(REF).once("value").then(makeBigPromiseACB);
+    const dbRef = ref(getDatabase());
+    return get(child(dbRef, REF)).then(makeBigPromiseACB);
 }
 
 export {updateFirebaseFromModel, updateModelFromFirebase, firebaseModelPromise};

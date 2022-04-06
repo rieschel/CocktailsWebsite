@@ -8,10 +8,14 @@ class DrinkModel {
 
     saveDrink(drink) {
 
+        console.log("inside save drink")
+
         function sameDrinkCB(d) { if (d['idDrink']!=drink['idDrink']) return true }
 
         if(this.drinks.filter(sameDrinkCB).length == this.drinks.length) {
             this.drinks = [...this.drinks, drink]
+            console.log(drink)
+            console.log("inside save drink")
             this.notifyObservers({addDrink: drink});
             console.log("drinkmodel save");
         }

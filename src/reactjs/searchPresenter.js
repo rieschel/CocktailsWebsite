@@ -18,8 +18,8 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
-import { searchDrinkByIngredient } from "../drinkSource";
-import { updateFirebaseFromModel } from "../firebaseModel";
+import { searchDrinkByIngredient, getDrinkDetails } from "../drinkSource";
+import { updateFirebaseFromModel, updateModelFromFirebase } from "../firebaseModel";
 //import {getDishDetails} from "/src/dishSource.js";
 //import DinnerModel from "/src/DinnerModel.js";
 
@@ -67,7 +67,10 @@ function SearchPresenter(props){
 
     function saveDrinkACB(drink) {
         console.log("presenter saved");
+        console.log("getDrinkDetails")
+        getDrinkDetails(17228);
         updateFirebaseFromModel(props.model);
+        updateModelFromFirebase(props.model);
         props.model.saveDrink(drink);
     }
 
