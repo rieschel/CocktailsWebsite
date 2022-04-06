@@ -2,6 +2,7 @@
 import promiseNoData from "../views/promiseNoData";
 // import SearchFormView from "../views/searchFormView";
 import SearchResults from "../views/searchResults";
+import NavbarView from "../views/navbarView";
 // import { searchDishes } from "../dishSource";
 import { searchDrinks } from "../drinkSource";
 import SearchView from "../views/searchView";
@@ -18,8 +19,11 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
+
+=======
 import { searchDrinkByIngredient, getDrinkDetails } from "../drinkSource";
 import { updateFirebaseFromModel, updateModelFromFirebase } from "../firebaseModel";
+import SavedPresenter from "../reactjs/SavedPresenter";
 //import {getDishDetails} from "/src/dishSource.js";
 //import DinnerModel from "/src/DinnerModel.js";
 
@@ -98,15 +102,11 @@ function SearchPresenter(props){
     return (
         <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position='static'>
-                    <Toolbar>
-                        <Button sx={{m:2}} variant='outlined' color='secondary'>Search</Button>
-                        <Button sx={{m:2}} variant='outlined' color='secondary'>Saved Drinks</Button>
-                    </Toolbar>
-                </AppBar>
+
+                <NavbarView></NavbarView>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB} onFilterInput={filterACB}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
-                
+
             </Box>
         </ThemeProvider>
     );
