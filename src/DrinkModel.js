@@ -33,6 +33,14 @@ class DrinkModel {
     }
 
     rateDrink(drink, rating) {
+
+        function sameDrinkCB(e) {if (e.d!=drink['idDrink']) return true }
+
+        if(this.ratings.filter(sameDrinkCB).length != this.ratings.length) {
+            console.log("heeej");
+            this.ratings = this.ratings.filter(sameDrinkCB);
+        }
+
         this.ratings = [...this.ratings, {d: drink['idDrink'], r: rating}];
         this.notifyObservers({rateDrink: {d: drink['idDrink'], r: rating}});
         console.log("rate drink in model");
