@@ -12,6 +12,8 @@ The other view is the saved drink pages, where the user can see their saved drin
 
 We have also implemented a navbar, where the user can switch between different views. The initial view is the search view.
 
+Right now, we are however still working on the navbar and the filter search. This is therefore currently not compeletely working in the deployed app. 
+
 ## What we plan to do
 Further on in the project we plan to implement a details view, where the user can see the recipe for each drink. The details view should be displayed when a user clicks on a drink in the search och saved view.
 
