@@ -2,7 +2,6 @@
 import promiseNoData from "../views/promiseNoData";
 // import SearchFormView from "../views/searchFormView";
 import SearchResults from "../views/searchResults";
-import NavbarView from "../views/navbarView";
 // import { searchDishes } from "../dishSource";
 import { searchDrinks } from "../drinkSource";
 import SearchView from "../views/searchView";
@@ -91,8 +90,6 @@ function SearchPresenter(props){
     return (
         <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
-
-                <NavbarView></NavbarView>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB} onFilterInput={filterACB}> </SearchView>
                 {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
 

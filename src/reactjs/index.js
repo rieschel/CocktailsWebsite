@@ -9,7 +9,6 @@
 
 // ReactDOM.render(<App model = {drinkModel}/>, document.getElementById("root"));
 
-
 import React from "react";
 import {render} from "react-dom";
 

@@ -2,6 +2,8 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+import {ThemeProvider} from '@mui/material/styles';
+import theme from "../views/theme.js";
 
 function NavbarView(props){
 
@@ -20,13 +22,14 @@ function NavbarView(props){
     }
 
     return (
-       
-        <AppBar position='static'>
+       <ThemeProvider theme={theme}>
+        <AppBar position='static' color="primary">
                         <Toolbar>
-                            <Button onClick={changeToSearchACB} sx={{m:2}} variant='outlined' color='secondary'>Search</Button>
-                            <Button onClick={changeToSavedACB} sx={{m:2}} variant='outlined' color='secondary'>Saved Drinks</Button>
+                            <Button onClick={changeToSearchACB} sx={{m:2}} variant='outlined' color="secondary">Search</Button>
+                            <Button onClick={changeToSavedACB} sx={{m:2}} variant='outlined' color="secondary">Saved Drinks</Button>
                         </Toolbar>
         </AppBar>
+        </ThemeProvider>
         
     );
 
