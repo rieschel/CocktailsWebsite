@@ -11,13 +11,11 @@ function SavedPresenter(props) {
     const [ratings, setRatings] = React.useState([]);
 
     function observerACB() {
-        console.log("in observerACB");
         setDrinks(props.model.drinks);
         setRatings(props.model.ratings);
     }
 
     function onCreateACB() {
-        console.log("in onCreateACB");
         observerACB();
         props.model.addObserver(observerACB);
         return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
@@ -32,9 +30,13 @@ function SavedPresenter(props) {
         props.model.rateDrink(drink, rating);
     }
 
+    function setCurrentDrinkACB(drinkId) {
+        props.model.setCurrentDrink(drinkId);
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}></SavedView>
+            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onDrinkRate={rateDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings}></SavedView>
         </ThemeProvider>
     );
 

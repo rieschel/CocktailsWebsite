@@ -4,6 +4,7 @@ class DrinkModel {
         this.observers = [];
         this.drinks = [];
         this.ratings = [];
+        this.currentDrink;
     }
 
     saveDrink(drink) {
@@ -31,12 +32,18 @@ class DrinkModel {
         function sameDrinkCB(e) {if (e.d!=drink['idDrink']) return true }
 
         if(this.ratings.filter(sameDrinkCB).length != this.ratings.length) {
-            console.log("heeej");
             this.ratings = this.ratings.filter(sameDrinkCB);
         }
 
         this.ratings = [...this.ratings, {d: drink['idDrink'], r: rating}];
         this.notifyObservers({rateDrink: {d: drink['idDrink'], r: rating}});
+    }
+
+    setCurrentDrink(drinkid) {
+        this.currentDrink = drinkid;
+        this.notifyObservers({setCurrentDrink: drinkid});
+        console.log("Current drink");
+        console.log(drinkid);
     }
 
     addObserver(obs) {

@@ -69,7 +69,7 @@ function SearchPresenter(props){
         props.model.saveDrink(drink);
     }
 
-    //Ratings
+    //Ratings and current drink
     const [ratings, setRatings] = React.useState([]);
 
     function observerACB() {
@@ -86,12 +86,17 @@ function SearchPresenter(props){
     function rateDrinkACB(drink, rating) {
         props.model.rateDrink(drink, rating);
     }
+    
+    function setCurrentDrinkACB(drinkId) {
+        props.model.setCurrentDrink(drinkId);
+    }
         
     return (
         <ThemeProvider theme = {theme}>
             <Box sx={{ flexGrow: 1 }}>
                 <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB} onFilterInput={filterACB}> </SearchView>
-                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
+                <br></br>
+                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
 
             </Box>
         </ThemeProvider>
