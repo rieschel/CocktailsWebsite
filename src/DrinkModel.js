@@ -3,6 +3,7 @@ class DrinkModel {
     constructor() {
         this.observers = [];
         this.drinks = [];
+
         this.ratings = [];
     }
 

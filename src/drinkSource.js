@@ -17,6 +17,8 @@ function getDrinkDetails(drinkid){
 }
 
 
+
+
 function searchDrinks(){
     
     function treatHTTPResponseACB(response) { 
@@ -29,8 +31,7 @@ function searchDrinks(){
     }
 
    
-    return (
-        
+    return ( 
         fetch('https://www.thecocktaildb.com/api/json/v2/' + API_KEY + '/random.php')
         .then(treatHTTPResponseACB).then(transformResultACB));
 }
@@ -41,7 +42,24 @@ function treatHTTPResponseACB(response) {
 }
 
 function transformResultACB(results) {
+
+    //return param.results;
+    console.log("transforming API results")
+    console.log(Object.values(results)[0])
     return Object.values(results)[0];
+}
+
+function searchDrinkByName(params){
+    /* console.log(params.s) */
+    console.log("list of ingredients")
+    return (     
+        fetch('https://www.thecocktaildb.com/api/json/v2/' + API_KEY + '/search.php?s=' + params.s)
+        .then(treatHTTPResponseACB).then(transformResultACB));
+} 
+
+function fetchIngredientList(){
+    return (     
+        fetch('https://thecocktaildb.com/api/json/v2/'+ API_KEY+ '/list.php?i=list').then(treatHTTPResponseACB).then(transformResultACB));
 }
 
 function searchDrinkByIngredient(params){
@@ -51,4 +69,5 @@ function searchDrinkByIngredient(params){
         .then(treatHTTPResponseACB).then(transformResultACB));
 } 
 
-export {searchDrinks, searchDrinkByIngredient, getDrinkDetails}
+
+export {searchDrinks, searchDrinkByIngredient, searchDrinkByName, fetchIngredientList}
