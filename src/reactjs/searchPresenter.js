@@ -22,13 +22,16 @@ import { searchDrinkByIngredient, searchDrinkByName } from "../drinkSource";
 
 
 function SearchPresenter(props){
-    const [i, setIngredient] = React.useState("gin");
+    //const [i, setIngredient] = React.useState("gin,rum");
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
     const [s, setDrinkName] = React.useState();
+    /* const i = "gin"; */
+
+    //console.log("SearchPresenter value of alc "+ props.model.alc)
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
-    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
+    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i:"gin"})});
    
     function promiseChangedACB(){ 
         setData(null); 
@@ -48,31 +51,30 @@ function SearchPresenter(props){
 
     React.useEffect(promiseChangedACB , [promise] );
 
-    /* function doIngredientSearchACB(){
+    function doIngrSearchACB(i){
+        /* console.log("SP ing " +i);
+        console.log("SP i " + i) */
         setPromise(searchDrinkByIngredient({i}));
-    } */
+    }
 
     function doDrinkSearchACB(){
         setPromise(searchDrinkByName({s}));
     }
 
-    /* function setIngredientACB(i){
+    function setIngredientACB(i){
         //console.log("setting ingredient")
         //console.log("trimmed " + i.trim());
         setIngredient(i);
       
-    } */
+    }
 
     function setDrinkNameACB(s){
-        console.log("setting drink name")
+        /* console.log("setting drink name") */
         //console.log("trimmed " + i.trim());
         setDrinkName(s); 
       
     }
 
-    function onFilterACB(){
-        console.log("filterclick");
-    }
 
     function saveDrinkACB(drink) {
         console.log("presenter saved");
@@ -89,8 +91,8 @@ function SearchPresenter(props){
                         <Button sx={{m:2}} variant='outlined' color='secondary'>Saved Drinks</Button>
                     </Toolbar>
                 </AppBar>
-                <SearchView drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB}> </SearchView>
-                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
+                {promiseNoData({promise, data, error}) ||<SearchView drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB} /* alc={props.model.alc} garnish={props.model.garnish} */> </SearchView>
+                  || <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
                 
             </Box>
         </ThemeProvider>

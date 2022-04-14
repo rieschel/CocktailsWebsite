@@ -3,6 +3,8 @@ class DrinkModel {
     constructor() {
         this.observers = [];
         this.drinks = [];
+        this.alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}];
+        this.garnish = [{name:"lemon", checked:false}, {name:"orange", checked:false}, {name:"basil", checked:false}];
     }
 
     saveDrink(drink) {
