@@ -8,7 +8,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import { Button, Divider } from '@mui/material';
 
-export default function CheckboxesGroup() {
+export default function CheckboxesGroup(props) {
   const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}];
  
   const garnish = [{name:"lemon", checked:false}, {name:"orange", checked:false}, {name:"basil", checked:false}];
@@ -17,7 +17,7 @@ export default function CheckboxesGroup() {
   const [garnishList, setGarnishList] = React.useState([...garnish]);
 
   const handleAlcChange = (event) => {
-    console.log(event.target.checked)
+    console.log(event.target.name)
     const temp = [...alcList]
     const objIndex = temp.findIndex((obj => obj.name == event.target.name));
     temp[objIndex].checked = !temp[objIndex].checked; 
@@ -54,6 +54,11 @@ export default function CheckboxesGroup() {
         }/> 
     );
   }
+
+  function filterACB() {
+    console.log("filter in checkboxes group");
+    props.onFilter();
+  }
   
 
   return (
@@ -78,7 +83,7 @@ export default function CheckboxesGroup() {
           { garnishList.map(renderGCheckbox)}  
         </FormGroup>
       </FormControl>
-      <Button ariant="outlined" sx={{p:1.5, m:2, height:20}}>
+      <Button ariant="outlined" sx={{p:1.5, m:2, height:20}} onClick={filterACB}>
         Search
       </Button>
     </Box>

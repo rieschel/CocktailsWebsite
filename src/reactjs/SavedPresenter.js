@@ -1,15 +1,19 @@
+import React from "react";
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 
 import SavedView from "../views/savedView.js";
+import { Rating } from "@mui/material";
 
 function SavedPresenter(props) {
 
     const [drinks, setDrinks] = React.useState([]);
+    const [ratings, setRatings] = React.useState([]);
 
     function observerACB() {
         console.log("in observerACB");
         setDrinks(props.model.drinks);
+        setRatings(props.model.ratings);
     }
 
     function onCreateACB() {
@@ -24,9 +28,13 @@ function SavedPresenter(props) {
         props.model.removeDrink(drink);
     }
 
+    function rateDrinkACB(drink, rating) {
+        props.model.rateDrink(drink, rating);
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB}></SavedView>
+            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}></SavedView>
         </ThemeProvider>
     );
 

@@ -18,8 +18,15 @@ import Button from '@mui/material/Button';
 
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
+
 import { searchDrinkByIngredient, searchDrinkByName } from "../drinkSource";
 
+
+import { searchDrinkByIngredient, getDrinkDetails } from "../drinkSource";
+import { updateFirebaseFromModel, updateModelFromFirebase } from "../firebaseModel";
+import SavedPresenter from "../reactjs/SavedPresenter";
+//import {getDishDetails} from "/src/dishSource.js";
+//import DinnerModel from "/src/DinnerModel.js";
 
 function SearchPresenter(props){
     //const [i, setIngredient] = React.useState("gin,rum");
@@ -62,25 +69,38 @@ function SearchPresenter(props){
     }
 
     function setIngredientACB(i){
-        //console.log("setting ingredient")
-        //console.log("trimmed " + i.trim());
-        setIngredient(i);
-      
+        setIngredient(i);      
     }
+
 
     function setDrinkNameACB(s){
         /* console.log("setting drink name") */
         //console.log("trimmed " + i.trim());
         setDrinkName(s); 
-      
     }
 
 
     function saveDrinkACB(drink) {
-        console.log("presenter saved");
         props.model.saveDrink(drink);
     }
 
+    //Ratings
+    const [ratings, setRatings] = React.useState([]);
+
+    function observerACB() {
+        setRatings(props.model.ratings);
+    }
+
+    function onCreateACB() {
+        observerACB();
+        props.model.addObserver(observerACB);
+        return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
+    }
+    React.useEffect(onCreateACB, []);
+
+    function rateDrinkACB(drink, rating) {
+        props.model.rateDrink(drink, rating);
+    }
         
     return (
         <ThemeProvider theme = {theme}>
@@ -92,8 +112,8 @@ function SearchPresenter(props){
                     </Toolbar>
                 </AppBar>
                 {promiseNoData({promise, data, error}) ||<SearchView drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB} /* alc={props.model.alc} garnish={props.model.garnish} */> </SearchView>
-                  || <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>}
-                
+                  || <SearchResults searchResults={data} onSaveDrink={saveDrinkACB}/>} 
+
             </Box>
         </ThemeProvider>
     );
