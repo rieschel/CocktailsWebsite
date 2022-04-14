@@ -1,10 +1,13 @@
+import { getDrinkDetails } from "./drinkSource";
+import resolvePromise from "./resolvePromise";
+
 class DrinkModel {
 
-    constructor() {
+    constructor(currentDrink) {
         this.observers = [];
         this.drinks = [];
         this.ratings = [];
-        this.currentDrink;
+        this.currentDrinkPromiseState = {};
     }
 
     saveDrink(drink) {
@@ -40,10 +43,21 @@ class DrinkModel {
     }
 
     setCurrentDrink(drinkid) {
+        const theModel = this;
+
+        if(this.currentDrink === drinkid) return;
+        
+        function notifyACB(){return theModel.notifyObservers();}
+        
+        if(drinkid !== undefined){
+            resolvePromise(getDrinkDetails(drinkid), this.currentDrinkPromiseState, notifyACB);
+            console.log("made it");
+            this.notifyObservers({setCurrentDrink: drinkid});
+        }
+
         this.currentDrink = drinkid;
-        this.notifyObservers({setCurrentDrink: drinkid});
-        console.log("Current drink");
-        console.log(drinkid);
+        this.notifyObservers.bind(this);
+        console.log("Current drink: " + drinkid);
     }
 
     addObserver(obs) {
