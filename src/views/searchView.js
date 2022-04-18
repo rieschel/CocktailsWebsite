@@ -29,6 +29,7 @@ function SearchView(props) {
     const id = open ? "simple-popover" : undefined;
 
     function searchACB(){
+        console.log("sw on search")
         props.onSearch();
     }
 
@@ -38,9 +39,9 @@ function SearchView(props) {
         props.onTextInput(event.target.value);
     }
 
-    function filterACB() {
-        console.log("filter in search view");
-        props.onFilterInput();
+    function filterACB(ingr){
+        console.log("searchview ingr :" + ingr)
+        props.onFilter(ingr);
     }
 
     return (

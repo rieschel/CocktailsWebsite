@@ -15,6 +15,13 @@ function SearchResults(props){
 
     // console.log(props.searchResults)
     function showResultACB(result){
+        //console.log("showing results. " + props.searchResults)
+        if(!props.searchResults){
+            console.log("no found results");
+            return(
+                <div>No results</div>
+            )
+        }
 
         let sliderVal = 5;
         function handleChangeCB(event, value) {sliderVal=value}

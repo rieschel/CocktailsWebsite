@@ -19,19 +19,20 @@ import Button from '@mui/material/Button';
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 
-import { searchDrinkByIngredient, getDrinkDetails } from "../drinkSource";
+import { searchDrinkByIngredient, searchDrinkByName, getDrinkDetails  } from "../drinkSource";
 import { updateFirebaseFromModel, updateModelFromFirebase } from "../firebaseModel";
 import SavedPresenter from "../reactjs/SavedPresenter";
 //import {getDishDetails} from "/src/dishSource.js";
 //import DinnerModel from "/src/DinnerModel.js";
 
 function SearchPresenter(props){
-    const [i, setIngredient] = React.useState("gin");
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
+    const [s, setDrinkName] = React.useState();
+   
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
-    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i})});
+    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i:"gin"})});
    
     function promiseChangedACB(){ 
         setData(null); 
@@ -44,24 +45,33 @@ function SearchPresenter(props){
             
         if(promise){
             promise.then(function saveDataACB(dt){  if(!cancelled) setData(dt);}).catch(function saveErrACB(er){ if(!cancelled)setError(er)});
+            
         }
-        
+      /*   console.log("data: " + data)
+        console.log("error: " + error) */
         return changedAgainACB;  // promiseChangedACB will be called for the new value!
     }
 
     React.useEffect(promiseChangedACB , [promise] );
 
-    function doSearchACB(){
+    function doIngrSearchACB(i){
+        /*  console.log("SP ing " +i); */     
         setPromise(searchDrinkByIngredient({i}));
     }
 
-    function setIngredientACB(i){
-        setIngredient(i);
-      
+    function doDrinkSearchACB(){
+        console.log("doing drink search with s: " + s);
+        setPromise(searchDrinkByName({s}));
     }
 
-    function filterACB(){
-        console.log("filter in presenter");
+    /* function setIngredientACB(i){
+        setIngredient(i);      
+    } */
+
+    function setDrinkNameACB(s){
+         console.log("setting drink name s: " + s) 
+        //console.log("trimmed " + i.trim());
+        setDrinkName(s); 
     }
 
 
@@ -69,7 +79,7 @@ function SearchPresenter(props){
         props.model.saveDrink(drink);
     }
 
-    //Ratings and current drink
+    //Ratings
     const [ratings, setRatings] = React.useState([]);
 
     function observerACB() {
@@ -86,23 +96,19 @@ function SearchPresenter(props){
     function rateDrinkACB(drink, rating) {
         props.model.rateDrink(drink, rating);
     }
-    
+
     function setCurrentDrinkACB(drinkId) {
         props.model.setCurrentDrink(drinkId);
     }
         
     return (
-        <ThemeProvider theme = {theme}>
-            <Box sx={{ flexGrow: 1 }}>
-                <SearchView drinks = {props.model.drinks} onSearch={doSearchACB}  onTextInput={setIngredientACB} onFilterInput={filterACB}> </SearchView>
-                <br></br>
-                {promiseNoData({promise, data, error}) ||  <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
 
-            </Box>
-        </ThemeProvider>
+        <Box sx={{ flexGrow: 1 }}>
+                <SearchView drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
+                {promiseNoData({promise, data, error}) || <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}/>}
+
+         </Box>
     );
-
-
 }
 
 export default SearchPresenter;
