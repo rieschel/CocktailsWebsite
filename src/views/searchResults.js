@@ -12,6 +12,7 @@ import Slider from '@mui/material/Slider';
 
 
 function SearchResults(props){
+    console.log("inside search results")
 
     // console.log(props.searchResults)
     function showResultACB(result){

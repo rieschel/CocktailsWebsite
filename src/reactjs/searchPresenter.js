@@ -32,7 +32,7 @@ function SearchPresenter(props){
    
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
-    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i:"gin"})});
+    const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i:""})});
    
     function promiseChangedACB(){ 
         setData(null); 
