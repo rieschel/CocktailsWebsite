@@ -30,7 +30,7 @@ function CreateNewAccount(props) {
           <input type="password" name="pass" onChange={passwordACB} required />
         </div>
         <div>
-          <input type="submit" />
+        <button type="submit">Submit</button>
         </div>
       </form>
     </div>

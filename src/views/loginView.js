@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { checkUser } from "../firebaseModel";
 
 function LoginView(props){
     const [username, setUsername] = useState();
@@ -38,7 +37,7 @@ function LoginView(props){
               <input type="password" onChange={passwordACB} required />
             </div>
             <div>
-              <input type="submit" />
+              <button type="submit">Submit</button>
             </div>
           </form>
           <button onClick={newAccountACB}>Create new account</button>

@@ -9,23 +9,6 @@ import DrinkModel from "/src/DrinkModel.js";
 firebase.initializeApp(firebaseConfig);  
 const REF="drinksModel";
 
-// function checkUser(user){
-//     console.log("inside check user")
-//     let validUser = false;
-//     firebase.database().ref(REF+"/users").on("value",
-//         function getUsersACB(firebaseData){
-//             console.log(firebaseData.val())
-//             console.log(Object.keys(firebaseData.val()))
-//             if(Object.keys(firebaseData.val()).includes(user.user) && Object.values(firebaseData.val()).includes(user.pass)){
-//                 console.log("valid user")
-//                 validUser = true;
-//                 return true;
-//             }else{
-//                 return false
-//             }
-//     })
-// }
-
 function updateFirebaseFromModel(model){
     function observerACB(payload){
         if (payload) {
@@ -39,8 +22,6 @@ function updateFirebaseFromModel(model){
                 firebase.database().ref(REF+"/savedDrinks/" + model.currentUser.user + "/" + payload.removeDrink.idDrink).set(null);
             }
             else if(payload.addUser){
-                console.log(payload.addUser)
-                console.log("inside updating firebase")
                 firebase.database().ref(REF+"/users/" + payload.addUser.user).set(payload.addUser.pass)
             }
         } 
@@ -104,7 +85,6 @@ function updateModelFromFirebase(model){
 function firebaseModelPromise(){
 
     function makeBigPromiseACB(firebaseData){
-        console.log(firebaseData)
         // function makeDrinkPromiseCB(dishId){
         //     return getDrinkDetails(dishId);
         // }

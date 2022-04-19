@@ -1,10 +1,9 @@
 import { getDrinkDetails } from "./drinkSource";
-import { updateModelFromFirebase } from "./firebaseModel";
 import resolvePromise from "./resolvePromise";
 
 class DrinkModel {
 
-    constructor(currentDrink) {
+    constructor() {
         this.observers = [];
         this.drinks = [];
         this.ratings = [];
@@ -23,8 +22,6 @@ class DrinkModel {
     }
 
     addUser(user){
-        console.log("inside add user")
-        console.log(user);
         this.users = [...this.users, user];
         this.notifyObservers({addUser: user})
     }
@@ -32,11 +29,8 @@ class DrinkModel {
     checkValidUser(user){
         var i;
         for(i = 0; i < this.users.length; i++){
-            console.log(this.users[i])
             if(this.users[i].user == user.user && this.users[i].pass == user.pass){
-                console.log(this.currentUser)
                 this.currentUser = user;
-                console.log(this.currentUser)
                 return true
             }
         }
