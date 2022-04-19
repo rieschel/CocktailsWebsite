@@ -44,8 +44,6 @@ class DrinkModel {
 
     setCurrentDrink(drinkid) {
         const theModel = this;
-
-        if(this.currentDrink === drinkid) return;
         
         function notifyACB(){return theModel.notifyObservers();}
         
