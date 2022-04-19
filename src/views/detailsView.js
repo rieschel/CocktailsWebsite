@@ -10,11 +10,20 @@ import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 
 function detailsView(props) {
 
-    function renderIngredientsCB(ingredient){
-        return 
-        (<div key={ingredient}>
-            {props.drinkData.ingredient}
-        </div>);
+    let d = props.drinkData[0];
+    function emptyCB(i) { if (i != "" || i) return true }
+    let ingredients = [d.strIngredient1, d.strIngredient2, d.strIngredient3, d.strIngredient4, d.strIngredient5];
+    let measures = [d.strMeasure1, d.strMeasure2, d.strMeasure3, d.strMeasure4, d.strMeasure5];
+    ingredients = ingredients.filter(emptyCB);
+    measures = measures.filter(emptyCB);
+    let instructions = d.strInstructions.split("\r\n");
+
+    function renderCB(i){
+        return (
+            <Grid item>
+                <Typography variant="body1">{i}</Typography>
+            </Grid>
+        );
     }
 
     return (
@@ -28,15 +37,35 @@ function detailsView(props) {
                 direction="column"
                 alignItems="center" 
                 justify="center"
-                style={{maxHeight:'50vh'}}
+                // style={{maxHeight:'50vh'}}
                 >
-                <img src={props.drinkData[0].strDrinkThumb}></img>
+                <img src={props.drinkData[0].strDrinkThumb} height="300px" ></img>
             </Grid>
             <br></br>
             <br></br>
-            <Grid container spacing = {{xs:5, md:5}}>
-                {renderIngredientsCB}
-            </Grid>
+            <table align="center">
+                <td>
+                    <Typography variant="h6" align="center">Ingredients</Typography>
+                    <table align="center">
+                        <td>
+                            <Grid container direction='column' spacing = {{xs:2, md:2}} >
+                                {measures.map(renderCB)}
+                            </Grid>
+                        </td>
+                        <td>
+                            <Grid container direction='column' spacing = {{xs:2, md:2}} >
+                                {ingredients.map(renderCB)}
+                            </Grid>
+                        </td>
+                    </table>
+                </td>
+                <td>
+                    <Typography variant="h6" align="center">Instructions</Typography>
+                    <Grid container direction='column' spacing = {{xs:2, md:2}} >
+                        {instructions.map(renderCB)}
+                    </Grid>
+                </td>
+            </table>
         </ThemeProvider> 
             
         
