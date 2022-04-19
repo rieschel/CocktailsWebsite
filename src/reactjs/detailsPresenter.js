@@ -8,12 +8,14 @@ function DetailsPresenter(props) {
     const [detailsPromise, setPromise] = React.useState();
     const [promiseData, setData] = React.useState();
     const [promiseError, setError] = React.useState();
+    const [ratings, setRatings] = React.useState([]);
 
     function observerACB() {
         setCurrentDrink(props.model.currentDrink);
         setData(props.model.currentDrinkPromiseState.data);
         setError(props.model.currentDrinkPromiseState.error);
-        setPromise(props.model.currentDrinkPromiseState.promise)
+        setPromise(props.model.currentDrinkPromiseState.promise);
+        setRatings(props.model.ratings);
     }
 
     function onCreateACB() {
@@ -22,9 +24,18 @@ function DetailsPresenter(props) {
         return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
     }
     React.useEffect(onCreateACB, []);
-    console.log(promiseData);
+
+    function saveDrinkACB(drink) {
+        console.log("presenter saved")
+        props.model.saveDrink(drink);
+    }
+
+    function rateDrinkACB(drink, rating) {
+        props.model.rateDrink(drink, rating);
+    }
+
     return promiseNoData(props.model.currentDrinkPromiseState)||(
-        <DetailsView drinkData={promiseData}></DetailsView>
+        <DetailsView drinkData={promiseData} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings}></DetailsView>
     );
 }
 

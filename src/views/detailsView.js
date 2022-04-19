@@ -7,6 +7,9 @@ import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import StarIcon from '@mui/icons-material/Star';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 
 function detailsView(props) {
 
@@ -17,6 +20,31 @@ function detailsView(props) {
     ingredients = ingredients.filter(emptyCB);
     measures = measures.filter(emptyCB);
     let instructions = d.strInstructions.split("\r\n");
+
+    let sliderVal = 5;
+    function handleChangeCB(event, value) {sliderVal=value}
+
+    function saveDrinkACB() {
+        console.log("view saved");
+        props.onSaveDrink({strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink});
+    }
+
+    function rateDrinkACB() {
+        console.log("rate drink view");
+        props.onDrinkRate({strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink}, sliderVal);
+    }
+
+    function goBackACB() {
+        window.location.hash = "#search";
+    }
+
+    function getRatingACB() {
+        function sameDrinkCB(e) {if (e.d==d.idDrink) return true }
+        let drinkRating = props.ratingList.filter(sameDrinkCB);
+        if(drinkRating.length==0) return "not rated yet";
+        else return drinkRating[drinkRating.length-1].r;
+    }
+    const rating = getRatingACB();
 
     function renderCB(i){
         return (
@@ -29,6 +57,8 @@ function detailsView(props) {
     return (
         <ThemeProvider theme={theme}>
             <br></br>
+            <Button onClick={goBackACB} startIcon={<ArrowBackIosIcon></ArrowBackIosIcon>}></Button>
+            <br></br>
             <Typography sx={{m:2}} variant="h3" align="center">{props.drinkData[0].strDrink}</Typography>
             <br></br>
             <Grid 
@@ -39,7 +69,16 @@ function detailsView(props) {
                 justify="center"
                 // style={{maxHeight:'50vh'}}
                 >
-                <img src={props.drinkData[0].strDrinkThumb} height="300px" ></img>
+                <Grid item>
+                    <Box width="300px">
+                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
+                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
+                        Rating: {rating}
+                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                    </Box>
+                </Grid>
+                <br></br>
+                <Grid item><img src={props.drinkData[0].strDrinkThumb} height="300px" ></img></Grid>
             </Grid>
             <br></br>
             <br></br>

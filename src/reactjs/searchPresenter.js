@@ -77,6 +77,7 @@ function SearchPresenter(props){
 
     function saveDrinkACB(drink) {
         props.model.saveDrink(drink);
+        console.log(drink)
     }
 
     //Ratings
