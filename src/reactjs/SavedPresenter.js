@@ -34,9 +34,13 @@ function SavedPresenter(props) {
         props.model.setCurrentDrink(drinkId);
     }
 
+    function setPreviousHashACB(hash){
+        props.model.setHash(hash);
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onDrinkRate={rateDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings}></SavedView>
+            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onDrinkRate={rateDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}></SavedView>
         </ThemeProvider>
     );
 

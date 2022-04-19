@@ -35,7 +35,7 @@ function detailsView(props) {
     }
 
     function goBackACB() {
-        window.location.hash = "#search";
+        window.location.hash = props.previousPage;
     }
 
     function getRatingACB() {

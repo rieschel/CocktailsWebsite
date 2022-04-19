@@ -8,6 +8,11 @@ class DrinkModel {
         this.drinks = [];
         this.ratings = [];
         this.currentDrinkPromiseState = {};
+        this.previousHash = "#search"
+    }
+
+    setHash(hash){
+        this.previousHash = hash
     }
 
     saveDrink(drink) {

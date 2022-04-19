@@ -45,6 +45,7 @@ function SearchResults(props){
 
         function setCurrentDrinkACB() { 
             props.onCurrentDrink(result['idDrink']);
+            props.onHashChange(window.location.hash);
             window.location.hash = "#details";
         }
         

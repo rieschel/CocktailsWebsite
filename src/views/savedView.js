@@ -21,6 +21,7 @@ function SavedView(props) {
 
         function setCurrentDrinkACB() { 
             props.onCurrentDrink(drink['idDrink']);
+            props.onHashChange(window.location.hash);
             window.location.hash = "#details";
         }
 
