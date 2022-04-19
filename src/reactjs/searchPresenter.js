@@ -109,7 +109,7 @@ function SearchPresenter(props){
     return (
 
         <Box sx={{ flexGrow: 1 }}>
-                <SearchView drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
+                <SearchView currentUser={props.model.currentUser} drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
                 {promiseNoData({promise, data, error}) || <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}/>}
 
          </Box>

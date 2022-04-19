@@ -2,7 +2,10 @@ import React from "react";
 import NavbarView from "../views/navbarView.js";
 
 function NavbarPresenter(props) {
-    return <NavbarView></NavbarView>;
+    function logoutACB(){
+        props.model.setCurrentUser({user: "", pass: ""});
+    }
+    return <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>;
 }
 
 export default NavbarPresenter;
