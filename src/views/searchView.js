@@ -8,13 +8,13 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Typography from '@mui/material/Typography';
 
 import { Popover } from '@mui/material';
-import CheckboxesGroup from './checkboxesGroup.js';
+import CheckboxesGroup from './temp.js';
 
 import { searchDrinks } from '../drinkSource.js';
 import theme from "./theme.js";
-/* import CheckboxesGroup from './checkboxes.js'; */
 
 function SearchView(props) {
+    /* console.log("Searchview value of alc "+ props.alc) */
     const [anchorEl, setAnchorEl] = React.useState(null);
     const buttonRef = React.useRef();
     function handleClick() {
@@ -33,8 +33,13 @@ function SearchView(props) {
         props.onSearch();
     }
 
+    function filterACB(ingr){
+        console.log("searchview ingr :" + ingr)
+        props.onFilter(ingr);
+    }
+
     function textInputACB(event){
-        console.log("inside search view")
+        /* console.log("inside search view") */
         console.log(event.target.value)
         props.onTextInput(event.target.value);
     }

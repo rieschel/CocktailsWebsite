@@ -20,6 +20,7 @@ import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 
 import { searchDrinkByIngredient, searchDrinkByName, getDrinkDetails  } from "../drinkSource";
+
 import { updateFirebaseFromModel, updateModelFromFirebase } from "../firebaseModel";
 import SavedPresenter from "../reactjs/SavedPresenter";
 //import {getDishDetails} from "/src/dishSource.js";
@@ -55,7 +56,6 @@ function SearchPresenter(props){
     React.useEffect(promiseChangedACB , [promise] );
 
     function doIngrSearchACB(i){
-        /*  console.log("SP ing " +i); */     
         setPromise(searchDrinkByIngredient({i}));
     }
 

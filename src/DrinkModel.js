@@ -6,6 +6,7 @@ class DrinkModel {
     constructor(currentDrink) {
         this.observers = [];
         this.drinks = [];
+
         this.ratings = [];
         this.currentDrinkPromiseState = {};
         this.previousHash = "#search"
