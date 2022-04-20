@@ -56,8 +56,12 @@ export default function CheckboxesGroup(props) {
   }
 
   function filterACB() {
-    console.log("filter in checkboxes group");
-    props.onFilter();
+    const alcParams = alcList.map(alc => {if (alc.checked) return alc.name});
+    const garnishParams = garnishList.map(garnish => {if (garnish.checked) return garnish.name});
+    const totalParams = alcParams + "," + garnishParams;
+    const clean = totalParams.replace(/^,,*|,+(?=,|$)/g, '');
+    console.log("filter in checkboxes group with params: " + clean);
+    props.onFilter(clean);
   }
   
 

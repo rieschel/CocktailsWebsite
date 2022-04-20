@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import StarIcon from '@mui/icons-material/Star';
-import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
+import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import Slider from '@mui/material/Slider';
 
 
@@ -15,6 +15,13 @@ function SearchResults(props){
 
     // console.log(props.searchResults)
     function showResultACB(result){
+        //console.log("showing results. " + props.searchResults)
+        if(!props.searchResults){
+            console.log("no found results");
+            return(
+                <div>No results</div>
+            )
+        }
 
         let sliderVal = 5;
         function handleChangeCB(event, value) {sliderVal=value}
@@ -35,6 +42,12 @@ function SearchResults(props){
             if(drinkRating.length==0) return "not rated yet";
             else return drinkRating[drinkRating.length-1].r;
         }
+
+        function setCurrentDrinkACB() { 
+            props.onCurrentDrink(result['idDrink']);
+            props.onHashChange(window.location.hash);
+            window.location.hash = "#details";
+        }
         
         const rating = getRatingACB();
 
@@ -42,13 +55,13 @@ function SearchResults(props){
             <ThemeProvider theme = {theme}>
                 <Grid item key = {result['idDrink']}>
                     <Box>
-                        <Typography variant='h6' align='center'>{result['strDrink']}</Typography>
+                        <Typography variant='h6' align='center' onClick={setCurrentDrinkACB}>{result['strDrink']}</Typography>
                         <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
-                        <Button onClick={rateDrinkACB} startIcon={<ReviewsOutlinedIcon></ReviewsOutlinedIcon>}></Button>
+                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
                         Rating: {rating}
                         <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
                         <br></br>
-                        <img src = {result['strDrinkThumb']} height='300px' align='center'></img>
+                        <img src = {result['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
                     </Box>
                 </Grid>
             </ThemeProvider>

@@ -14,7 +14,7 @@ import {render} from "react-dom";
 
 window.React= React;
 
-import firebase from "firebase/compat/app";
+import firebase from "firebase/app";
 import "firebase/database";
 
 window.firebase=firebase;

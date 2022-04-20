@@ -30,7 +30,6 @@ function searchDrinks(){
         return Object.values(results)[0];
     }
 
-   
     return ( 
         fetch('https://www.thecocktaildb.com/api/json/v2/' + API_KEY + '/random.php')
         .then(treatHTTPResponseACB).then(transformResultACB));
@@ -45,7 +44,7 @@ function transformResultACB(results) {
 
     //return param.results;
     console.log("transforming API results")
-    console.log(Object.values(results)[0])
+
     return Object.values(results)[0];
 }
 
@@ -69,5 +68,5 @@ function searchDrinkByIngredient(params){
         .then(treatHTTPResponseACB).then(transformResultACB));
 } 
 
+export {searchDrinks, searchDrinkByIngredient, searchDrinkByName, fetchIngredientList, getDrinkDetails}
 
-export {searchDrinks, searchDrinkByIngredient, searchDrinkByName, fetchIngredientList}
