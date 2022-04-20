@@ -16,7 +16,6 @@ function CreateNewAccount(props) {
           return;
         }
         props.onCreateAccount({user: username, pass: password});
-        window.location.hash = "#login"
     }
 
     function usernameACB(event){
