@@ -1,11 +1,21 @@
 import { useState } from "react";
+import { Grid,Paper, Avatar, Button, Typography,Link } from '@mui/material'
+import {TextField} from '@mui/material'
+import {ThemeProvider} from '@mui/material/styles';
+import theme from "../views/theme.js";
 
 function CreateNewAccount(props) {
     const [username, setUsername] = useState();
-    const [passWord, setPassWord] = useState();
+    const [password, setPassWord] = useState();
+    const paperStyle= {padding :20,height:'70vh',width:280, margin:"20px auto"}
+    const [triedToLogIn, setTriedToLogIn] = useState(false);
 
     function handleSubmitACB(){
-        props.onCreateAccount({user: username, pass: passWord});
+        if(!username ||!password){
+          setTriedToLogIn(true);
+          return;
+        }
+        props.onCreateAccount({user: username, pass: password});
         window.location.hash = "#login"
     }
 
@@ -18,22 +28,20 @@ function CreateNewAccount(props) {
     }
 
   const renderForm = (
-    <div>
-      <div>Create new account</div>
-      <form onSubmit={handleSubmitACB}>
-        <div>
-          <label>Username </label>
-          <input type="text" name="uname" onChange={usernameACB} required />
-        </div>
-        <div>
-          <label>Password </label>
-          <input type="password" name="pass" onChange={passwordACB} required />
-        </div>
-        <div>
-        <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+    <ThemeProvider key={"new_account"} theme={theme}>
+        <Grid>
+          <Paper elevation={10} style={paperStyle}>
+              <Grid align='center'>
+                  <Avatar style={{margin:10}}></Avatar>
+                  <Typography variant="h5">Create new account</Typography>
+              </Grid>
+              <TextField 
+                variant="standard" label='Username' placeholder='Enter username'onChange={usernameACB} fullWidth error={username==undefined &&triedToLogIn}/>
+              <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
+              <Button variant="contained" onClick={handleSubmitACB} style={{margin:'8px 0'}} fullWidth >Confirm</Button>
+          </Paper>
+        </Grid>
+      </ThemeProvider>
   );
 
   return renderForm;
