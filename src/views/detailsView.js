@@ -44,7 +44,20 @@ function detailsView(props) {
         if(drinkRating.length==0) return "not rated yet";
         else return drinkRating[drinkRating.length-1].r;
     }
-    const rating = getRatingACB();
+
+    function userRating() {
+        if(!props.currentUser.user) {return;}
+        else { 
+            return (
+                <Box>
+                    <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
+                    <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
+                    <Typography display="inline">Rating: {getRatingACB()}</Typography>
+                    <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                </Box>
+            );
+        }
+    }
 
     function renderCB(i){
         return (
@@ -71,10 +84,7 @@ function detailsView(props) {
                 >
                 <Grid item>
                     <Box width="300px">
-                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
-                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
-                        Rating: {rating}
-                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                        {userRating()}
                     </Box>
                 </Grid>
                 <br></br>

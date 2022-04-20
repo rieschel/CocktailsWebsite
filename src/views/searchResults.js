@@ -6,8 +6,6 @@ import { Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import StarIcon from '@mui/icons-material/Star';
-import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
-import Slider from '@mui/material/Slider';
 
 
 
@@ -23,17 +21,9 @@ function SearchResults(props){
             )
         }
 
-        let sliderVal = 5;
-        function handleChangeCB(event, value) {sliderVal=value}
-
         function saveDrinkACB() {
             console.log("view saved");
             props.onSaveDrink(result);
-        }
-
-        function rateDrinkACB() {
-            console.log("rate drink view");
-            props.onDrinkRate(result, sliderVal);
         }
 
         function getRatingACB() {
@@ -48,18 +38,25 @@ function SearchResults(props){
             props.onHashChange(window.location.hash);
             window.location.hash = "#details";
         }
-        
-        const rating = getRatingACB();
+
+        function userRating() {
+            if(!props.currentUser.user) {return;}
+            else { 
+                return (
+                    <Box>
+                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
+                        <Typography display="inline">Rating: {getRatingACB()}</Typography>
+                    </Box>
+                );
+            }
+        }
 
         return (
             <ThemeProvider key={result['idDrink']} theme = {theme}>
                 <Grid item key = {result['idDrink']}>
                     <Box>
                         <Typography variant='h6' align='center' onClick={setCurrentDrinkACB}>{result['strDrink']}</Typography>
-                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
-                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
-                        Rating: {rating}
-                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                        {userRating()}
                         <br></br>
                         <img src = {result['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
                     </Box>
@@ -70,9 +67,11 @@ function SearchResults(props){
 
     return (
         <ThemeProvider theme = {theme}>
-            <Grid container spacing = {{xs:5, md:5}}>
-                {props.searchResults.map(showResultACB)}
-            </Grid>
+            <Box align="center">
+                <Grid container spacing = {{xs:5, md:5}} align-items="center">
+                    {props.searchResults.map(showResultACB)}
+                </Grid>
+            </Box>
         </ThemeProvider>
     );
 }

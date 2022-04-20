@@ -35,7 +35,7 @@ function DetailsPresenter(props) {
     }
 
     return promiseNoData(props.model.currentDrinkPromiseState)||(
-        <DetailsView drinkData={promiseData} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings} previousPage={props.model.previousHash}></DetailsView>
+        <DetailsView drinkData={promiseData} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings} previousPage={props.model.previousHash} currentUser={props.model.currentUser}></DetailsView>
     );
 }
 

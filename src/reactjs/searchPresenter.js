@@ -5,6 +5,7 @@ import SearchResults from "../views/searchResults";
 // import { searchDishes } from "../dishSource";
 import { searchDrinks } from "../drinkSource";
 import SearchView from "../views/searchView";
+import NavbarView from "../views/navbarView";
 
 import { Alert } from '@mui/material';
 
@@ -94,10 +95,6 @@ function SearchPresenter(props){
     }
     React.useEffect(onCreateACB, []);
 
-    function rateDrinkACB(drink, rating) {
-        props.model.rateDrink(drink, rating);
-    }
-
     function setCurrentDrinkACB(drinkId) {
         props.model.setCurrentDrink(drinkId);
     }
@@ -105,12 +102,17 @@ function SearchPresenter(props){
     function setPreviousHashACB(hash){
         props.model.setHash(hash);
     }
+
+    function logoutACB(){
+        props.model.setCurrentUser({user: "", pass: ""});
+    }
         
     return (
 
         <Box sx={{ flexGrow: 1 }}>
+                <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>
                 <SearchView currentUser={props.model.currentUser} drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
-                {promiseNoData({promise, data, error}) || <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} onDrinkRate={rateDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}/>}
+                {promiseNoData({promise, data, error}) || <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB} currentUser={props.model.currentUser}/>}
 
          </Box>
     );

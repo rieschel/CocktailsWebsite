@@ -4,16 +4,11 @@ import {ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Slider from '@mui/material/Slider';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 
 function SavedView(props) {
 
     function renderDrinkCB(drink) { 
-
-        let sliderVal = 5;
-        function handleChangeCB(event, value) {sliderVal=value}
 
         function removeDrinkACB() {
             props.onDrinkRemove(drink);
@@ -23,10 +18,6 @@ function SavedView(props) {
             props.onCurrentDrink(drink['idDrink']);
             props.onHashChange(window.location.hash);
             window.location.hash = "#details";
-        }
-
-        function rateDrinkACB() {
-            props.onDrinkRate(drink, sliderVal);
         }
 
         function getRatingACB() {
@@ -42,13 +33,11 @@ function SavedView(props) {
             <ThemeProvider theme = {theme}>
                 <Grid item key={drink['idDrink']}>
                     <Box>
-                        <Typography align ="center" variant="h6" sx={{m:2}} onClick={setCurrentDrinkACB}>{drink['strDrink']}</Typography>
+                        <Typography align ="center" variant="h6" onClick={setCurrentDrinkACB}>{drink['strDrink']}</Typography>
                         <Button onClick={removeDrinkACB} startIcon={<DeleteIcon></DeleteIcon>}></Button>
-                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
-                        Rating: {rating}
-                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                        <Typography display="inline">Rating: {rating}</Typography>
                         <br></br>
-                        <img src = {drink['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
+                        <img width='300px' src = {drink['strDrinkThumb']} align='center' onClick={setCurrentDrinkACB}></img>                    
                     </Box>
                 </Grid>
             </ThemeProvider>

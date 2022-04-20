@@ -4,6 +4,7 @@ import {ThemeProvider} from '@mui/material/styles';
 
 import SavedView from "../views/savedView.js";
 import { Rating } from "@mui/material";
+import NavbarView from "../views/navbarView.js";
 
 function SavedPresenter(props) {
 
@@ -26,10 +27,6 @@ function SavedPresenter(props) {
         props.model.removeDrink(drink);
     }
 
-    function rateDrinkACB(drink, rating) {
-        props.model.rateDrink(drink, rating);
-    }
-
     function setCurrentDrinkACB(drinkId) {
         props.model.setCurrentDrink(drinkId);
     }
@@ -38,9 +35,14 @@ function SavedPresenter(props) {
         props.model.setHash(hash);
     }
 
+    function logoutACB(){
+        props.model.setCurrentUser({user: "", pass: ""});
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onDrinkRate={rateDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}></SavedView>
+            <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>
+            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}></SavedView>
         </ThemeProvider>
     );
 

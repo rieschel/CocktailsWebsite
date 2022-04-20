@@ -14,7 +14,6 @@ function App(props) {
     console.log("inside APP")
     return (
         <div>
-            <Navbar model={props.model}></Navbar>
             <Show hash="#login"><Login model = {props.model}/></Show>
             <Show hash="#create_new_account"><NewAccount model = {props.model}/></Show>
             <Show hash="#search"><Search model = {props.model}></Search></Show>

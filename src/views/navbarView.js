@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import {ThemeProvider} from '@mui/material/styles';
 import theme from "../views/theme.js";
 import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 function NavbarView(props){
 
@@ -27,25 +28,51 @@ function NavbarView(props){
         window.location.hash = "#login"
     }
 
+    function loginACB() {
+        window.location.hash = "#login"
+    }
+
+    function getButtonVariant(page) {
+        if(window.location.hash == page) {
+            return "contained";
+        }
+        else {
+            return "outlined";
+        }
+    }
+
     function savedDrinksACB(){
-        //if (props.currenUser){
-            //console.log("2Current user: " + props.currentUser)
-            return(
-                <Button onClick={changeToSavedACB} sx={{m:2}} variant='outlined' color="secondary">Saved Drinks</Button>
-            )
-        //}
+        if (!props.currentUser.user){
+            return;
+        }
+        else {
+            return <Button onClick={changeToSavedACB} sx={{m:2}} variant={getButtonVariant("#saved_drinks")} color="secondary">Saved Drinks</Button>;
+        }
+        // return <Button onClick={changeToSavedACB} sx={{m:2}} variant={getButtonVariant("#saved_drinks")} color="secondary">Saved Drinks</Button>;
+    }
+
+    function getButton() {
+        if(!props.currentUser.user) {
+            return <Button align="right" onClick={loginACB} variant="outlined" color="secondary">Login</Button>;
+        }
+        else {
+            return <Button align="right" onClick={logoutACB} sx={{m:2}} variant="outlined" color="secondary">Logout</Button>;
+        }
     }
 
     return (
-       <ThemeProvider theme={theme}>
-            <AppBar position='static' color="primary">
-                <Toolbar>
-                    <Typography variant="h6" sx={{m:2}} onClick={changeToSearchACB}>ShakeItUp!</Typography>
-                    <Button onClick={changeToSearchACB} sx={{m:2}} variant='outlined' color="secondary">Search</Button>
-                    {savedDrinksACB()}
-                    <Button onClick={logoutACB} sx={{m:2}} variant='outlined' color="secondary">Logout</Button>
-                </Toolbar>
-            </AppBar>
+       <ThemeProvider theme={theme} >
+           <Box sx={{flexGrow: 1}}>
+                <AppBar position='static' color="primary">
+                    <Toolbar>
+                        <Typography variant="h6" sx={{m:2}} onClick={changeToSearchACB}>ShakeItUp!</Typography>
+                        <Button onClick={changeToSearchACB} sx={{m:2}} variant={getButtonVariant("#search")} color="secondary">Search</Button>
+                        {savedDrinksACB()}
+                        <Box sx={{flexGrow: 1}}></Box>
+                        {getButton()}
+                    </Toolbar>
+                </AppBar>
+            </Box>
         </ThemeProvider>
         
     );
