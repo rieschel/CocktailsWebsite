@@ -7,17 +7,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import { Button, Divider } from '@mui/material';
+import { fetchIngredientList} from '../drinkSource';
 
 export default function CheckboxesGroup(props) {
+  const [error, setError] = React.useState();
+  const [data, setData] = React.useState();
+
   const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}];
  
   const garnish = [{name:"lemon", checked:false}, {name:"orange", checked:false}, {name:"basil", checked:false}];
 
+  //const promise = React.useState(function initializePromiseACB(){ const first = fetchIngredientList(); first.then(function saveDataACB(dt){setData(dt);}).catch(function saveErrACB(er){setError(er)})});
+    
+  //console.log("data "+ props.alc);     
   const [alcList, setAlclist] = React.useState([...alc]);
   const [garnishList, setGarnishList] = React.useState([...garnish]);
+  /* const [alcList, setAlclist] = React.useState([...props.alc]);
+  const [garnishList, setGarnishList] = React.useState([...props.garnish]); */
 
   const handleAlcChange = (event) => {
-    console.log(event.target.name)
+    console.log(event.target.checked)
     const temp = [...alcList]
     const objIndex = temp.findIndex((obj => obj.name == event.target.name));
     temp[objIndex].checked = !temp[objIndex].checked; 
@@ -55,18 +64,29 @@ export default function CheckboxesGroup(props) {
     );
   }
 
-  function filterACB() {
-    const alcParams = alcList.map(alc => {if (alc.checked) return alc.name});
-    const garnishParams = garnishList.map(garnish => {if (garnish.checked) return garnish.name});
-    const totalParams = alcParams + "," + garnishParams;
-    const clean = totalParams.replace(/^,,*|,+(?=,|$)/g, '');
-    console.log("filter in checkboxes group with params: " + clean);
+  function filterACB(){
+    //console.log(alcList);
+    const searchAlc = alcList.map(alc => {if (alc.checked ==true) return alc.name}).join();
+    const searchGarnish = garnishList.map(garnish => {if (garnish.checked ==true) return garnish.name}).join();
+    const searchParams = searchAlc + "," + searchGarnish
+    const clean = searchParams.replace(/^,,*|,+(?=,|$)/g, '');
+    console.log("search "+clean)
+    if (clean===""){
+      alert("no filters were selected")
+      return;
+    } 
+    //console.log(clean); 
     props.onFilter(clean);
+
+  }
+
+  function closeACB(){
+    props.onClose();
   }
   
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }} onChange={filterACB}>
       <FormControl sx={{ m: 3}} component="fieldset" variant="standard">
         <FormLabel component="legend">Alcohol</FormLabel>
         <Divider />
@@ -83,13 +103,15 @@ export default function CheckboxesGroup(props) {
         <FormLabel component="legend">Garnish</FormLabel>
         <Divider />
         <FormGroup>
-       
           { garnishList.map(renderGCheckbox)}  
         </FormGroup>
       </FormControl>
-      <Button ariant="outlined" sx={{p:1.5, m:2, height:20}} onClick={filterACB}>
-        Search
+      
+      <Button variant='text' sx={{p:0, right:20,left:5, height:40}}  onClick={closeACB}>
+        X
       </Button>
+      
     </Box>
+    
   );
 }
