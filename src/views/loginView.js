@@ -22,7 +22,7 @@ function LoginView(props){
     }
 
     function usernameACB(event){
-        console.log(props.users)
+        //console.log(props.users)
         setUsername(event.target.value)
     }
 
