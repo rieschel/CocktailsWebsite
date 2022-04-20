@@ -13,7 +13,6 @@ const NewAccount=require("../reactjs/newAccountPresenter.js").default;
 function App(props) {
     console.log("inside APP")
     return (
-
         <div>
             <Navbar model={props.model}></Navbar>
             <Show hash="#login"><Login model = {props.model}/></Show>

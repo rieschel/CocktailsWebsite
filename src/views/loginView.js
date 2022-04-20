@@ -1,22 +1,33 @@
+import { Grid,Paper, Avatar, Button, Typography,Link } from '@mui/material'
+import {TextField} from '@mui/material'
+import {ThemeProvider} from '@mui/material/styles';
+import theme from "../views/theme.js";
 import { useState } from "react";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function LoginView(props){
     const [username, setUsername] = useState();
-    const [passWord, setPassWord] = useState();
-
+    const [password, setPassword] = useState();
+    const paperStyle= {padding :20,height:'70vh',width:280, margin:"20px auto"}
+    const [triedToLogIn, setTriedToLogIn] = useState(false);
 
     function handleSubmitACB(){
         console.log("inside handle submit")
-        props.onSubmit({user: username, pass: passWord});
+        console.log("Username: " + username + " password: " + password)
+        if(!username ||!password){
+          setTriedToLogIn(true);
+          return;
+        }
+        props.onSubmit({user: username, pass: password});
     }
 
     function usernameACB(event){
-        console.log(props.users)
+        //console.log(props.users)
         setUsername(event.target.value)
     }
 
     function passwordACB(event){
-        setPassWord(event.target.value)
+        setPassword(event.target.value)
     }
 
     function newAccountACB(){
@@ -24,25 +35,23 @@ function LoginView(props){
     }
 
     const renderForm = (
-        
-        <div>
-            <div>{props.user.user}</div>
-          <form onSubmit={handleSubmitACB}>
-            <div>
-              <label>Username </label>
-              <input type="text" onChange={usernameACB} required />
-            </div>
-            <div>
-              <label>Password </label>
-              <input type="password" onChange={passwordACB} required />
-            </div>
-            <div>
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-          <button onClick={newAccountACB}>Create new account</button>
-        </div>
+      <ThemeProvider key={"login"} theme={theme}>
+        <Grid>
+          <Paper elevation={10} style={paperStyle}>
+              <Grid align='center'>
+                  <Avatar style={{margin:10}}></Avatar>
+                  <Typography variant="h5">Sign in</Typography>
+              </Grid>
+              <TextField 
+                variant="standard" label='Username' placeholder='Enter username'onChange={usernameACB} fullWidth error={username==undefined &&triedToLogIn}/>
+              <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
+              <Button variant="contained" onClick={handleSubmitACB} style={{margin:'8px 0'}} fullWidth >Submit</Button>
+              <Button onClick={newAccountACB} fullWidth>Create new account</Button>
+          </Paper>
+        </Grid>
+      </ThemeProvider>
       );
+
 
     return(
         renderForm

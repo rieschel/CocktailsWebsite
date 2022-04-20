@@ -52,7 +52,7 @@ function SearchResults(props){
         const rating = getRatingACB();
 
         return (
-            <ThemeProvider theme = {theme}>
+            <ThemeProvider key={result['idDrink']} theme = {theme}>
                 <Grid item key = {result['idDrink']}>
                     <Box>
                         <Typography variant='h6' align='center' onClick={setCurrentDrinkACB}>{result['strDrink']}</Typography>

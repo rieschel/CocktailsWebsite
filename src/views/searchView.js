@@ -6,9 +6,8 @@ import {ThemeProvider} from '@mui/material/styles';
 import Box from "@mui/material/Box"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Typography from '@mui/material/Typography';
-
 import { Popover } from '@mui/material';
-import CheckboxesGroup from './temp.js';
+import CheckboxesGroup from './filterMenu.js';
 
 import { searchDrinks } from '../drinkSource.js';
 import theme from "./theme.js";
@@ -43,10 +42,11 @@ function SearchView(props) {
         console.log(event.target.value)
         props.onTextInput(event.target.value);
     }
-
-    function filterACB(ingr){
-        console.log("searchview ingr :" + ingr)
-        props.onFilter(ingr);
+    function handleKeyACB(e){
+        if (e.key === 'Enter') {
+            props.onSearch();
+            //alert(e.target.value);
+        }
     }
 
     return (
@@ -58,6 +58,7 @@ function SearchView(props) {
                     <br></br>
                     <TextField 
                         onChange={textInputACB}
+                        onKeyPress={handleKeyACB}
                         width="70%"
                         sx={{m:2}}
                         variant="outlined"
@@ -71,8 +72,6 @@ function SearchView(props) {
                             ),
                         }}
                     ></TextField>
-
-                    <Button sx={{p:1.5, m:2}} onClick={searchACB} variant="outlined" color="primary">Search</Button>
                     <Button
                         ref={buttonRef}
                         id={1} 
@@ -99,7 +98,7 @@ function SearchView(props) {
                         horizontal: "center"
                         }}
                     >
-                        <CheckboxesGroup onFilter={filterACB} />
+                        <CheckboxesGroup onFilter={filterACB} onClose={handleClose} />
                     </Popover>    
                     {/* {props.drinks.map(renderDrinkCB)} */}
 

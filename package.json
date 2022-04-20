@@ -41,6 +41,7 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.1",
     "firebase": "^8.10.1",
+    "firebase-tools": "^10.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }
