@@ -19,7 +19,11 @@ function NavbarView(props){
         if(window.location.hash != "#saved_drinks"){
             window.location.hash = "#saved_drinks";
         }
-        
+    }
+
+    function logoutACB(){
+        props.onLogout();
+        window.location.hash = "#login"
     }
 
     return (
@@ -29,6 +33,7 @@ function NavbarView(props){
                             <Typography variant="h6" sx={{m:2}} onClick={changeToSearchACB}>ShakeItUp!</Typography>
                             <Button onClick={changeToSearchACB} sx={{m:2}} variant='outlined' color="secondary">Search</Button>
                             <Button onClick={changeToSavedACB} sx={{m:2}} variant='outlined' color="secondary">Saved Drinks</Button>
+                            <Button onClick={logoutACB} sx={{m:2}} variant='outlined' color="secondary">Logout</Button>
                         </Toolbar>
         </AppBar>
         </ThemeProvider>

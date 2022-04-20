@@ -52,6 +52,7 @@ function SearchView(props) {
     return (
             <ThemeProvider theme = {theme}>
                 <div>
+                    <div>Username:{props.currentUser.user}</div>
                     <br></br>
                     <Typography align="center" variant="h3" sx={{m:2}}>Search for drinks</Typography>
                     <br></br>
