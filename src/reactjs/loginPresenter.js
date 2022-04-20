@@ -7,6 +7,7 @@ function LoginPresenter(props){
             updateModelFromFirebase(props.model);
             window.location.hash = "#search";
         }
+        else alert("Invalid username or password, please try again")
     }
 
     return <LoginView user={props.model.currentUser} users={props.model.users} onSubmit={loginACB}/>
