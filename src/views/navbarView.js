@@ -8,7 +8,7 @@ import { Typography } from '@mui/material';
 
 function NavbarView(props){
 
-    console.log("Current user: " + props.currentUser)
+    //console.log("Current user: " + props.currentUser)
 
     function changeToSearchACB(event){
         if(window.location.hash != "#search"){
@@ -29,7 +29,7 @@ function NavbarView(props){
 
     function savedDrinksACB(){
         //if (props.currenUser){
-            console.log("2Current user: " + props.currentUser)
+            //console.log("2Current user: " + props.currentUser)
             return(
                 <Button onClick={changeToSavedACB} sx={{m:2}} variant='outlined' color="secondary">Saved Drinks</Button>
             )
