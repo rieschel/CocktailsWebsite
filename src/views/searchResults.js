@@ -9,6 +9,8 @@ import StarIcon from '@mui/icons-material/Star';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
+import { Badge } from "@mui/material";
+import {Rating} from  "@mui/material";
 
 function SearchResults(props){
 
@@ -61,10 +63,7 @@ function SearchResults(props){
             if(!props.currentUser.user) {return;}
             else { 
                 return (
-                    <Box>
-                        {getSaveButton()}
-                        <Typography display="inline">Rating: {getRatingACB()}</Typography>
-                    </Box>
+                    <Rating name="half-rating-read" defaultValue={getRatingACB()} readOnly />
                 );
             }
         }
@@ -74,9 +73,12 @@ function SearchResults(props){
                 <Grid item key = {result['idDrink']}>
                     <Box>
                         <Typography variant='h6' align='center' onClick={setCurrentDrinkACB}>{result['strDrink']}</Typography>
-                        {userRating()}
+                        {userRating()}                        
                         <br></br>
-                        <img src = {result['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
+                        <Badge badgeContent={ getSaveButton()} >                           
+                            <img src = {result['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
+                        </Badge>
+                        
                     </Box>
                 </Grid>
             </ThemeProvider>

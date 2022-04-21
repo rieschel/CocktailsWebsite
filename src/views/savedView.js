@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
+import { Badge } from "@mui/material";
 
 
 function SavedView(props) {
@@ -37,11 +38,21 @@ function SavedView(props) {
                 <Grid item key={drink['idDrink']}>
                     <Box>
                         <Typography align ="center" variant="h6" onClick={setCurrentDrinkACB}>{drink['strDrink']}</Typography>
-                        <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+                        {/* <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton> */}
                         <Typography display="inline">Rating: {rating}</Typography>
                         <br></br>
                         <br></br>
-                        <img width='300px' src = {drink['strDrinkThumb']} align='center' onClick={setCurrentDrinkACB}></img>                    
+                        <Badge 
+                            badgeContent={
+                                <IconButton 
+                                    onClick={removeDrinkACB}>
+                                        <FavoriteIcon color="heart"></FavoriteIcon>
+                                </IconButton>} 
+                                //color="secondary"
+                                >
+                                <img width='300px' src = {drink['strDrinkThumb']} align='center' onClick={setCurrentDrinkACB}></img> 
+                        </Badge>
+                                           
                     </Box>
                 </Grid>
             </ThemeProvider>

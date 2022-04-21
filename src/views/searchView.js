@@ -51,9 +51,9 @@ function SearchView(props) {
 
     return (
             <ThemeProvider theme = {theme}>
-                <div>
+                <Box sx={{color:'background.main'}}>
                     <br></br>
-                    <Typography align="center" variant="h3" sx={{m:2}}>Search for drinks</Typography>
+                    <Typography align="center" variant="h3" sx={{m:2, color:'black.main'}}>Search for drinks</Typography>
                     <br></br>
                     <TextField 
                         onChange={textInputACB}
@@ -101,7 +101,7 @@ function SearchView(props) {
                     </Popover>    
                     {/* {props.drinks.map(renderDrinkCB)} */}
 
-                </div>
+                </Box>
             </ThemeProvider>
     );
 
