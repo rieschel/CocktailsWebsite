@@ -9,6 +9,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Popover } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
 
 
 function detailsView(props) {
@@ -23,15 +27,20 @@ function detailsView(props) {
 
     let sliderVal = 5;
     function handleChangeCB(event, value) {sliderVal=value}
+    const drink = {strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink};
 
     function saveDrinkACB() {
         console.log("view saved");
-        props.onSaveDrink({strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink});
+        props.onSaveDrink(drink);
     }
 
     function rateDrinkACB() {
         console.log("rate drink view");
-        props.onDrinkRate({strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink}, sliderVal);
+        props.onDrinkRate(drink, sliderVal);
+    }
+
+    function removeDrinkACB() {
+        props.onDrinkRemove(drink);
     }
 
     function goBackACB() {
@@ -45,15 +54,57 @@ function detailsView(props) {
         else return drinkRating[drinkRating.length-1].r;
     }
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const buttonRef = React.useRef();
+    function handleClick() {
+        setAnchorEl(buttonRef.current);
+    }
+
+    function handleClose() {
+        setAnchorEl(null);
+        rateDrinkACB();
+    }
+
+    const open = Boolean(anchorEl);
+    const id = open ? "simple-popover" : undefined;
+
+    function getSaveButton() {
+        function sameDrinkCB(d) { if (d['idDrink']!=drink['idDrink']) return true }
+        if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
+            return (
+                <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
+            );
+        }
+        else {
+            return (
+                <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+            );
+        }
+    }
+
     function userRating() {
         if(!props.currentUser.user) {return;}
         else { 
             return (
                 <Box>
-                    <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
-                    <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
+                    {getSaveButton()}
+                    <IconButton id={1} ref={buttonRef} onClick={handleClick}><ThumbsUpDownIcon></ThumbsUpDownIcon></IconButton>
                     <Typography display="inline">Rating: {getRatingACB()}</Typography>
-                    <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                    <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "center"
+                        }}
+                        transformOrigin={{
+                        vertical: "top",
+                        horizontal: "center"
+                    }}>
+                        <Slider sx={{m:3, p:3, width: '300px', mr: 6}} onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
+                    </Popover>
                 </Box>
             );
         }
@@ -70,7 +121,7 @@ function detailsView(props) {
     return (
         <ThemeProvider theme={theme}>
             <br></br>
-            <Button onClick={goBackACB} startIcon={<ArrowBackIosIcon></ArrowBackIosIcon>}></Button>
+            <Button color="black" onClick={goBackACB} startIcon={<ArrowBackIosIcon></ArrowBackIosIcon>}></Button>
             <br></br>
             <Typography sx={{m:2}} variant="h3" align="center">{props.drinkData[0].strDrink}</Typography>
             <br></br>

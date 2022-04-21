@@ -31,7 +31,7 @@ function SearchPresenter(props){
     const [error, setError] = React.useState();
     const [data, setData] = React.useState();
     const [s, setDrinkName] = React.useState();
-   
+    const [drinks, setDrinks] = React.useState([]);
     
     // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback. 
     const [promise, setPromise] = React.useState(function initializePromiseACB(){return searchDrinkByIngredient({i:""})});
@@ -78,7 +78,10 @@ function SearchPresenter(props){
 
     function saveDrinkACB(drink) {
         props.model.saveDrink(drink);
-        console.log(drink)
+    }
+
+    function removeDrinkACB(drink) {
+        props.model.removeDrink(drink);
     }
 
     //Ratings
@@ -86,6 +89,7 @@ function SearchPresenter(props){
 
     function observerACB() {
         setRatings(props.model.ratings);
+        setDrinks(props.model.drinks);
     }
 
     function onCreateACB() {
@@ -111,8 +115,8 @@ function SearchPresenter(props){
 
         <Box sx={{ flexGrow: 1 }}>
                 <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>
-                <SearchView currentUser={props.model.currentUser} drinks = {props.model.drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
-                {promiseNoData({promise, data, error}) || <SearchResults searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB} currentUser={props.model.currentUser}/>}
+                <SearchView currentUser={props.model.currentUser} drinkList={drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
+                {promiseNoData({promise, data, error}) || <SearchResults onDrinkRemove={removeDrinkACB} drinkList={drinks} searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB} currentUser={props.model.currentUser}/>}
 
          </Box>
     );

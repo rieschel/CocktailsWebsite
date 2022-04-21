@@ -52,7 +52,6 @@ function SearchView(props) {
     return (
             <ThemeProvider theme = {theme}>
                 <div>
-                    <div>Username:{props.currentUser.user}</div>
                     <br></br>
                     <Typography align="center" variant="h3" sx={{m:2}}>Search for drinks</Typography>
                     <br></br>
@@ -62,22 +61,22 @@ function SearchView(props) {
                         width="70%"
                         sx={{m:2}}
                         variant="outlined"
-                        color="primary" focused
+                        color="black" focused
                         placeholder="Type something..."
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <SearchIcon color = "primary"></SearchIcon>
+                                    <SearchIcon color = "black"></SearchIcon>
                                 </InputAdornment>
                             ),
                         }}
                     ></TextField>
                     <Button
+                        color="black"
                         ref={buttonRef}
                         id={1} 
                         sx={{p:1.5, m:2}} 
                         variant="outlined" 
-                        color="primary" 
                         startIcon={<FilterAltIcon></FilterAltIcon>}
                         onClick={handleClick} 
                         >

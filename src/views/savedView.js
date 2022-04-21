@@ -5,6 +5,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+
 
 function SavedView(props) {
 
@@ -34,8 +37,9 @@ function SavedView(props) {
                 <Grid item key={drink['idDrink']}>
                     <Box>
                         <Typography align ="center" variant="h6" onClick={setCurrentDrinkACB}>{drink['strDrink']}</Typography>
-                        <Button onClick={removeDrinkACB} startIcon={<DeleteIcon></DeleteIcon>}></Button>
+                        <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
                         <Typography display="inline">Rating: {rating}</Typography>
+                        <br></br>
                         <br></br>
                         <img width='300px' src = {drink['strDrinkThumb']} align='center' onClick={setCurrentDrinkACB}></img>                    
                     </Box>

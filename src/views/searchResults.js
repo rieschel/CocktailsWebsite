@@ -6,8 +6,9 @@ import { Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import StarIcon from '@mui/icons-material/Star';
-
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
 
 function SearchResults(props){
 
@@ -22,8 +23,11 @@ function SearchResults(props){
         }
 
         function saveDrinkACB() {
-            console.log("view saved");
             props.onSaveDrink(result);
+        }
+
+        function removeDrinkACB() {
+            props.onDrinkRemove(result);
         }
 
         function getRatingACB() {
@@ -39,12 +43,26 @@ function SearchResults(props){
             window.location.hash = "#details";
         }
 
+        function getSaveButton() {
+            function sameDrinkCB(d) { if (d['idDrink']!=result['idDrink']) return true }
+            if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
+                return (
+                    <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
+                );
+            }
+            else {
+                return (
+                    <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+                );
+            }
+        }
+
         function userRating() {
             if(!props.currentUser.user) {return;}
             else { 
                 return (
                     <Box>
-                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
+                        {getSaveButton()}
                         <Typography display="inline">Rating: {getRatingACB()}</Typography>
                     </Box>
                 );

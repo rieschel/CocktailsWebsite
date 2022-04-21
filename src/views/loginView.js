@@ -46,7 +46,7 @@ function LoginView(props){
                 variant="standard" label='Username' placeholder='Enter username'onChange={usernameACB} fullWidth error={username==undefined &&triedToLogIn}/>
               <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
               <Button variant="contained" onClick={handleSubmitACB} style={{margin:'8px 0'}} fullWidth >Submit</Button>
-              <Button onClick={newAccountACB} fullWidth>Create new account</Button>
+              <Button color="black" onClick={newAccountACB} fullWidth>Create new account</Button>
           </Paper>
         </Grid>
       </ThemeProvider>
