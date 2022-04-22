@@ -53,13 +53,13 @@ function SearchView(props) {
             <ThemeProvider theme = {theme}>
                 <Box sx={{color:'background.main'}}>
                     <br></br>
-                    <Typography align="center" variant="h3" sx={{m:2, color:'black.main'}}>Search for drinks</Typography>
+                    <Typography align="center" variant="h4" sx={{m:2, color:'black.main'}}>Search for drinks</Typography>
                     <br></br>
                     <TextField 
                         onChange={textInputACB}
                         onKeyPress={handleKeyACB}
-                        width="70%"
-                        sx={{m:2}}
+                        //width=
+                        sx={{m:0, top:15, width:0.5}}
                         variant="outlined"
                         color="black" focused
                         placeholder="Type something..."
@@ -75,7 +75,7 @@ function SearchView(props) {
                         color="black"
                         ref={buttonRef}
                         id={1} 
-                        sx={{p:1.5, m:2}} 
+                        sx={{p:1.5, m:2, paddingTop:1.75, paddingBottom:1.75}} 
                         variant="outlined" 
                         startIcon={<FilterAltIcon></FilterAltIcon>}
                         onClick={handleClick} 

@@ -12,6 +12,11 @@ import IconButton from '@mui/material/IconButton';
 import { Badge } from "@mui/material";
 import {Rating} from  "@mui/material";
 
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+
 function SearchResults(props){
 
     // console.log(props.searchResults)
@@ -47,15 +52,18 @@ function SearchResults(props){
 
         function getSaveButton() {
             function sameDrinkCB(d) { if (d['idDrink']!=result['idDrink']) return true }
-            if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
-                return (
-                    <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
-                );
-            }
-            else {
-                return (
-                    <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
-                );
+            if(!props.currentUser.user) {return;}
+            else{
+                if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
+                    return (
+                        <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
+                    );
+                }
+                else {
+                    return (
+                        <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+                    );
+                }
             }
         }
 
@@ -63,7 +71,10 @@ function SearchResults(props){
             if(!props.currentUser.user) {return;}
             else { 
                 return (
-                    <Rating name="half-rating-read" defaultValue={getRatingACB()} readOnly />
+                    <Box>
+                        <Rating sx={{top:8}}name="half-rating-read" defaultValue={getRatingACB()}  readOnly />
+                        {/* {getSaveButton()} */}
+                    </Box>
                 );
             }
         }
@@ -71,7 +82,32 @@ function SearchResults(props){
         return (
             <ThemeProvider key={result['idDrink']} theme = {theme}>
                 <Grid item key = {result['idDrink']}>
-                    <Box>
+
+                <Badge badgeContent={ getSaveButton()} > 
+                    <Card onClick={setCurrentDrinkACB} sx={{ maxWidth: 300 }}>
+                        <CardMedia
+                            component="img"
+                            height="250"
+                            image={result['strDrinkThumb']}
+                            alt="green iguana"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {result['strDrink']}
+                            </Typography>
+                            {userRating()} 
+                        
+
+                        </CardContent>
+                    {/*  <CardActions>
+                            <Button size="small">Share</Button>
+                            <Button size="small">Learn More</Button>
+                        </CardActions> */}
+                    </Card>
+                </Badge>
+
+
+                    {/* <Box>
                         <Typography variant='h6' align='center' onClick={setCurrentDrinkACB}>{result['strDrink']}</Typography>
                         {userRating()}                        
                         <br></br>
@@ -79,7 +115,7 @@ function SearchResults(props){
                             <img src = {result['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
                         </Badge>
                         
-                    </Box>
+                    </Box> */}
                 </Grid>
             </ThemeProvider>
         );
