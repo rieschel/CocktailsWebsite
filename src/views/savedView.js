@@ -8,6 +8,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import { Badge } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import {Rating} from  "@mui/material";
+import Tooltip from '@mui/material/Tooltip';
+import CardActionArea from '@mui/material/CardActionArea';
 
 
 function SavedView(props) {
@@ -33,27 +40,50 @@ function SavedView(props) {
         
         const rating = getRatingACB();
 
+        function rateDrinkACB(event, newValue) {
+            props.onDrinkRate(drink, newValue);
+            setValue(newValue);
+        }
+
+        function userRating() {
+            return (
+                <Box>
+                    <Tooltip title="Rate">
+                        <Rating sx={{top:8}} name="half-rating-read" defaultValue={getRatingACB} onChange={rateDrinkACB}/>
+                    </Tooltip>
+                </Box>
+            );
+        }
+
         return (
             <ThemeProvider theme = {theme}>
                 <Grid item key={drink['idDrink']}>
-                    <Box>
-                        <Typography align ="center" variant="h6" onClick={setCurrentDrinkACB}>{drink['strDrink']}</Typography>
-                        {/* <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton> */}
-                        <Typography display="inline">Rating: {rating}</Typography>
-                        <br></br>
-                        <br></br>
-                        <Badge 
-                            badgeContent={
+                    <Badge 
+                        badgeContent={
+                            <Tooltip title="Delete">
                                 <IconButton 
                                     onClick={removeDrinkACB}>
                                         <FavoriteIcon color="heart"></FavoriteIcon>
-                                </IconButton>} 
-                                //color="secondary"
-                                >
-                                <img width='300px' src = {drink['strDrinkThumb']} align='center' onClick={setCurrentDrinkACB}></img> 
-                        </Badge>
-                                           
-                    </Box>
+                                </IconButton> 
+                            </Tooltip>}>
+                        <Tooltip title="Find out more">
+                            <Card sx={{maxWidth: 300}}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        onClick={setCurrentDrinkACB}
+                                        component="img"
+                                        height="250"
+                                        image={drink['strDrinkThumb']}
+                                        alt="green iguana"
+                                    />
+                                    <CardContent>
+                                        <Typography onClick={setCurrentDrinkACB} gutterBottom variant="h5" component="div">{drink['strDrink']}</Typography>
+                                        {userRating()}
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </Tooltip>                  
+                    </Badge>
                 </Grid>
             </ThemeProvider>
         );

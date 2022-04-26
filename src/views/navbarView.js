@@ -11,6 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchIcon from '@mui/icons-material/Search';
 
+
 function NavbarView(props){
 
     //console.log("Current user: " + props.currentUser)

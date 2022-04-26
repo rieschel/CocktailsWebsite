@@ -39,10 +39,14 @@ function SavedPresenter(props) {
         props.model.setCurrentUser({user: "", pass: ""});
     }
 
+    function rateDrinkACB(drink, rating) {
+        props.model.rateDrink(drink, rating);
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>
-            <SavedView drinkList={drinks} onDrinkRemove={removeDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}></SavedView>
+            <SavedView onDrinkRate={rateDrinkACB} drinkList={drinks} onDrinkRemove={removeDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}></SavedView>
         </ThemeProvider>
     );
 

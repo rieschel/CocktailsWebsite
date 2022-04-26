@@ -13,8 +13,10 @@ import { Popover } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
-
+import Tooltip from '@mui/material/Tooltip';
 import { Rating } from "@mui/material";
+import { Badge } from "@mui/material";
+
 
 
 function detailsView(props) {
@@ -27,8 +29,6 @@ function detailsView(props) {
     measures = measures.filter(emptyCB);
     let instructions = d.strInstructions.split("\r\n");
 
-    let sliderVal = 5;
-    function handleChangeCB(event, value) {sliderVal=value}
     const drink = {strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink};
 
     function saveDrinkACB() {
@@ -36,9 +36,9 @@ function detailsView(props) {
         props.onSaveDrink(drink);
     }
 
-    function rateDrinkACB() {
-        console.log("rate drink view");
-        props.onDrinkRate(drink, sliderVal);
+    function rateDrinkACB(event, newValue) {
+        props.onDrinkRate(drink, newValue);
+        setValue(newValue);
     }
 
     function removeDrinkACB() {
@@ -56,68 +56,33 @@ function detailsView(props) {
         else return drinkRating[drinkRating.length-1].r;
     }
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const buttonRef = React.useRef();
-    function handleClick() {
-        setAnchorEl(buttonRef.current);
-    }
-
-    function handleClose() {
-        setAnchorEl(null);
-        rateDrinkACB();
-    }
-
-    const open = Boolean(anchorEl);
-    const id = open ? "simple-popover" : undefined;
-
     function getSaveButton() {
         function sameDrinkCB(d) { if (d['idDrink']!=drink['idDrink']) return true }
+        if(!props.currentUser.user) {return;}
         if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
             return (
-                <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
+                <Tooltip title="Save">
+                    <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
+                </Tooltip>
             );
         }
         else {
             return (
-                <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+                <Tooltip title="Delete">
+                    <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+                </Tooltip>
             );
         }
     }
 
-    function getRating(){
+    function userRating(){
         if(!props.currentUser.user) {return;}
         else { 
             return (
                 <Box align center>
-                    <Rating size="large" name="half-rating-read" defaultValue={getRatingACB()}  readOnly />
-                </Box>
-            );
-        }
-    }
-
-    function userRating() {
-        if(!props.currentUser.user) {return;}
-        else { 
-            return (
-                <Box>
-                    {getSaveButton()}
-                    <IconButton id={1} ref={buttonRef} onClick={handleClick}><ThumbsUpDownIcon></ThumbsUpDownIcon></IconButton>
-                    <Typography display="inline">Rating: {getRatingACB()}</Typography>
-                    <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "center"
-                        }}
-                        transformOrigin={{
-                        vertical: "top",
-                        horizontal: "center"
-                    }}>
-                        <Slider sx={{m:3, p:3, width: '300px', mr: 6}} onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
-                    </Popover>
+                    <Tooltip title="Rate">
+                        <Rating size="large" name="half-rating-read" defaultValue={getRatingACB()}  onChange={rateDrinkACB} />
+                    </Tooltip>
                 </Box>
             );
         }
@@ -134,13 +99,20 @@ function detailsView(props) {
     return (
         <ThemeProvider theme={theme}>
             <br></br>
-            <Button color="black" onClick={goBackACB} startIcon={<ArrowBackIosIcon></ArrowBackIosIcon>}></Button>
+            <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
             
             <Typography sx={{m:2}} variant="h4" align="center">{props.drinkData[0].strDrink}</Typography>
             {/* {getRating()} */}
             <Grid container spacing={3}>
-                <Grid xs={4}  sx={{m:2}} item><img src={props.drinkData[0].strDrinkThumb} height="400px" ></img></Grid>
-                <Grid xs={2}item>
+                <Grid xs={4}  sx={{m:2}} item>
+                    <Badge badgeContent={getSaveButton()}>
+                        <Grid container direction='row' spacing={2}>
+                            <Grid item><img src={props.drinkData[0].strDrinkThumb} height="400px" ></img></Grid>
+                            <Grid item>{userRating()}</Grid>
+                        </Grid>
+                    </Badge>
+                </Grid>
+                <Grid sx={{m:2}} item>
                        <Typography variant="h5" align="left">Ingredients</Typography>                        
                         <table /* align="center" */>
                             <td>

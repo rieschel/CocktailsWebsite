@@ -4,6 +4,9 @@ import {ThemeProvider} from '@mui/material/styles';
 import theme from "../views/theme.js";
 import { useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from '@mui/material/IconButton';
+
 
 function LoginView(props){
     const [username, setUsername] = useState();
@@ -34,8 +37,14 @@ function LoginView(props){
         window.location.hash = "#create_new_account"
     }
 
+    function goBackACB() {
+        window.location.hash = props.previousPage;
+    }
+
     const renderForm = (
       <ThemeProvider key={"login"} theme={theme}>
+        <br></br>
+        <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
         <Grid>
           <Paper elevation={10} style={paperStyle}>
               <Grid align='center'>
@@ -55,7 +64,7 @@ function LoginView(props){
 
     return(
         renderForm
-    )
+    );
 }
 
 export default LoginView;

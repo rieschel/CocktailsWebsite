@@ -8,6 +8,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Typography from '@mui/material/Typography';
 import { Popover } from '@mui/material';
 import CheckboxesGroup from './filterMenu.js';
+import Tooltip from '@mui/material/Tooltip';
 
 import { searchDrinks } from '../drinkSource.js';
 import theme from "./theme.js";
@@ -55,33 +56,37 @@ function SearchView(props) {
                     <br></br>
                     <Typography align="center" variant="h4" sx={{m:2, color:'black.main'}}>Search for drinks</Typography>
                     <br></br>
-                    <TextField 
-                        onChange={textInputACB}
-                        onKeyPress={handleKeyACB}
-                        //width=
-                        sx={{m:0, top:15, width:0.5}}
-                        variant="outlined"
-                        color="black" focused
-                        placeholder="Type something..."
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon color = "black"></SearchIcon>
-                                </InputAdornment>
-                            ),
-                        }}
-                    ></TextField>
-                    <Button
-                        color="black"
-                        ref={buttonRef}
-                        id={1} 
-                        sx={{p:1.5, m:2, paddingTop:1.75, paddingBottom:1.75}} 
-                        variant="outlined" 
-                        startIcon={<FilterAltIcon></FilterAltIcon>}
-                        onClick={handleClick} 
-                        >
-                        Filter
-                    </Button>
+                    <Tooltip title="Search drinks by name">
+                        <TextField 
+                            onChange={textInputACB}
+                            onKeyPress={handleKeyACB}
+                            //width=
+                            sx={{m:0, top:15, width:0.5}}
+                            variant="outlined"
+                            color="black"
+                            placeholder="Type something..."
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon color = "black"></SearchIcon>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        ></TextField>
+                    </Tooltip>
+                    <Tooltip title="Filter drinks by ingredients">
+                        <Button
+                            color="black"
+                            ref={buttonRef}
+                            id={1} 
+                            sx={{p:1.5, m:2, paddingTop:1.75, paddingBottom:1.75}} 
+                            variant="outlined" 
+                            startIcon={<FilterAltIcon></FilterAltIcon>}
+                            onClick={handleClick} 
+                            >
+                            Filter
+                        </Button>
+                    </Tooltip>
                     <Popover
                         sx={{height: 700 ,maxHeight: 1000 , width:700}}
                         id={id}

@@ -3,6 +3,8 @@ import { Grid,Paper, Avatar, Button, Typography,Link } from '@mui/material'
 import {TextField} from '@mui/material'
 import {ThemeProvider} from '@mui/material/styles';
 import theme from "../views/theme.js";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from '@mui/material/IconButton';
 
 function CreateNewAccount(props) {
     const [username, setUsername] = useState();
@@ -26,9 +28,15 @@ function CreateNewAccount(props) {
         setPassWord(event.target.value)
     }
 
+    function goBackACB() {
+      window.location.hash = "login";
+    }
+
   const renderForm = (
     <ThemeProvider key={"new_account"} theme={theme}>
         <Grid>
+        <br></br>
+        <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
           <Paper elevation={10} style={paperStyle}>
               <Grid align='center'>
                   <Avatar style={{margin:10}}></Avatar>

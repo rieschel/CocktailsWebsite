@@ -110,13 +110,17 @@ function SearchPresenter(props){
     function logoutACB(){
         props.model.setCurrentUser({user: "", pass: ""});
     }
+
+    function rateDrinkACB(drink, rating) {
+        props.model.rateDrink(drink, rating);
+    }
         
     return (
 
         <Box  sx={{ flexGrow: 1}}>
                 <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>
                 <SearchView currentUser={props.model.currentUser} drinkList={drinks} onSearch={doDrinkSearchACB}  onTextInput={setDrinkNameACB} onFilter={doIngrSearchACB}> </SearchView>
-                {promiseNoData({promise, data, error}) || <SearchResults onDrinkRemove={removeDrinkACB} drinkList={drinks} searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB} currentUser={props.model.currentUser}/>}
+                {promiseNoData({promise, data, error}) || <SearchResults onDrinkRate={rateDrinkACB} onDrinkRemove={removeDrinkACB} drinkList={drinks} searchResults={data} onCurrentDrink={setCurrentDrinkACB} onSaveDrink={saveDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB} currentUser={props.model.currentUser}/>}
 
          </Box>
     );
