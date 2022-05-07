@@ -88,14 +88,14 @@ function RandomDrinkView(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid item key={props.randomDrink["idDrink"]}>
+      <Typography align="center">
         <Badge badgeContent={getSaveButton()}>
           <Card sx={{ maxWidth: 300 }}>
             <CardActionArea>
               <CardMedia
                 onClick={setCurrentDrinkACB}
                 component="img"
-                height="250"
+                height="350"
                 image={props.randomDrink["strDrinkThumb"]}
               />
               <CardContent>
@@ -107,7 +107,7 @@ function RandomDrinkView(props) {
             </CardActionArea>
           </Card>
         </Badge>
-      </Grid>
+      </Typography>
     </ThemeProvider>
   );
 }
