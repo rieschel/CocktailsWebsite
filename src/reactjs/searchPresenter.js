@@ -39,9 +39,7 @@ function SearchPresenter(props) {
   const [drinks, setDrinks] = React.useState([]);
 
   // Initialize the promise. In order to not initiate a promise at each render, the promise needs to be returned by a callback.
-  const [promise, setPromise] = React.useState(function initializePromiseACB() {
-    return searchDrinkByIngredient({ i: "" });
-  });
+  const [promise, setPromise] = React.useState();
 
   function promiseChangedACB() {
     setData(null);
