@@ -16,6 +16,26 @@ function getDrinkDetails(drinkid){
         .then(treatHTTPResponseACB).then(transformResultACB));
 }
 
+function generateRandomDrink(){
+    function treatHTTPResponseACB(response){ 
+        console.log("generating drink")
+        if (response.status!==200 ) throw "API problem";     // or response.status!==200 
+        return response.json();
+    }
+
+    function transformResultACB(result) {
+        console.log("inside transforming")
+        console.log(Object.values(result)[0][0])
+        return Object.values(result)[0][0];
+    }
+
+
+    return (
+
+        fetch('https://www.thecocktaildb.com/api/json/v2/' + API_KEY + '/random.php')
+        .then(treatHTTPResponseACB).then(transformResultACB));
+}
+
 
 
 
@@ -68,5 +88,5 @@ function searchDrinkByIngredient(params){
         .then(treatHTTPResponseACB).then(transformResultACB));
 } 
 
-export {searchDrinks, searchDrinkByIngredient, searchDrinkByName, fetchIngredientList, getDrinkDetails}
+export {searchDrinks, searchDrinkByIngredient, searchDrinkByName, fetchIngredientList, getDrinkDetails, generateRandomDrink}
 

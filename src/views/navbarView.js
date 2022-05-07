@@ -28,6 +28,12 @@ function NavbarView(props){
         }
     }
 
+    function changeToShakeitupACB(event){
+        if(window.location.hash != "#shakeitup"){
+            window.location.hash = "#shakeitup";
+        }
+    }
+
     function logoutACB(){
         props.onLogout();
         window.location.hash = "#login"
@@ -70,7 +76,7 @@ function NavbarView(props){
            <Box sx={{flexGrow: 1}}>
                 <AppBar position='static' color="primary">
                     <Toolbar>
-                        <Typography variant="h6" sx={{m:2}} onClick={changeToSearchACB}>ShakeItUp!</Typography>
+                        <Typography variant="h6" sx={{m:2}} onClick={changeToShakeitupACB}>ShakeItUp!</Typography>
                         <Button onClick={changeToSearchACB} sx={{m:2}} variant={getButtonVariant("#search")} color="secondary" startIcon={<SearchIcon></SearchIcon>}>Search</Button>
                         {savedDrinksACB()}
                         <Box sx={{flexGrow: 1}}></Box>

@@ -1,3 +1,3 @@
-if(window.location.hash != "#login" || window.location.hash != "#details" || window.location.hash != "saved_drinks"){
-    window.location.hash = "#search";
+if(window.location.hash != "#login" || window.location.hash != "#details" || window.location.hash != "saved_drinks" || window.location.hash != "search"){
+    window.location.hash = "#shakeitup";
 }
