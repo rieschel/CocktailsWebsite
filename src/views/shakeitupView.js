@@ -6,11 +6,7 @@ import { generateRandomDrink } from "../drinkSource.js";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-function ShakeitupView(props) {
-  function doSearchACB() {
-    console.log("Clicking generate");
-    props.onSearch();
-  }
+function ShakeitupView(props){
 
   return (
     <ThemeProvider theme={theme}>
@@ -19,18 +15,10 @@ function ShakeitupView(props) {
         variant="h4"
         sx={{ m: 2, color: "black.main" }}
       >
-        Random drink generator
+        SHAKE IT UP!
       </Typography>
-      <Typography align="center">
-        <Button
-          align="center"
-          color="black"
-          variant="outlined"
-          onClick={doSearchACB}
-        >
-          SHAKE IT UP!
-        </Button>
-      </Typography>
+      {/* <img src = "https://cdn-icons-png.flaticon.com/512/920/920632.png" height={'100'}></img> */}
+      
     </ThemeProvider>
   );
 }

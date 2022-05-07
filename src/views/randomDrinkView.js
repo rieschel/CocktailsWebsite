@@ -16,7 +16,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import { SettingsOverscanOutlined } from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 function RandomDrinkView(props) {
   function saveDrinkACB() {
@@ -47,25 +48,33 @@ function RandomDrinkView(props) {
   }
 
   function getSaveButton() {
-    function sameDrinkCB(d) { if (d['idDrink']!=props.randomDrink['idDrink']) return true }
-    if(!props.currentUser.user) {return;}
-    else{
-        if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
-            return (
-                <Tooltip title="Save">
-                    <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
-                </Tooltip>
-            );
-        }
-        else {
-            return (
-                <Tooltip title="Delete">
-                    <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
-                </Tooltip>
-            );
-        }
+    function sameDrinkCB(d) {
+      if (d["idDrink"] != props.randomDrink["idDrink"]) return true;
     }
-}
+    if (!props.currentUser.user) {
+      return;
+    } else {
+      if (
+        props.drinkList.filter(sameDrinkCB).length == props.drinkList.length
+      ) {
+        return (
+          <Tooltip title="Save">
+            <IconButton onClick={saveDrinkACB}>
+              <FavoriteBorderIcon color="heart"></FavoriteBorderIcon>
+            </IconButton>
+          </Tooltip>
+        );
+      } else {
+        return (
+          <Tooltip title="Delete">
+            <IconButton onClick={removeDrinkACB}>
+              <FavoriteIcon color="heart"></FavoriteIcon>
+            </IconButton>
+          </Tooltip>
+        );
+      }
+    }
+  }
 
   function userRating() {
     if (!props.currentUser.user) {
@@ -86,8 +95,18 @@ function RandomDrinkView(props) {
     }
   }
 
+  function resetACB() {
+    props.onReset();
+  }
+
   return (
     <ThemeProvider theme={theme}>
+      <Typography align="center">
+        <Button variant="contained" onClick={resetACB}>
+          Reshake!
+        </Button>
+      </Typography>
+      <br></br>
       <Typography align="center">
         <Badge badgeContent={getSaveButton()}>
           <Card sx={{ maxWidth: 300 }}>

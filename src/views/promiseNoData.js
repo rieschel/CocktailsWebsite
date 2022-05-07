@@ -2,7 +2,7 @@ function promiseNoData(promiseState){
     /* console.log("inside promise no data")
     console.log(promiseState) */
     if(!promiseState.promise){
-        return (<div>no data</div>);
+        return (<div></div>);
     }
     else if (!promiseState.data && !promiseState.error){
         //TODO: Borde vara laddningssymbol, men skriver man ett namn på en cocktail som inte finns så går den in här.
