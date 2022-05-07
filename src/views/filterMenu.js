@@ -13,7 +13,20 @@ export default function CheckboxesGroup(props) {
   const [error, setError] = React.useState();
   const [data, setData] = React.useState();
 
-  const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}];
+  const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}, {name:"light rum", checked:false}, {name:"dark rum", checked:false}, {name:"applejack", checked:false}, {name:"sweet vermouth", checked:false}];
+  //Alkoholer = Strawberry schnapps, Scotch, Apricot brandyTriple sec
+  //Southern Comfort, Orange bitters, Brandy, Lemon vodka, Blended whiskey, Dry Vermouth
+  // Amaretto, Tea, Champagne, Coffee liqueur, Bourbon, Tequila, Vodka, Añejo rum, Bitters, Sugar
+  // Kahlua, demerara Sugar, Dubonnet Rouge, Watermelon, Lime juice, Irish whiskey, Apple brandy
+  // Carbonated water, Cherry brandy, Creme de Cacao, Grenadine, Port, Coffee brandy, Red wine
+  // Rum, Grapefruit juice, Ricard, Sherry, Cognac, Sloe gin, Apple juice, Pineapple juice
+  // Lemon juice, Sugar syrup, Milk, Strawberries, Chocolate syrup, Yoghurt, Mango, Ginger
+  // Lime, Cantaloupe, Berries, Grapes, Kiwi, Tomato juice, Cocoa powder, Chocolate
+  // Heavy cream, Galliano, Peach Vodka, Ouzo, Coffee, Spiced rum, Water
+  // Espresso, Angelica root, Orange, Cranberries, Johnnie Walker, Apple cider, Everclear
+  // Cranberry juice, Egg yolk, Egg, Grape juice, Peach nectar, Lemon, Firewater
+  // Lemonade, Lager, Whiskey, Absolut Citron, Pisco, Irish cream, Ale,Chocolate liqueur
+  // Midori melon liqueur, Sambuca, Cider, Sprite, 7-Up, Blackberry brandy, Peppermint schnapps, Creme de Cassis
  
   const garnish = [{name:"lemon", checked:false}, {name:"orange", checked:false}, {name:"basil", checked:false}];
 
@@ -43,6 +56,8 @@ export default function CheckboxesGroup(props) {
   };
 
   function renderACheckbox(ing){
+    console.log("rendering checkbox")
+    console.log(props.ingredients)
     return(
       <FormControlLabel
         key={ing.name}

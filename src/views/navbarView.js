@@ -76,7 +76,8 @@ function NavbarView(props){
            <Box sx={{flexGrow: 1}}>
                 <AppBar position='static' color="primary">
                     <Toolbar>
-                        <Typography variant="h6" sx={{m:2}} onClick={changeToShakeitupACB}>ShakeItUp!</Typography>
+                        {/* <Typography variant="h6" sx={{m:2}} onClick={changeToShakeitupACB}>ShakeItUp!</Typography> */}
+                        <Button onClick={changeToShakeitupACB} sx={{m:2}} variant={getButtonVariant("#shakeitup")} color="secondary">Shake it up!</Button>
                         <Button onClick={changeToSearchACB} sx={{m:2}} variant={getButtonVariant("#search")} color="secondary" startIcon={<SearchIcon></SearchIcon>}>Search</Button>
                         {savedDrinksACB()}
                         <Box sx={{flexGrow: 1}}></Box>

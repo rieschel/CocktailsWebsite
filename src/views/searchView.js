@@ -9,8 +9,6 @@ import Typography from '@mui/material/Typography';
 import { Popover } from '@mui/material';
 import CheckboxesGroup from './filterMenu.js';
 import Tooltip from '@mui/material/Tooltip';
-
-import { searchDrinks } from '../drinkSource.js';
 import theme from "./theme.js";
 
 function SearchView(props) {
@@ -102,7 +100,7 @@ function SearchView(props) {
                         horizontal: "center"
                         }}
                     >
-                        <CheckboxesGroup onFilter={filterACB} onClose={handleClose} />
+                        <CheckboxesGroup onFilter={filterACB} onClose={handleClose}/>
                     </Popover>    
                     {/* {props.drinks.map(renderDrinkCB)} */}
 

@@ -1,4 +1,4 @@
-import { getDrinkDetails } from "./drinkSource";
+import { getAllIngredients, getDrinkDetails} from "./drinkSource";
 import resolvePromise from "./resolvePromise";
 
 class DrinkModel {
@@ -6,7 +6,6 @@ class DrinkModel {
     constructor() {
         this.observers = [];
         this.drinks = [];
-
         this.ratings = [];
         this.currentDrinkPromiseState = {};
         this.previousHash = "#search"

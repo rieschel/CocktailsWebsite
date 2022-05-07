@@ -20,11 +20,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 function RandomDrinkView(props) {
+  const [saved, setSaved] = React.useState(false);
+
   function saveDrinkACB() {
+    setSaved(true);
     props.onSaveDrink(props.randomDrink);
   }
 
   function removeDrinkACB() {
+    setSaved(false);
     props.onDrinkRemove(props.randomDrink);
   }
 
@@ -54,9 +58,7 @@ function RandomDrinkView(props) {
     if (!props.currentUser.user) {
       return;
     } else {
-      if (
-        props.drinkList.filter(sameDrinkCB).length == props.drinkList.length
-      ) {
+      if (!saved) {
         return (
           <Tooltip title="Save">
             <IconButton onClick={saveDrinkACB}>
