@@ -39,13 +39,18 @@ function SavedPresenter(props) {
         props.model.setCurrentUser({user: "", pass: ""});
     }
 
+    function deleteUserACB() {
+        props.model.deleteUser(props.model.currentUser);
+        props.model.setCurrentUser({user: "", pass: ""});
+    }
+
     function rateDrinkACB(drink, rating) {
         props.model.rateDrink(drink, rating);
     }
 
     return (
         <ThemeProvider theme={theme}>
-            <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB}></NavbarView>
+            <NavbarView currentUser={props.model.currentUser} onLogout={logoutACB} onDeleteUser={deleteUserACB}></NavbarView>
             <SavedView onDrinkRate={rateDrinkACB} drinkList={drinks} onDrinkRemove={removeDrinkACB} onCurrentDrink={setCurrentDrinkACB} ratingList={ratings} onHashChange={setPreviousHashACB}></SavedView>
         </ThemeProvider>
     );

@@ -22,15 +22,39 @@ class DrinkModel {
     }
 
     addUser(user){
+
         var i;
-        for(i = 0; i < this.users.length; i++){
-            if(this.users[i].user == user.user){
+            for(i = 0; i < this.users.length; i++){
+                if(this.users[i].user == user.user){
+                    return "Username already exists";
+                }
+            }
+        
+        if(user.pass.length < 6 || user.pass.length > 20) {
+            return "Password should be between 6 and 20 characters!";
+        }
+
+        if(user.user.length < 3 || user.user.length > 20) {
+            return "Username should be between 3 and 20 characters!";
+        }
+
+        this.users = [...this.users, user];
+        this.notifyObservers({addUser: user})
+        return "New user successfully created!";
+    }
+
+    deleteUser(user){
+        function sameUserCB(u) { 
+            if (u.user != user.user) {
                 return false
             }
         }
-        this.users = [...this.users, user];
-        this.notifyObservers({addUser: user})
-        return true
+
+        if(this.users.filter(sameUserCB).length != this.users.length) {
+            this.users = this.users.filter(sameUserCB);
+            this.notifyObservers({removeUser: user});
+        }
+
     }
 
     checkValidUser(user){

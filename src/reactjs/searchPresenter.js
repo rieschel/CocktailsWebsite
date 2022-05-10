@@ -115,6 +115,11 @@ function SearchPresenter(props) {
   function logoutACB() {
     props.model.setCurrentUser({ user: "", pass: "" });
   }
+  
+  function deleteUserACB() {
+    props.model.deleteUser(props.model.currentUser);
+    props.model.setCurrentUser({user: "", pass: ""});
+  }
 
   function rateDrinkACB(drink, rating) {
     props.model.rateDrink(drink, rating);
@@ -125,6 +130,7 @@ function SearchPresenter(props) {
       <NavbarView
         currentUser={props.model.currentUser}
         onLogout={logoutACB}
+        onDeleteUser={deleteUserACB}
       ></NavbarView>
       <SearchView
         currentUser={props.model.currentUser}

@@ -41,12 +41,15 @@ function ShakeitupPresenter(props) {
   React.useEffect(promiseChangedACB, [promise]);
 
   function doRandomDrinkSearchACB() {
-    console.log("inside presenter");
     setPromise(generateRandomDrink());
-    console.log("completed promise");
   }
   function logoutACB() {
     props.model.setCurrentUser({ user: "", pass: "" });
+  }
+
+  function deleteUserACB() {
+    props.model.deleteUser(props.model.currentUser);
+    props.model.setCurrentUser({user: "", pass: ""});
   }
 
   function saveDrinkACB(drink) {
@@ -78,6 +81,7 @@ function ShakeitupPresenter(props) {
       <NavbarView
         currentUser={props.model.currentUser}
         onLogout={logoutACB}
+        onDeleteUser={deleteUserACB}
       ></NavbarView>
       <ShakeitupView onSearch={doRandomDrinkSearchACB}></ShakeitupView>
       {(promiseNoData({ promise, data, error }) && (

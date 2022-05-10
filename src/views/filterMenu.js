@@ -56,8 +56,6 @@ export default function CheckboxesGroup(props) {
   };
 
   function renderACheckbox(ing){
-    console.log("rendering checkbox")
-    console.log(props.ingredients)
     return(
       <FormControlLabel
         key={ing.name}
