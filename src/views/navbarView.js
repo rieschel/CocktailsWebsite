@@ -163,8 +163,16 @@ function NavbarView(props){
                         <Dialog open={open2} onClose={handleClose2}>
                             <DialogTitle>Info</DialogTitle>
                             <DialogContent>
-                                <DialogContentText>
-                                    Massa infoooo
+                                <DialogContentText maxWidth="500px">
+                                    With ShakeItUp you can find your new favourite drinks.
+                                    <br></br>
+                                    Search for drinks by name or filter drinks by ingredients.
+                                    <br></br>
+                                    Create an account to save and rate drinks.
+                                    <br></br>
+                                    Don't know how to ShakeItUp? Here's how!
+                                    <br></br>
+                                    YOUTUBE!!!
                                 </DialogContentText>
                             </DialogContent>
                         </Dialog>
