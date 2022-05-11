@@ -18,15 +18,22 @@ function SearchView(props) {
     const [alcList, setAlcList] = React.useState([...alc]);
     const [garnishList, setGarnishList] = React.useState([...garnish]);
 
+    const [colorText, setColorText] = React.useState('background.main');
+    const [colorFilter, setColorFilter] = React.useState('background.main');
+
     /* console.log("Searchview value of alc "+ props.alc) */
     const [anchorEl, setAnchorEl] = React.useState(null);
     const buttonRef = React.useRef();
+
     function handleClick() {
+        setColorText("grey");
+        setColorFilter('background.main')
         setAnchorEl(buttonRef.current);
     }
 
     function handleClose() {
         setAnchorEl(null);
+        setColorText('background.main')
     }
 
     const open = Boolean(anchorEl);
@@ -44,6 +51,11 @@ function SearchView(props) {
 
     function textInputACB(event){
         /* console.log("inside search view") */
+        if(event.target.value == ""){
+            setColorFilter('background.main')
+        }else{
+            setColorFilter('grey')
+        }
         console.log(event.target.value)
         props.onTextInput(event.target.value);
     }
@@ -73,7 +85,7 @@ function SearchView(props) {
                             onChange={textInputACB}
                             onKeyPress={handleKeyACB}
                             //width=
-                            sx={{m:0, top:15, width:0.5}}
+                            sx={{m:0, top:15, width:0.5, 'background-color': colorText}}
                             variant="outlined"
                             color="black"
                             placeholder="Type something..."
@@ -91,7 +103,7 @@ function SearchView(props) {
                             color="black"
                             ref={buttonRef}
                             id={1} 
-                            sx={{p:1.5, m:2, paddingTop:1.75, paddingBottom:1.75}} 
+                            sx={{p:1.5, m:2, paddingTop:1.75, paddingBottom:1.75, 'background-color':colorFilter}} 
                             variant="outlined" 
                             startIcon={<FilterAltIcon></FilterAltIcon>}
                             onClick={handleClick} 
