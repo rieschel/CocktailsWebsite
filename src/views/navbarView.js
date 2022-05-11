@@ -165,11 +165,11 @@ function NavbarView(props){
                             <DialogContent>
                                 <DialogContentText maxWidth="500px">
                                     With ShakeItUp you can find your new favourite drinks.
-                                    <br></br>
+                                    <br></br><br></br>
                                     Search for drinks by name or filter drinks by ingredients.
                                     <br></br>
                                     Create an account to save and rate drinks.
-                                    <br></br>
+                                    <br></br><br></br>
                                     Don't know how to ShakeItUp? Here's how!
                                     <br></br>
                                     YOUTUBE!!!

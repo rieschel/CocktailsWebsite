@@ -25,7 +25,7 @@ class DrinkModel {
 
         var i;
             for(i = 0; i < this.users.length; i++){
-                if(this.users[i].user == user.user){
+                if(this.users[i].user.toLowerCase() == user.user.toLowerCase()){
                     return "Username already exists";
                 }
             }
@@ -36,6 +36,10 @@ class DrinkModel {
 
         if(user.user.length < 3 || user.user.length > 20) {
             return "Username should be between 3 and 20 characters!";
+        }
+
+        if(user.user.toLowerCase() == user.pass.toLowerCase()) {
+            return "Username can not be the same as password!";
         }
 
         this.users = [...this.users, user];
@@ -52,6 +56,8 @@ class DrinkModel {
 
         if(this.users.filter(sameUserCB).length != this.users.length) {
             this.users = this.users.filter(sameUserCB);
+            this.drinks = [];
+            this.ratings = [];
             this.notifyObservers({removeUser: user});
         }
 
