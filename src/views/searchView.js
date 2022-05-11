@@ -17,6 +17,10 @@ function SearchView(props) {
     /* console.log("Searchview value of alc "+ props.alc) */
     const [anchorEl, setAnchorEl] = React.useState(null);
     const buttonRef = React.useRef();
+
+   /*  var element = document.getElementById("root");
+    element.style.backgroundColor = "#F9FAF0"; */
+
     function handleClick() {
         setAnchorEl(buttonRef.current);
     }
