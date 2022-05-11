@@ -37,7 +37,6 @@ function detailsView(props) {
     const drink = {strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink};
 
     function saveDrinkACB() {
-        console.log("view saved");
         props.onSaveDrink(drink);
     }
 
@@ -57,7 +56,7 @@ function detailsView(props) {
     function getRatingACB() {
         function sameDrinkCB(e) {if (e.d==d.idDrink) return true }
         let drinkRating = props.ratingList.filter(sameDrinkCB);
-        if(drinkRating.length==0) return "not rated yet";
+        if(drinkRating.length==0) return 0;
         else return drinkRating[drinkRating.length-1].r;
     }
 
@@ -86,7 +85,7 @@ function detailsView(props) {
             return (
                 <Box align center>
                     <Tooltip title="Rate">
-                        <Rating size="large" name="half-rating-read" defaultValue={getRatingACB()}  onChange={rateDrinkACB} />
+                        <Rating size="large" name="half-rating-read" value={getRatingACB()}  onChange={rateDrinkACB} />
                     </Tooltip>
                 </Box>
             );
@@ -153,49 +152,6 @@ function detailsView(props) {
             </Card>
         </ThemeProvider>   
         
-        /* <ThemeProvider theme={theme}>
-            <br></br>
-            <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
-            
-            <Typography sx={{m:2}} variant="h4" align="center">{props.drinkData[0].strDrink}</Typography>
-            { {getRating()} }
-            <Grid container spacing={3}>
-                <Grid xs={6} md={4} sx={{m:2}} item>
-                    <Badge badgeContent={getSaveButton()}>
-                        <Grid container direction='row' spacing={2}>
-                            <Grid item><img src={props.drinkData[0].strDrinkThumb} height="400px" width="400px"></img></Grid>
-                            <Grid item>{userRating()}</Grid>
-                        </Grid>
-                    </Badge>
-                </Grid>
-                <Grid xs={6} md={3} sx={{m:2}} item>
-                       <Typography variant="h5" align="left">Ingredients</Typography>    
-                       <Box>                   
-                            <table align="left" >
-                                <td>
-                                    <Grid sx={{m:2}}container direction='column' spacing = {{xs:2, md:2}} >
-                                        {measures.map(renderCB)}
-                                        
-                                    </Grid>
-                                    
-                                </td>
-                                <td>
-                                    <Grid sx={{m:2}} container direction='column' spacing = {{xs:2, md:2}} >
-                                        {ingredients.map(renderCB)}
-                                    </Grid>
-                                </td>
-                            </table>
-                        </Box> 
-                    </Grid>
-                    <Grid xs ={6} md={3} item>
-
-                        <Typography variant="h5" >Instructions</Typography>
-                        <Box align="center" >
-                            {instructions.map(renderCB)}
-                        </Box>                                                
-                </Grid>
-            </Grid>            
-        </ThemeProvider>  */
     );
 }
 

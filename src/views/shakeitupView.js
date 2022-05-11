@@ -1,12 +1,9 @@
 import React from "react";
 import theme from "../views/theme.js";
 import { ThemeProvider } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import { generateRandomDrink } from "../drinkSource.js";
 import { Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
 
-function ShakeitupView(props){
+function ShakeitupView(){
 
   return (
     <ThemeProvider theme={theme}>
@@ -17,8 +14,6 @@ function ShakeitupView(props){
       >
         SHAKE IT UP!
       </Typography>
-      {/* <img src = "https://cdn-icons-png.flaticon.com/512/920/920632.png" height={'100'}></img> */}
-      
     </ThemeProvider>
   );
 }

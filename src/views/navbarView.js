@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import {ThemeProvider} from '@mui/material/styles';
 import theme from "../views/theme.js";
-import { getPopoverUtilityClass, IconButton, Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Box } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
@@ -21,14 +21,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import logo from "../../public/images/shake_it_up_logo.jpg";
-import InputAdornment from "@mui/material/InputAdornment";
 
 
 function NavbarView(props){
 
-    //console.log("Current user: " + props.currentUser)
-
-    // popover 1
     const [anchorEl1, setAnchorEl1] = React.useState(null);
     const buttonRef1 = React.useRef();
     function handleClick1() {
@@ -106,7 +102,6 @@ function NavbarView(props){
         else {
             return <Button onClick={changeToSavedACB} sx={{m:2}} variant={getButtonVariant("#saved_drinks")} color="secondary" startIcon={<FavoriteBorderIcon></FavoriteBorderIcon>}>Saved Drinks</Button>;
         }
-        // return <Button onClick={changeToSavedACB} sx={{m:2}} variant={getButtonVariant("#saved_drinks")} color="secondary">Saved Drinks</Button>;
     }
 
     function getButton() {
@@ -151,7 +146,6 @@ function NavbarView(props){
                         <Box sx={{mb:1, ml:1, mr:4}}>
                             <img width="120" src={logo}></img>
                         </Box>
-                        {/* <Typography variant="h6" sx={{m:2}} onClick={changeToShakeitupACB}>ShakeItUp!</Typography> */}
                         <Button onClick={changeToSearchACB} sx={{m:2}} variant={getButtonVariant("#search")} color="secondary" startIcon={<SearchIcon></SearchIcon>}>Search</Button>
                         <Button onClick={changeToShakeitupACB} sx={{m:2}} variant={getButtonVariant("#shakeitup")} color="secondary">Get Random Drink</Button>
                         {savedDrinksACB()}
@@ -180,7 +174,7 @@ function NavbarView(props){
                                     <br></br>
                                     <br></br>
 
-                                    <iframe width="400" height="225" src="https://www.youtube.com/embed/d0OYR5t8xZY?start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="400" height="225" src="https://www.youtube.com/embed/d0OYR5t8xZY?start=7" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 </DialogContentText>
                             </DialogContent>
                         </Dialog>

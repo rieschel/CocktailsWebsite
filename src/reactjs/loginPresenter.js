@@ -1,5 +1,5 @@
 import LoginView from "../views/loginView";
-import { checkUser, updateModelFromFirebase } from "../firebaseModel";
+import { updateModelFromFirebase } from "../firebaseModel";
 
 function LoginPresenter(props){
     function loginACB(user){

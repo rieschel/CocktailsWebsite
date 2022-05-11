@@ -4,17 +4,12 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import { Button, Divider } from '@mui/material';
-import { fetchIngredientList} from '../drinkSource';
 import Grid from '@mui/material/Grid';
 
 
 export default function CheckboxesGroup(props) {
-  const [error, setError] = React.useState();
-  const [data, setData] = React.useState();
-
   
   //Alkoholer = Strawberry schnapps, Scotch, Apricot brandyTriple sec
   //Southern Comfort, Orange bitters, Brandy, Lemon vodka, Blended whiskey, Dry Vermouth
@@ -29,31 +24,18 @@ export default function CheckboxesGroup(props) {
   // Cranberry juice, Egg yolk, Egg, Grape juice, Peach nectar, Lemon, Firewater
   // Lemonade, Lager, Whiskey, Absolut Citron, Pisco, Irish cream, Ale,Chocolate liqueur
   // Midori melon liqueur, Sambuca, Cider, Sprite, 7-Up, Blackberry brandy, Peppermint schnapps, Creme de Cassis
- 
-  
-
-  //const promise = React.useState(function initializePromiseACB(){ const first = fetchIngredientList(); first.then(function saveDataACB(dt){setData(dt);}).catch(function saveErrACB(er){setError(er)})});
-    
-  //console.log("data "+ props.alc);     
-  
-  /* const [alcList, setAlclist] = React.useState([...props.alc]);
-  const [garnishList, setGarnishList] = React.useState([...props.garnish]); */
 
   const handleAlcChange = (event) => {
-    console.log(event.target.checked)
     const temp = [...props.alc]
     const objIndex = temp.findIndex((obj => obj.name == event.target.name));
     temp[objIndex].checked = !temp[objIndex].checked; 
-    props.onChangeAlc([...temp]);
-    //setAlclist([...temp]);    
+    props.onChangeAlc([...temp]); 
   };
 
   const handleGarnishChange = (event) => {
-    console.log(event.target.name)
     const temp = [...props.garnish]
     const objIndex = temp.findIndex((obj => obj.name == event.target.name));
     temp[objIndex].checked = !temp[objIndex].checked; 
-    //setGarnishList([...temp]);
     props.onChangeGar([...temp])
   };
 
@@ -80,24 +62,15 @@ export default function CheckboxesGroup(props) {
   }
 
   function filterACB(){
-    //console.log(alcList);
-    //const searchAlc = alcList.map(alc => {if (alc.checked ==true) return alc.name}).join();
     const searchAlc = props.alc.map(alc => {if (alc.checked ==true) return alc.name}).join();
-    //const searchGarnish = garnishList.map(garnish => {if (garnish.checked ==true) return garnish.name}).join();
     const searchGarnish = props.garnish.map(garnish => {if (garnish.checked ==true) return garnish.name}).join();
     const searchParams = searchAlc + "," + searchGarnish
     const clean = searchParams.replace(/^,,*|,+(?=,|$)/g, '');
-    console.log("search "+clean)
     if (clean===""){
       alert("no filters were selected")
     } 
-    //console.log(clean); 
     props.onFilter(clean);
 
-  }
-
-  function closeACB(){
-    props.onClose();
   }
 
   
@@ -141,10 +114,6 @@ export default function CheckboxesGroup(props) {
           { props.garnish.map(renderGCheckbox)}  
         </FormGroup>
       </FormControl>
-      
-      {/* <Button variant='text' sx={{p:0, right:20,left:5, height:40}}  onClick={closeACB}>
-        X
-      </Button> */}
 
       <Grid container direction="column" spacing={2} sx={{mt:3}}>
         <Grid item><Button variant='contained' onClick={resetACB}>Reset</Button></Grid>

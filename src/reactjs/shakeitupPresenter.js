@@ -10,6 +10,7 @@ import RandomDrinkView from "../views/randomDrinkView.js";
 import { generateRandomDrink } from "../drinkSource.js";
 import { Typography } from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
+import { Box } from "@mui/system";
 
 function ShakeitupPresenter(props) {
   const [error, setError] = React.useState();
@@ -39,6 +40,21 @@ function ShakeitupPresenter(props) {
   }
 
   React.useEffect(promiseChangedACB, [promise]);
+
+    const [drinks, setDrinks] = React.useState([]);
+    const [ratings, setRatings] = React.useState([]);
+
+    function observerACB() {
+        setDrinks(props.model.drinks);
+        setRatings(props.model.ratings);
+    }
+
+    function onCreateACB() {
+        observerACB();
+        props.model.addObserver(observerACB);
+        return function isTakenDownACB(){ props.model.removeObserver(observerACB);}
+    }
+    React.useEffect(onCreateACB, []);
 
   function doRandomDrinkSearchACB() {
     setPromise(generateRandomDrink());
@@ -78,12 +94,22 @@ function ShakeitupPresenter(props) {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box>
       <NavbarView
         currentUser={props.model.currentUser}
         onLogout={logoutACB}
         onDeleteUser={deleteUserACB}
       ></NavbarView>
-      <ShakeitupView onSearch={doRandomDrinkSearchACB}></ShakeitupView>
+      {/* <ShakeitupView onSearch={doRandomDrinkSearchACB}></ShakeitupView> */}
+      <ThemeProvider theme={theme}>
+      <Typography
+        align="center"
+        variant="h4"
+        sx={{ m: 2, color: "black.main" }}
+      >
+        SHAKE IT UP!
+      </Typography>
+    </ThemeProvider>
       {(promiseNoData({ promise, data, error }) && (
         <Typography align="center">
           <Tooltip title="Click me to generate random drink">
@@ -99,16 +125,17 @@ function ShakeitupPresenter(props) {
         <RandomDrinkView
           onReset={resetACB}
           onDrinkRate={rateDrinkACB}
-          ratingList={props.model.ratings}
+          ratingList={ratings}
           onHashChange={setPreviousHashACB}
           onCurrentDrink={setCurrentDrinkACB}
           onDrinkRemove={removeDrinkACB}
           currentUser={props.model.currentUser}
-          drinkList={props.model.drinks}
+          drinkList={drinks}
           onSaveDrink={saveDrinkACB}
           randomDrink={data}
         />
       )}
+      </Box>
     </ThemeProvider>
   );
 }

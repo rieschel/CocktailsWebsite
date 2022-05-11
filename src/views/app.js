@@ -12,7 +12,7 @@ const NewAccount=require("../reactjs/newAccountPresenter.js").default;
 const Shakeitup=require("../reactjs/shakeitupPresenter.js").default;
 
 function App(props) {
-    console.log("inside APP")
+
     return (
         <div>
             <Show hash="#shakeitup"><Shakeitup model = {props.model}/></Show>

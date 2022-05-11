@@ -3,7 +3,6 @@ import {TextField} from '@mui/material'
 import {ThemeProvider} from '@mui/material/styles';
 import theme from "../views/theme.js";
 import { useState } from "react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import IconButton from '@mui/material/IconButton';
 
@@ -25,7 +24,6 @@ function LoginView(props){
     }
 
     function usernameACB(event){
-        //console.log(props.users)
         setUsername(event.target.value)
     }
 

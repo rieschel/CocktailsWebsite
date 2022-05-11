@@ -29,8 +29,7 @@ import {
   updateModelFromFirebase,
 } from "../firebaseModel";
 import SavedPresenter from "../reactjs/SavedPresenter";
-//import {getDishDetails} from "/src/dishSource.js";
-//import DinnerModel from "/src/DinnerModel.js";
+
 
 function SearchPresenter(props) {
   const [error, setError] = React.useState();
@@ -87,7 +86,6 @@ function SearchPresenter(props) {
     props.model.removeDrink(drink);
   }
 
-  //Ratings
   const [ratings, setRatings] = React.useState([]);
 
   function observerACB() {
@@ -115,10 +113,10 @@ function SearchPresenter(props) {
   function logoutACB() {
     props.model.setCurrentUser({ user: "", pass: "" });
   }
-  
+
   function deleteUserACB() {
     props.model.deleteUser(props.model.currentUser);
-    props.model.setCurrentUser({user: "", pass: ""});
+    props.model.setCurrentUser({ user: "", pass: "" });
   }
 
   function rateDrinkACB(drink, rating) {

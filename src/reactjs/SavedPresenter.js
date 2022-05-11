@@ -1,9 +1,7 @@
 import React from "react";
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
-
 import SavedView from "../views/savedView.js";
-import { Rating } from "@mui/material";
 import NavbarView from "../views/navbarView.js";
 
 function SavedPresenter(props) {

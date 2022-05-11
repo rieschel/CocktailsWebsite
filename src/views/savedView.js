@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
@@ -32,29 +31,27 @@ function SavedView(props) {
         function getRatingACB() {
             function sameDrinkCB(e) {if (e.d==drink['idDrink']) return true }
             let drinkRating = props.ratingList.filter(sameDrinkCB);
-            if(drinkRating.length==0) return "not rated yet";
+            if(drinkRating.length==0) return 0;
             else return drinkRating[drinkRating.length-1].r;
         }
         
-        const rating = getRatingACB();
 
         function rateDrinkACB(event, newValue) {
             props.onDrinkRate(drink, newValue);
-            setValue(newValue);
         }
 
         function userRating() {
             return (
                 <Box>
                     <Tooltip title="Rate">
-                        <Rating sx={{top:8}} name="half-rating-read" defaultValue={getRatingACB} onChange={rateDrinkACB}/>
+                        <Rating sx={{top:8}} name="half-rating-read" value={getRatingACB()} onChange={rateDrinkACB}/>
                     </Tooltip>
                 </Box>
             );
         }
 
         return (
-            <ThemeProvider theme = {theme}>
+            <ThemeProvider theme = {theme} key={drink['idDrink']}>
                 <Grid item key={drink['idDrink']}>
                     <Badge 
                         badgeContent={

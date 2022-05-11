@@ -2,44 +2,38 @@ import React from "react";
 import theme from "../views/theme.js";
 import { ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import StarIcon from "@mui/icons-material/Star";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import { Badge } from "@mui/material";
 import { Rating } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
-import { SettingsOverscanOutlined } from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { Grid } from "@mui/material";
 
 function RandomDrinkView(props) {
-  const [saved, setSaved] = React.useState(false);
-
+  
   function saveDrinkACB() {
-    setSaved(true);
     props.onSaveDrink(props.randomDrink);
   }
 
   function removeDrinkACB() {
-    setSaved(false);
     props.onDrinkRemove(props.randomDrink);
   }
 
   function getRatingACB() {
     function sameDrinkCB(e) {
-      if (e.d == props.randomDrink["idDrink"]) return true;
+      if (e.d==props.randomDrink['idDrink']) return true 
     }
     let drinkRating = props.ratingList.filter(sameDrinkCB);
-    if (drinkRating.length == 0) return "not rated yet";
-    else return drinkRating[drinkRating.length - 1].r;
-  }
+    if(drinkRating.length==0) return 0;
+    else return drinkRating[drinkRating.length-1].r;
+}
 
   function setCurrentDrinkACB() {
     props.onCurrentDrink(props.randomDrink["idDrink"]);
@@ -52,13 +46,11 @@ function RandomDrinkView(props) {
   }
 
   function getSaveButton() {
-    function sameDrinkCB(d) {
-      if (d["idDrink"] != props.randomDrink["idDrink"]) return true;
-    }
+    function sameDrinkCB(d) { if (d['idDrink']!=props.randomDrink['idDrink']) return true }
     if (!props.currentUser.user) {
       return;
     } else {
-      if (!saved) {
+      if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
         return (
           <Tooltip title="Save">
             <IconButton onClick={saveDrinkACB}>
@@ -85,13 +77,8 @@ function RandomDrinkView(props) {
       return (
         <Box>
           <Tooltip title="Rate">
-            <Rating
-              sx={{ top: 8 }}
-              name="half-rating-read"
-              defaultValue={getRatingACB()}
-              onChange={rateDrinkACB}
-            />
-          </Tooltip>
+            <Rating sx={{top:8}} name="half-rating-read" value={getRatingACB()} onChange={rateDrinkACB}/>
+        </Tooltip>
         </Box>
       );
     }
@@ -103,13 +90,11 @@ function RandomDrinkView(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Typography align="center">
+      <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center">
         <Button variant="contained" onClick={resetACB}>
           Reshake!
         </Button>
-      </Typography>
       <br></br>
-      <Typography align="center">
         <Badge badgeContent={getSaveButton()}>
           <Card sx={{ maxWidth: 300 }}>
             <CardActionArea>
@@ -120,7 +105,7 @@ function RandomDrinkView(props) {
                 image={props.randomDrink["strDrinkThumb"]}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5">
                   {props.randomDrink["strDrink"]}
                 </Typography>
                 {userRating()}
@@ -128,7 +113,7 @@ function RandomDrinkView(props) {
             </CardActionArea>
           </Card>
         </Badge>
-      </Typography>
+      </Grid>
     </ThemeProvider>
   );
 }

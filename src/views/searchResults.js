@@ -21,11 +21,8 @@ import Tooltip from '@mui/material/Tooltip';
 
 function SearchResults(props){
 
-    // console.log(props.searchResults)
     function showResultACB(result){
-        //console.log("showing results. " + props.searchResults)
         if(!props.searchResults){
-            console.log("no found results");
             return(
                 <div>No results</div>
             )
@@ -42,7 +39,7 @@ function SearchResults(props){
         function getRatingACB() {
             function sameDrinkCB(e) {if (e.d==result['idDrink']) return true }
             let drinkRating = props.ratingList.filter(sameDrinkCB);
-            if(drinkRating.length==0) return "not rated yet";
+            if(drinkRating.length==0) return 0;
             else return drinkRating[drinkRating.length-1].r;
         }
 
@@ -54,7 +51,6 @@ function SearchResults(props){
 
         function rateDrinkACB(event, newValue) {
             props.onDrinkRate(result, newValue);
-            setValue(newValue);
         }
 
         function getSaveButton() {
@@ -84,7 +80,7 @@ function SearchResults(props){
                 return (
                     <Box>
                         <Tooltip title="Rate">
-                            <Rating sx={{top:8}}name="half-rating-read" defaultValue={getRatingACB()}  onChange={rateDrinkACB} />
+                            <Rating sx={{top:8}}name="half-rating-read" value={getRatingACB()}  onChange={rateDrinkACB} />
                         </Tooltip>
                     </Box>
                 );

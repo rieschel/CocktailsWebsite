@@ -4,9 +4,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import Typography from "@mui/material/Typography";
-import { Popover } from "@mui/material";
 import CheckboxesGroup from "./filterMenu.js";
 import Tooltip from "@mui/material/Tooltip";
 import theme from "./theme.js";
@@ -34,34 +32,8 @@ function SearchView(props) {
   const [alcList, setAlcList] = React.useState([...alc]);
   const [garnishList, setGarnishList] = React.useState([...garnish]);
 
-  // const [colorText, setColorText] = React.useState("background.main");
-  // const [colorFilter, setColorFilter] = React.useState("background.main");
-
-  /* console.log("Searchview value of alc "+ props.alc) */
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-  // const buttonRef = React.useRef();
-
   const [expandName, setExpandName] = React.useState();
   const [expandIngredients, setExpandIngredients] = React.useState();
-
-  // function handleClick() {
-  //   setColorText("grey");
-  //   setColorFilter("background.main");
-  //   setAnchorEl(buttonRef.current);
-  // }
-
-  // function handleClose() {
-  //   setAnchorEl(null);
-  //   setColorText("background.main");
-  // }
-
-  // const open = Boolean(anchorEl);
-  // const id = open ? "simple-popover" : undefined;
-
-  function searchACB() {
-    console.log("sw on search");
-    props.onSearch();
-  }
 
   function filterACB(ingr) {
     console.log("searchview ingr :" + ingr);
@@ -69,19 +41,12 @@ function SearchView(props) {
   }
 
   function textInputACB(event) {
-    /* console.log("inside search view") */
-    // if (event.target.value == "") {
-    //   setColorFilter("background.main");
-    // } else {
-    //   setColorFilter("grey");
-    // }
-    console.log(event.target.value);
     props.onTextInput(event.target.value);
   }
+
   function handleKeyACB(e) {
     if (e.key === 'Enter') {
       props.onSearch();
-    //alert(e.target.value);
     }
   }
 
@@ -132,7 +97,6 @@ function SearchView(props) {
               <TextField
                 onChange={textInputACB}
                 onKeyPress={handleKeyACB}
-                //width=
                 sx={{ m: 0, top: 15, width: 0.5 }}
                 variant="outlined"
                 color="black"
@@ -175,46 +139,9 @@ function SearchView(props) {
                   onChangeAlc={setAlcACB}
                   onChangeGar={setGarACB}
                   onFilter={filterACB}
-                  // onClose={handleClose}
                 />
               </Box>
-              {/* <Button
-                color="black"
-                ref={buttonRef}
-                id={1}
-                sx={{ p: 1.5, m: 2, paddingTop: 1.75, paddingBottom: 1.75 }}
-                variant="outlined"
-                startIcon={<FilterAltIcon></FilterAltIcon>}
-                onClick={handleClick}
-              >
-                Filter
-              </Button> */}
             </Tooltip>
-            {/* <Popover
-              sx={{ height: 700, maxHeight: 1000, width: 700 }}
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-            >
-              <CheckboxesGroup
-                alc={alcList}
-                garnish={garnishList}
-                onChangeAlc={setAlcACB}
-                onChangeGar={setGarACB}
-                onFilter={filterACB}
-                onClose={handleClose}
-              />
-            </Popover> */}
-            {/* {props.drinks.map(renderDrinkCB)} */}
           </Collapse>
         </Card>
         <br></br>

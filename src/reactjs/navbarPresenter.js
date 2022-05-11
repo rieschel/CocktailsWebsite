@@ -16,12 +16,10 @@ function NavbarPresenter(props) {
     React.useEffect(onCreateACB, {});
   
     function logoutACB(){
-        console.log("presenter");
         props.model.setCurrentUser({user: "", pass: ""});
     }
 
     function deleteUserACB() {
-        console.log("presenter");
         props.model.deleteUser();
     }
 

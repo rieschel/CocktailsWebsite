@@ -1,6 +1,5 @@
 import React from "react";
 import DetailsView from "../views/detailsView.js";
-import {getDrinkDetails} from "../drinkSource.js";
 import promiseNoData from "../views/promiseNoData";
 
 function DetailsPresenter(props) {
@@ -28,7 +27,6 @@ function DetailsPresenter(props) {
     React.useEffect(onCreateACB, []);
 
     function saveDrinkACB(drink) {
-        console.log("presenter saved")
         props.model.saveDrink(drink);
     }
 

@@ -35,7 +35,6 @@ function updateFirebaseFromModel(model){
 }
 
 function updateModelFromFirebase(model){
-    console.log("updating")
 
     function inDrinkList(drinkID){
         function inDrinkListCB(drink){
@@ -69,7 +68,6 @@ function updateModelFromFirebase(model){
 
     firebase.database().ref(REF+"/savedDrinks/" + model.currentUser.user).on("child_removed",
         function removeDrinkACB(firebaseData){
-            console.log("inside remove")
             getDrinkDetails(+firebaseData.key).then(function removeDrinkFromListACB(drink){
                 model.removeDrink(drink[0]);
             })
@@ -89,31 +87,14 @@ function updateModelFromFirebase(model){
                 model.rateDrink(drink[0], firebaseData.val());
             })
     })
-
-    
 }
 
 
 function firebaseModelPromise(){
 
-    function makeBigPromiseACB(firebaseData){
-        // function makeDrinkPromiseCB(dishId){
-        //     return getDrinkDetails(dishId);
-        // }
-
-        // function createModelACB(drinkArray){
-        //     return new DrinkModel(drinkArray);
-        // }
-
-        // if(!firebaseData.val().savedDrinks.test){
-        //     return new DrinkModel();
-        // }else{
-        //     const drinkPromiseArray= Object.keys(firebaseData.val().savedDrinks.test).map(makeDrinkPromiseCB);
-        //     return Promise.all(drinkPromiseArray).then(createModelACB)
-        // }
+    function makeBigPromiseACB(){
         return new DrinkModel();
     }
-
     return firebase.database().ref(REF).once("value").then(makeBigPromiseACB);
 }
 
