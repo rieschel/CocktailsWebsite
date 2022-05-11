@@ -20,6 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
+import InputAdornment from "@mui/material/InputAdornment";
 
 
 function NavbarView(props){
@@ -161,7 +162,7 @@ function NavbarView(props){
                             </IconButton>
                         </Tooltip>
                         <Dialog open={open2} onClose={handleClose2}>
-                            <DialogTitle>Info</DialogTitle>
+                            <DialogTitle variant="h4"><InfoIcon color="primary" sx={{mr:1}}></InfoIcon>Info</DialogTitle>
                             <DialogContent>
                                 <DialogContentText maxWidth="500px">
                                     With ShakeItUp you can find your new favourite drinks.
