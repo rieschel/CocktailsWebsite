@@ -172,7 +172,8 @@ function NavbarView(props){
                                     <br></br>
                                     Don't know how to ShakeItUp? Here's how!
                                     <br></br>
-                                    YOUTUBE!!!
+                                    <br></br>
+                                    <iframe width="400" height="225" src="https://www.youtube.com/embed/d0OYR5t8xZY?start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </DialogContentText>
                             </DialogContent>
                         </Dialog>
