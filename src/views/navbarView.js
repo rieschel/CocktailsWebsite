@@ -21,6 +21,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import logo from "../../public/images/shake_it_up_logo.jpg";
+import InputAdornment from "@mui/material/InputAdornment";
 
 
 function NavbarView(props){
@@ -165,18 +166,20 @@ function NavbarView(props){
                             </IconButton>
                         </Tooltip>
                         <Dialog open={open2} onClose={handleClose2}>
-                            <DialogTitle>Info</DialogTitle>
+                            <DialogTitle variant="h4"><InfoIcon color="primary" sx={{mr:1}}></InfoIcon>Info</DialogTitle>
                             <DialogContent>
                                 <DialogContentText maxWidth="500px">
                                     With ShakeItUp you can find your new favourite drinks.
-                                    <br></br>
+                                    <br></br><br></br>
                                     Search for drinks by name or filter drinks by ingredients.
-                                    <br></br>
+                                    <br></br><br></br>
                                     Create an account to save and rate drinks.
-                                    <br></br>
+                                    <br></br><br></br>
                                     Don't know how to ShakeItUp? Here's how!
+
                                     <br></br>
                                     <br></br>
+
                                     <iframe width="400" height="225" src="https://www.youtube.com/embed/d0OYR5t8xZY?start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </DialogContentText>
                             </DialogContent>

@@ -8,6 +8,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import { Button, Divider } from '@mui/material';
 import { fetchIngredientList} from '../drinkSource';
+import Grid from '@mui/material/Grid';
+
 
 export default function CheckboxesGroup(props) {
   const [error, setError] = React.useState();
@@ -119,7 +121,7 @@ export default function CheckboxesGroup(props) {
   
 
   return (
-    <Box sx={{ display: 'flex' }} onChange={filterACB}>
+    <Box sx={{ display: 'flex' }}>
       <FormControl sx={{ m: 3}} component="fieldset" variant="standard">
         <FormLabel component="legend">Alcohol</FormLabel>
         <Divider />
@@ -140,10 +142,14 @@ export default function CheckboxesGroup(props) {
         </FormGroup>
       </FormControl>
       
-      <Button variant='text' sx={{p:0, right:20,left:5, height:40}}  onClick={closeACB}>
+      {/* <Button variant='text' sx={{p:0, right:20,left:5, height:40}}  onClick={closeACB}>
         X
-      </Button>
-      <Button variant='contained' onClick={resetACB}>Reset filter</Button>
+      </Button> */}
+
+      <Grid container direction="column" spacing={2} sx={{mt:3}}>
+        <Grid item><Button variant='contained' onClick={resetACB}>Reset</Button></Grid>
+        <Grid item><Button variant='contained' onClick={filterACB}>Search</Button></Grid>
+      </Grid>
       
     </Box>
     

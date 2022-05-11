@@ -32,6 +32,12 @@ function CreateNewAccount(props) {
       window.location.hash = "login";
     }
 
+    function handleKeyACB(e) {
+      if (e.key === 'Enter') {
+        props.onCreateAccount({user: username, pass: password});
+      }
+    }
+
   const renderForm = (
     <ThemeProvider key={"new_account"} theme={theme}>
         <Grid>
@@ -44,7 +50,7 @@ function CreateNewAccount(props) {
               </Grid>
               <TextField 
                 variant="standard" label='Username' placeholder='Enter username'onChange={usernameACB} fullWidth error={username==undefined &&triedToLogIn}/>
-              <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
+              <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onKeyPress={handleKeyACB} onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
               <Button variant="contained" onClick={handleSubmitACB} style={{margin:'8px 0'}} fullWidth >Confirm</Button>
           </Paper>
         </Grid>
