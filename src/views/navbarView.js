@@ -20,6 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
+import logo from "../../public/images/shake_it_up_logo.jpg";
 import InputAdornment from "@mui/material/InputAdornment";
 
 
@@ -147,9 +148,12 @@ function NavbarView(props){
            <Box sx={{flexGrow: 1}}>
                 <AppBar position='static' color="primary">
                     <Toolbar>
+                        <Box sx={{mb:1, ml:1, mr:4}}>
+                            <img width="120" src={logo}></img>
+                        </Box>
                         {/* <Typography variant="h6" sx={{m:2}} onClick={changeToShakeitupACB}>ShakeItUp!</Typography> */}
-                        <Button onClick={changeToShakeitupACB} sx={{m:2}} variant={getButtonVariant("#shakeitup")} color="secondary">Shake it up!</Button>
                         <Button onClick={changeToSearchACB} sx={{m:2}} variant={getButtonVariant("#search")} color="secondary" startIcon={<SearchIcon></SearchIcon>}>Search</Button>
+                        <Button onClick={changeToShakeitupACB} sx={{m:2}} variant={getButtonVariant("#shakeitup")} color="secondary">Get Random Drink</Button>
                         {savedDrinksACB()}
                         <Box sx={{flexGrow: 1}}></Box>
                         <Tooltip title="Get more info">
@@ -172,7 +176,10 @@ function NavbarView(props){
                                     Create an account to save and rate drinks.
                                     <br></br><br></br>
                                     Don't know how to ShakeItUp? Here's how!
-                                    <br></br><br></br>
+
+                                    <br></br>
+                                    <br></br>
+
                                     <iframe width="400" height="225" src="https://www.youtube.com/embed/d0OYR5t8xZY?start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </DialogContentText>
                             </DialogContent>
