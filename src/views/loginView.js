@@ -41,6 +41,12 @@ function LoginView(props){
         window.location.hash = props.previousPage;
     }
 
+    function handleKeyACB(e) {
+      if (e.key === 'Enter') {
+        props.onSubmit({user: username, pass: password});
+      }
+    }
+
     const renderForm = (
       <ThemeProvider key={"login"} theme={theme}>
         <br></br>
@@ -49,11 +55,11 @@ function LoginView(props){
           <Paper elevation={10} style={paperStyle}>
               <Grid align='center'>
                   <Avatar style={{margin:10}}></Avatar>
-                  <Typography variant="h5">Sign in</Typography>
+                  <Typography variant="h5">Login</Typography>
               </Grid>
               <TextField 
                 variant="standard" label='Username' placeholder='Enter username'onChange={usernameACB} fullWidth error={username==undefined &&triedToLogIn}/>
-              <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
+              <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} onKeyPress={handleKeyACB} fullWidth error={password==undefined &&triedToLogIn}/>
               <Button variant="contained" onClick={handleSubmitACB} style={{margin:'8px 0'}} fullWidth >Submit</Button>
               <Button color="black" onClick={newAccountACB} fullWidth>Create new account</Button>
           </Paper>
