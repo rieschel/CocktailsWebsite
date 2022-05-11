@@ -16,6 +16,11 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Rating } from "@mui/material";
 import { Badge } from "@mui/material";
+import {Card} from "@mui/material"
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { minWidth } from "@mui/system";
 
 
 
@@ -100,44 +105,97 @@ function detailsView(props) {
         <ThemeProvider theme={theme}>
             <br></br>
             <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
+            <Card sx={{ display: "flex" , flexShrink:0 , minWidth:70, maxWidth:1000  }}>
+                <Grid container spacing={3}>
+                    <Grid xs={6} md={4} sx={{m:2}} item>
+                        <Box sx={{m:2}}>
+                            {userRating()}
+                            <Badge badgeContent={getSaveButton()}>
+                                <CardMedia
+                                    sx={{align:"center", width: 300,}}
+                                    component="img"
+                                    height="300"
+                                    image={props.drinkData[0].strDrinkThumb}
+                                />
+                            </Badge>
+                        </Box>
+                       
+                    </Grid>
+                    <Box sx={{ display: 'flex', flexBasis:"0", ml:3 }}> 
+                        <CardContent sx={{ flex: "1 0 auto"  }}>
+                            <Typography variant="h4" align="left" sx={{pt:1}}>{props.drinkData[0].strDrink}</Typography>                         
+                                <Grid xs={3} md={3} sx={{m:2}} item>
+                                    <Typography variant="h5" align="left">Ingredients</Typography> 
+                                    <Box sx={{ display: 'flex', alignItems: 'left' }}>
+                                        <table align="left" >
+                                            <td>
+                                                <Grid container direction='column'>
+                                                    {measures.map(renderCB)}                                        
+                                                </Grid>                                    
+                                            </td>
+                                            <td>
+                                                <Grid  container direction='column'>
+                                                    {ingredients.map(renderCB)}
+                                                </Grid>
+                                            </td>
+                                        </table>   
+                                    </Box>
+                                </Grid>
+                                <Grid xs={3} md={3} sx={{m:2}} item>
+                                    <Typography variant="h5" align="left">Instructions</Typography>
+                                    <Box sx={{ display: 'flex', alignItems: 'left', minWidth :100}} >
+                                        {instructions.map(renderCB)}
+                                    </Box>  
+                                </Grid>
+                        </CardContent>
+                    </Box>
+                </Grid>
+            </Card>
+        </ThemeProvider>   
+        
+        /* <ThemeProvider theme={theme}>
+            <br></br>
+            <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
             
             <Typography sx={{m:2}} variant="h4" align="center">{props.drinkData[0].strDrink}</Typography>
-            {/* {getRating()} */}
+            { {getRating()} }
             <Grid container spacing={3}>
-                <Grid xs={4}  sx={{m:2}} item>
+                <Grid xs={6} md={4} sx={{m:2}} item>
                     <Badge badgeContent={getSaveButton()}>
                         <Grid container direction='row' spacing={2}>
-                            <Grid item><img src={props.drinkData[0].strDrinkThumb} height="400px" ></img></Grid>
+                            <Grid item><img src={props.drinkData[0].strDrinkThumb} height="400px" width="400px"></img></Grid>
                             <Grid item>{userRating()}</Grid>
                         </Grid>
                     </Badge>
                 </Grid>
-                <Grid sx={{m:2}} item>
-                       <Typography variant="h5" align="left">Ingredients</Typography>                        
-                        <table /* align="center" */>
-                            <td>
-                                <Grid sx={{m:2}}container direction='column' spacing = {{xs:2, md:2}} >
-                                    {measures.map(renderCB)}
+                <Grid xs={6} md={3} sx={{m:2}} item>
+                       <Typography variant="h5" align="left">Ingredients</Typography>    
+                       <Box>                   
+                            <table align="left" >
+                                <td>
+                                    <Grid sx={{m:2}}container direction='column' spacing = {{xs:2, md:2}} >
+                                        {measures.map(renderCB)}
+                                        
+                                    </Grid>
                                     
-                                </Grid>
-                                
-                            </td>
-                            <td>
-                                <Grid sx={{m:2}} container direction='column' spacing = {{xs:2, md:2}} >
-                                    {ingredients.map(renderCB)}
-                                </Grid>
-                            </td>
-                        </table>
+                                </td>
+                                <td>
+                                    <Grid sx={{m:2}} container direction='column' spacing = {{xs:2, md:2}} >
+                                        {ingredients.map(renderCB)}
+                                    </Grid>
+                                </td>
+                            </table>
+                        </Box> 
                     </Grid>
-                    <Grid xs={3} item>
+                    <Grid xs ={6} md={3} item>
 
-                        <Typography variant="h5" /* align="center" */>Instructions</Typography>
+                        <Typography variant="h5" >Instructions</Typography>
                         <Box align="center" >
                             {instructions.map(renderCB)}
                         </Box>                                                
                 </Grid>
             </Grid>            
-        </ThemeProvider> 
+        </ThemeProvider>  */
     );
 }
 
