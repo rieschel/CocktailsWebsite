@@ -4,16 +4,22 @@ import {ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Slider from '@mui/material/Slider';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+import { Badge } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import {Rating} from  "@mui/material";
+import Tooltip from '@mui/material/Tooltip';
+import CardActionArea from '@mui/material/CardActionArea';
+
 
 function SavedView(props) {
 
     function renderDrinkCB(drink) { 
-
-        let sliderVal = 5;
-        function handleChangeCB(event, value) {sliderVal=value}
 
         function removeDrinkACB() {
             props.onDrinkRemove(drink);
@@ -25,10 +31,6 @@ function SavedView(props) {
             window.location.hash = "#details";
         }
 
-        function rateDrinkACB() {
-            props.onDrinkRate(drink, sliderVal);
-        }
-
         function getRatingACB() {
             function sameDrinkCB(e) {if (e.d==drink['idDrink']) return true }
             let drinkRating = props.ratingList.filter(sameDrinkCB);
@@ -38,18 +40,50 @@ function SavedView(props) {
         
         const rating = getRatingACB();
 
+        function rateDrinkACB(event, newValue) {
+            props.onDrinkRate(drink, newValue);
+            setValue(newValue);
+        }
+
+        function userRating() {
+            return (
+                <Box>
+                    <Tooltip title="Rate">
+                        <Rating sx={{top:8}} name="half-rating-read" defaultValue={getRatingACB} onChange={rateDrinkACB}/>
+                    </Tooltip>
+                </Box>
+            );
+        }
+
         return (
             <ThemeProvider theme = {theme}>
                 <Grid item key={drink['idDrink']}>
-                    <Box>
-                        <Typography align ="center" variant="h6" sx={{m:2}} onClick={setCurrentDrinkACB}>{drink['strDrink']}</Typography>
-                        <Button onClick={removeDrinkACB} startIcon={<DeleteIcon></DeleteIcon>}></Button>
-                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
-                        Rating: {rating}
-                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
-                        <br></br>
-                        <img src = {drink['strDrinkThumb']} height='300px' align='center' onClick={setCurrentDrinkACB}></img>
-                    </Box>
+                    <Badge 
+                        badgeContent={
+                            <Tooltip title="Delete">
+                                <IconButton 
+                                    onClick={removeDrinkACB}>
+                                        <FavoriteIcon color="heart"></FavoriteIcon>
+                                </IconButton> 
+                            </Tooltip>}>
+                        <Tooltip title="Find out more">
+                            <Card sx={{maxWidth: 300}}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        onClick={setCurrentDrinkACB}
+                                        component="img"
+                                        height="250"
+                                        image={drink['strDrinkThumb']}
+                                        alt="green iguana"
+                                    />
+                                    <CardContent>
+                                        <Typography onClick={setCurrentDrinkACB} gutterBottom variant="h5" component="div">{drink['strDrink']}</Typography>
+                                        {userRating()}
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </Tooltip>                  
+                    </Badge>
                 </Grid>
             </ThemeProvider>
         );

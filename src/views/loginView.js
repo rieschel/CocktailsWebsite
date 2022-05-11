@@ -4,6 +4,9 @@ import {ThemeProvider} from '@mui/material/styles';
 import theme from "../views/theme.js";
 import { useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from '@mui/material/IconButton';
+
 
 function LoginView(props){
     const [username, setUsername] = useState();
@@ -34,8 +37,14 @@ function LoginView(props){
         window.location.hash = "#create_new_account"
     }
 
+    function goBackACB() {
+        window.location.hash = props.previousPage;
+    }
+
     const renderForm = (
       <ThemeProvider key={"login"} theme={theme}>
+        <br></br>
+        <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
         <Grid>
           <Paper elevation={10} style={paperStyle}>
               <Grid align='center'>
@@ -46,7 +55,7 @@ function LoginView(props){
                 variant="standard" label='Username' placeholder='Enter username'onChange={usernameACB} fullWidth error={username==undefined &&triedToLogIn}/>
               <TextField variant="standard" label='Password' placeholder='Enter password' type='password' onChange={passwordACB} fullWidth error={password==undefined &&triedToLogIn}/>
               <Button variant="contained" onClick={handleSubmitACB} style={{margin:'8px 0'}} fullWidth >Submit</Button>
-              <Button onClick={newAccountACB} fullWidth>Create new account</Button>
+              <Button color="black" onClick={newAccountACB} fullWidth>Create new account</Button>
           </Paper>
         </Grid>
       </ThemeProvider>
@@ -55,7 +64,7 @@ function LoginView(props){
 
     return(
         renderForm
-    )
+    );
 }
 
 export default LoginView;

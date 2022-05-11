@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Divider, Table, TableHead, Typography } from "@mui/material";
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -9,6 +9,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Popover } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import { Rating } from "@mui/material";
+import { Badge } from "@mui/material";
+
 
 
 function detailsView(props) {
@@ -21,17 +29,20 @@ function detailsView(props) {
     measures = measures.filter(emptyCB);
     let instructions = d.strInstructions.split("\r\n");
 
-    let sliderVal = 5;
-    function handleChangeCB(event, value) {sliderVal=value}
+    const drink = {strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink};
 
     function saveDrinkACB() {
         console.log("view saved");
-        props.onSaveDrink({strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink});
+        props.onSaveDrink(drink);
     }
 
-    function rateDrinkACB() {
-        console.log("rate drink view");
-        props.onDrinkRate({strDrink: d.strDrink, strDrinkThumb: d.strDrinkThumb, idDrink: d.idDrink}, sliderVal);
+    function rateDrinkACB(event, newValue) {
+        props.onDrinkRate(drink, newValue);
+        setValue(newValue);
+    }
+
+    function removeDrinkACB() {
+        props.onDrinkRemove(drink);
     }
 
     function goBackACB() {
@@ -44,7 +55,38 @@ function detailsView(props) {
         if(drinkRating.length==0) return "not rated yet";
         else return drinkRating[drinkRating.length-1].r;
     }
-    const rating = getRatingACB();
+
+    function getSaveButton() {
+        function sameDrinkCB(d) { if (d['idDrink']!=drink['idDrink']) return true }
+        if(!props.currentUser.user) {return;}
+        if(props.drinkList.filter(sameDrinkCB).length == props.drinkList.length){
+            return (
+                <Tooltip title="Save">
+                    <IconButton onClick={saveDrinkACB}><FavoriteBorderIcon color="heart"></FavoriteBorderIcon></IconButton>
+                </Tooltip>
+            );
+        }
+        else {
+            return (
+                <Tooltip title="Delete">
+                    <IconButton onClick={removeDrinkACB}><FavoriteIcon color="heart"></FavoriteIcon></IconButton>
+                </Tooltip>
+            );
+        }
+    }
+
+    function userRating(){
+        if(!props.currentUser.user) {return;}
+        else { 
+            return (
+                <Box align center>
+                    <Tooltip title="Rate">
+                        <Rating size="large" name="half-rating-read" defaultValue={getRatingACB()}  onChange={rateDrinkACB} />
+                    </Tooltip>
+                </Box>
+            );
+        }
+    }
 
     function renderCB(i){
         return (
@@ -57,57 +99,45 @@ function detailsView(props) {
     return (
         <ThemeProvider theme={theme}>
             <br></br>
-            <Button onClick={goBackACB} startIcon={<ArrowBackIosIcon></ArrowBackIosIcon>}></Button>
-            <br></br>
-            <Typography sx={{m:2}} variant="h3" align="center">{props.drinkData[0].strDrink}</Typography>
-            <br></br>
-            <Grid 
-                container 
-                spacing={0} 
-                direction="column"
-                alignItems="center" 
-                justify="center"
-                // style={{maxHeight:'50vh'}}
-                >
-                <Grid item>
-                    <Box width="300px">
-                        <Button onClick={saveDrinkACB} startIcon={<StarIcon></StarIcon>}></Button>
-                        <Button onClick={rateDrinkACB} startIcon={<ThumbsUpDownIcon></ThumbsUpDownIcon>}></Button>
-                        Rating: {rating}
-                        <Slider onChange={handleChangeCB} size="small" steps={10} marks min={1} max={10} defaultValue={5} aria-label="small" valueLabelDisplay="auto"></Slider>
-                    </Box>
-                </Grid>
-                <br></br>
-                <Grid item><img src={props.drinkData[0].strDrinkThumb} height="300px" ></img></Grid>
-            </Grid>
-            <br></br>
-            <br></br>
-            <table align="center">
-                <td>
-                    <Typography variant="h6" align="center">Ingredients</Typography>
-                    <table align="center">
-                        <td>
-                            <Grid container direction='column' spacing = {{xs:2, md:2}} >
-                                {measures.map(renderCB)}
-                            </Grid>
-                        </td>
-                        <td>
-                            <Grid container direction='column' spacing = {{xs:2, md:2}} >
-                                {ingredients.map(renderCB)}
-                            </Grid>
-                        </td>
-                    </table>
-                </td>
-                <td>
-                    <Typography variant="h6" align="center">Instructions</Typography>
-                    <Grid container direction='column' spacing = {{xs:2, md:2}} >
-                        {instructions.map(renderCB)}
-                    </Grid>
-                </td>
-            </table>
-        </ThemeProvider> 
+            <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
             
-        
+            <Typography sx={{m:2}} variant="h4" align="center">{props.drinkData[0].strDrink}</Typography>
+            {/* {getRating()} */}
+            <Grid container spacing={3}>
+                <Grid xs={4}  sx={{m:2}} item>
+                    <Badge badgeContent={getSaveButton()}>
+                        <Grid container direction='row' spacing={2}>
+                            <Grid item><img src={props.drinkData[0].strDrinkThumb} height="400px" ></img></Grid>
+                            <Grid item>{userRating()}</Grid>
+                        </Grid>
+                    </Badge>
+                </Grid>
+                <Grid sx={{m:2}} item>
+                       <Typography variant="h5" align="left">Ingredients</Typography>                        
+                        <table /* align="center" */>
+                            <td>
+                                <Grid sx={{m:2}}container direction='column' spacing = {{xs:2, md:2}} >
+                                    {measures.map(renderCB)}
+                                    
+                                </Grid>
+                                
+                            </td>
+                            <td>
+                                <Grid sx={{m:2}} container direction='column' spacing = {{xs:2, md:2}} >
+                                    {ingredients.map(renderCB)}
+                                </Grid>
+                            </td>
+                        </table>
+                    </Grid>
+                    <Grid xs={3} item>
+
+                        <Typography variant="h5" /* align="center" */>Instructions</Typography>
+                        <Box align="center" >
+                            {instructions.map(renderCB)}
+                        </Box>                                                
+                </Grid>
+            </Grid>            
+        </ThemeProvider> 
     );
 }
 

@@ -23,8 +23,15 @@ class DrinkModel {
     }
 
     addUser(user){
+        var i;
+        for(i = 0; i < this.users.length; i++){
+            if(this.users[i].user == user.user){
+                return false
+            }
+        }
         this.users = [...this.users, user];
         this.notifyObservers({addUser: user})
+        return true
     }
 
     checkValidUser(user){

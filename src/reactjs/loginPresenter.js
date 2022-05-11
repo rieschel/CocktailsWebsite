@@ -10,7 +10,7 @@ function LoginPresenter(props){
         else alert("Invalid username or password, please try again")
     }
 
-    return <LoginView user={props.model.currentUser} users={props.model.users} onSubmit={loginACB}/>
+    return <LoginView previousPage={props.model.previousHash} user={props.model.currentUser} users={props.model.users} onSubmit={loginACB}/>
 }
 
 export default LoginPresenter;
