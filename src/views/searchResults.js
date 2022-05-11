@@ -103,7 +103,6 @@ function SearchResults(props){
                                         component="img"
                                         height="250"
                                         image={result['strDrinkThumb']}
-                                        alt="green iguana"
                                     />
                                     <CardContent>
                                         <Typography onClick={setCurrentDrinkACB} gutterBottom variant="h5" component="div">

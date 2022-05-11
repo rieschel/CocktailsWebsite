@@ -1,27 +1,41 @@
 # dynwebb-projekt
 
 ## Description
-Our project is a drink website that can provide users with drink recepies and inspiration. The website allows users to search for drinks and filter drinks by ingredients. The drink data is fetched from an API called the Cocktails DB which contains o large number of drink recepies. The user can also rate drinks and save their favourites.
+Our project is a drink website that can provide users with drink recepies and inspiration. The website allows users to search for drinks by drink name and filter drinks by popular ingredients.
+If the user clicks on a drink, it can see the recipe. The website also has a random drink generator which can be used if you don't know what you are looking for. In the navbar, there is an info button with information about how the page can be used and a youtube video showing how to shake a drink.
 
-## What we have done
-So far in the project we have set up the basic stucture of the drink website with webpack, model-view-presenter and persistance with firebase. We have implemented a Drinkmodel which contains functions to save, delete and rate drinks. We also have implemented some styling using the Materials UI Framework. So far, the website has two main views. 
+Users can create accounts on the website, and the website can be used both when logged in and not. If a user is logged in, it can rate drinks and save their favourites. Accounts can also be deleted, and the corresponding ratings and saved drinks will also be deleted in that case.
 
-One view is the search page where the user can search for drinks and filter them by ingedients. The search page renders drinks from the API with images and drink names. In the search view, the user can save and rate drinks.
+The drink data is fetched from an API called the Cocktails DB which contains o large number of drink recepies.
 
-The other view is the saved drink pages, where the user can see their saved drinks, remove drinks from the saved page and rate drinks. The ratings are updated between the search and saved drink pages.
+## Setup
+To install firebase, run ``npm install firebase`` in the terminal.
 
-We have also implemented a navbar, where the user can switch between different views. The initial view is the search view.
+To run the website locally, run ``npm start`` in the terminal.
 
-Right now, we are however still working on the navbar and the filter search. This is therefore currently not compeletely working in the deployed app. 
+## User evaluation
+When conducting user testing, some issues with the design and functionality of the website were discovered and acted upon. The issues and how the project group dealt with them will be presented here.
 
-## What we plan to do
-Further on in the project we plan to implement a details view, where the user can see the recipe for each drink. The details view should be displayed when a user clicks on a drink in the search och saved view.
+### Information about the page
+Some users experienced that the page was a bit confusing and that there was not enough information about how the page could be used. Therefore, an information button was implemented. When the button is clicked, a window containing information about the page is presented to the user.
 
-We also plan to implement profiles for different users. For this function, we will implement a login page and the saved drinks will be connected to a specific user.
+### Filter and search
+There was some confusion about how the filter by ingredients and search by name functionalities were connected. To make this clearer, the two functions was seperated with drop down windows, were only one window could be seen at the time. Consequently, it became clear that the user can not use both of these functionalities at the same time.
 
-If we have time, we also plan to implement a function which lets users add their own drinks. The user will then be able to add a drink with a corresponding image and recipe. 
+### Filter persistance
+User testing showed that the filter was cleared if the filter window was closed, but the results from the filtering was still shown. Therefore, filter persistance was implemented. This means that the same checkboxes are checked even if the filter menu is closed and opened again. To clear the filter, the user can click reset filter.
 
-In the upcoming part of the project, we are also going to work a lot on the design. So far, we have focused mainly on the functionality of the website, but in the later part of the project we are going to focus more on the design. We aim to create a nice-looking website with great usability.
+### Drink inspiration
+One of the main aspects of the website is to provide users with inspiration. However, the user testing showed that if the user doesn't know what type of drink they are looking for, it becomes difficult to get inspiration from the page. To fix this, a random drink generator was added so that the user can find new drinks even if they have no idea what they are looking for.
+
+### Delete accounts
+User testing showed that the website lacked the functionality to delete accounts. A website that has users should always give the users the possibility to delete their accounts. Therefore, this was implemented.
+
+### Rate drinks
+Before the user evaluation, users could rate drinks with a slider and the rating was shown with a number between 1 and 10. Users found this a bit confusing and not very aesthetically pleasing. To make the ratings simpler, the slider and rating display was replaced by five stars which showed the rating. The user can also click on a star to give a rating.
+
+### Save drinks
+Earlier in the project, users could save drinks by clicking on a button that said "Save drink". User testing showed that this was unecessary text, and that it would be better to use a symbol. Another issue that came up is that users could not see which drinks they had saved in the search view. Therefor, this button was replaced by a little heart in the corner of the picture of the drink, which was filled is the drink was saved and a conture if the drink was not saved. To save a drink, the user can click on the heart.
 
 ## Project file structure
 Project file structure of the source directory
@@ -37,10 +51,18 @@ src
         └── Presenter rendering the search page
     └── Show.js
         └── Shows and hides react components
+    └── loginPresenter.js
+        └── Presenter rendering the login page
+    └── newAccountPresenter.js
+        └── Presenter rendering the new account page
+    └── shakeitupPresenter.js
+        └── Presenter rendering the random drink generator page
+    └── detailsPresenter.js
+        └── Presenter rendering the details view for a drink
 ├── views - All different views
     └── app.js
         └── App view rendering search and saved
-    └── checkboxesGroup.js
+    └── filterMenu.js
         └── View containing form with checkboxes for the filter function
     └── savedView.js
         └── View containing all saved drinks
@@ -52,8 +74,20 @@ src
         └── Theme provider for the different views
     └── navbarView.js
         └── View containing the navbar
+    └── createNewAccount.js
+        └── View containing the sign up page
+    └── detailsView.js
+        └── View containing the details view for a drink
+    └── loginView.js
+        └── View containing the login page
+    └── promiseNoData.js
+        └── Error handling for promises
+    └── randomDrinkView.js
+        └── View containing the the random drink generator in shakeitup
+    └── shakeitupView.js
+        └── View containing the random drink generator
 ├── DrinkModel.js
-    └── Model with functions to save, remove and rate drinks
+    └── Model with functions to save, remove and rate drinks, and add and remove users
 ├── DrinkSource.js
     └── Fetches data from the drink API
 ├── navigation.js
@@ -64,6 +98,8 @@ src
     └── Configuration for firebase
 ├── apiConfig.js
     └── Configuration for the drink API
+├── resolvePromise.js
+    └── Resolves promises
 ├── index.html
     └── Basic index page
 ```

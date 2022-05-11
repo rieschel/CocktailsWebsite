@@ -9,11 +9,13 @@ const Navbar=require("../reactjs/navbarPresenter.js").default;
 const Details=require("../reactjs/detailsPresenter.js").default;
 const Login=require("../reactjs/loginPresenter.js").default;
 const NewAccount=require("../reactjs/newAccountPresenter.js").default;
+const Shakeitup=require("../reactjs/shakeitupPresenter.js").default;
 
 function App(props) {
     console.log("inside APP")
     return (
         <div>
+            <Show hash="#shakeitup"><Shakeitup model = {props.model}/></Show>
             <Show hash="#login"><Login model = {props.model}/></Show>
             <Show hash="#create_new_account"><NewAccount model = {props.model}/></Show>
             <Show hash="#search"><Search model = {props.model}></Search></Show>

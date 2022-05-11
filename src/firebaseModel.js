@@ -22,7 +22,12 @@ function updateFirebaseFromModel(model){
                 firebase.database().ref(REF+"/savedDrinks/" + model.currentUser.user + "/" + payload.removeDrink.idDrink).set(null);
             }
             else if(payload.addUser){
-                firebase.database().ref(REF+"/users/" + payload.addUser.user).set(payload.addUser.pass)
+                firebase.database().ref(REF+"/users/" + payload.addUser.user).set(payload.addUser.pass);
+            }
+            else if(payload.removeUser){
+                firebase.database().ref(REF+"/users/" + payload.removeUser.user).set(null);
+                firebase.database().ref(REF+"/savedDrinks/" + payload.removeUser.user).set(null);
+                firebase.database().ref(REF+"/ratings/" + payload.removeUser.user).set(null);
             }
         } 
     }
@@ -41,7 +46,14 @@ function updateModelFromFirebase(model){
 
     firebase.database().ref(REF+"/users").on("child_added",
         function addedUserACB(firebaseData){
-            model.addUser({user: firebaseData.key, pass: firebaseData.val()})
+            model.addUser({user: firebaseData.key, pass: firebaseData.val()});
+        }
+    )
+
+    firebase.database().ref(REF+"/users").on("child_removed",
+        function removedUserACB(firebaseData){
+            model.deleteUser({user: firebaseData.key, pass: firebaseData.val()});
+
         }
     )
 
