@@ -13,7 +13,7 @@ export default function CheckboxesGroup(props) {
   const [error, setError] = React.useState();
   const [data, setData] = React.useState();
 
-  const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}, {name:"light rum", checked:false}, {name:"dark rum", checked:false}, {name:"applejack", checked:false}, {name:"sweet vermouth", checked:false}];
+  
   //Alkoholer = Strawberry schnapps, Scotch, Apricot brandyTriple sec
   //Southern Comfort, Orange bitters, Brandy, Lemon vodka, Blended whiskey, Dry Vermouth
   // Amaretto, Tea, Champagne, Coffee liqueur, Bourbon, Tequila, Vodka, Añejo rum, Bitters, Sugar
@@ -28,31 +28,31 @@ export default function CheckboxesGroup(props) {
   // Lemonade, Lager, Whiskey, Absolut Citron, Pisco, Irish cream, Ale,Chocolate liqueur
   // Midori melon liqueur, Sambuca, Cider, Sprite, 7-Up, Blackberry brandy, Peppermint schnapps, Creme de Cassis
  
-  const garnish = [{name:"lemon", checked:false}, {name:"orange", checked:false}, {name:"basil", checked:false}];
+  
 
   //const promise = React.useState(function initializePromiseACB(){ const first = fetchIngredientList(); first.then(function saveDataACB(dt){setData(dt);}).catch(function saveErrACB(er){setError(er)})});
     
   //console.log("data "+ props.alc);     
-  const [alcList, setAlclist] = React.useState([...alc]);
-  const [garnishList, setGarnishList] = React.useState([...garnish]);
+  
   /* const [alcList, setAlclist] = React.useState([...props.alc]);
   const [garnishList, setGarnishList] = React.useState([...props.garnish]); */
 
   const handleAlcChange = (event) => {
     console.log(event.target.checked)
-    const temp = [...alcList]
+    const temp = [...props.alc]
     const objIndex = temp.findIndex((obj => obj.name == event.target.name));
     temp[objIndex].checked = !temp[objIndex].checked; 
-    setAlclist([...temp]);    
+    props.onChangeAlc([...temp]);
+    //setAlclist([...temp]);    
   };
 
   const handleGarnishChange = (event) => {
     console.log(event.target.name)
-    const temp = [...garnishList]
+    const temp = [...props.garnish]
     const objIndex = temp.findIndex((obj => obj.name == event.target.name));
     temp[objIndex].checked = !temp[objIndex].checked; 
-    setGarnishList([...temp]);
-    
+    //setGarnishList([...temp]);
+    props.onChangeGar([...temp])
   };
 
   function renderACheckbox(ing){
@@ -79,14 +79,15 @@ export default function CheckboxesGroup(props) {
 
   function filterACB(){
     //console.log(alcList);
-    const searchAlc = alcList.map(alc => {if (alc.checked ==true) return alc.name}).join();
-    const searchGarnish = garnishList.map(garnish => {if (garnish.checked ==true) return garnish.name}).join();
+    //const searchAlc = alcList.map(alc => {if (alc.checked ==true) return alc.name}).join();
+    const searchAlc = props.alc.map(alc => {if (alc.checked ==true) return alc.name}).join();
+    //const searchGarnish = garnishList.map(garnish => {if (garnish.checked ==true) return garnish.name}).join();
+    const searchGarnish = props.garnish.map(garnish => {if (garnish.checked ==true) return garnish.name}).join();
     const searchParams = searchAlc + "," + searchGarnish
     const clean = searchParams.replace(/^,,*|,+(?=,|$)/g, '');
     console.log("search "+clean)
     if (clean===""){
       alert("no filters were selected")
-      return;
     } 
     //console.log(clean); 
     props.onFilter(clean);
@@ -96,6 +97,25 @@ export default function CheckboxesGroup(props) {
   function closeACB(){
     props.onClose();
   }
+
+  
+
+  function resetACB(){
+    const tempAlc = [...props.alc];
+    const tempGarnish = [...props.garnish];
+
+    function resetCheckedACB(ingredient){
+      ingredient.checked = false;
+    }
+
+    tempAlc.map(resetCheckedACB);
+    tempGarnish.map(resetCheckedACB);
+
+    props.onChangeAlc([...tempAlc]);
+    props.onChangeGar([...tempGarnish]);
+
+    props.onFilter("");
+  }
   
 
   return (
@@ -104,7 +124,7 @@ export default function CheckboxesGroup(props) {
         <FormLabel component="legend">Alcohol</FormLabel>
         <Divider />
         <FormGroup>
-          { alcList.map(renderACheckbox)}  
+          { props.alc.map(renderACheckbox)}  
         </FormGroup> 
       </FormControl>
      
@@ -116,13 +136,14 @@ export default function CheckboxesGroup(props) {
         <FormLabel component="legend">Garnish</FormLabel>
         <Divider />
         <FormGroup>
-          { garnishList.map(renderGCheckbox)}  
+          { props.garnish.map(renderGCheckbox)}  
         </FormGroup>
       </FormControl>
       
       <Button variant='text' sx={{p:0, right:20,left:5, height:40}}  onClick={closeACB}>
         X
       </Button>
+      <Button variant='contained' onClick={resetACB}>Reset filter</Button>
       
     </Box>
     

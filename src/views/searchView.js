@@ -12,6 +12,12 @@ import Tooltip from '@mui/material/Tooltip';
 import theme from "./theme.js";
 
 function SearchView(props) {
+
+    const alc = [{name:"gin", checked:false}, {name:"rum", checked:false}, {name:"vodka", checked:false}];
+    const garnish = [{name:"lemon", checked:false}, {name:"orange", checked:false}, {name:"basil", checked:false}];
+    const [alcList, setAlcList] = React.useState([...alc]);
+    const [garnishList, setGarnishList] = React.useState([...garnish]);
+
     /* console.log("Searchview value of alc "+ props.alc) */
     const [anchorEl, setAnchorEl] = React.useState(null);
     const buttonRef = React.useRef();
@@ -46,6 +52,14 @@ function SearchView(props) {
             props.onSearch();
             //alert(e.target.value);
         }
+    }
+
+    function setAlcACB(alc){
+        setAlcList(alc);
+    }
+
+    function setGarACB(gar){
+        setGarnishList(gar);
     }
 
     return (
@@ -100,8 +114,8 @@ function SearchView(props) {
                         horizontal: "center"
                         }}
                     >
-                        <CheckboxesGroup onFilter={filterACB} onClose={handleClose}/>
-                    </Popover>    
+                        <CheckboxesGroup alc={alcList} garnish={garnishList} onChangeAlc={setAlcACB} onChangeGar={setGarACB} onFilter={filterACB} onClose={handleClose}/>
+                    </Popover>   
                     {/* {props.drinks.map(renderDrinkCB)} */}
 
                 </Box>
