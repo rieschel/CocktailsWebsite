@@ -15,43 +15,48 @@ import { IconButton } from "@mui/material";
 import { ArrowDropDown } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 
+
 function SearchView(props) {
   const alc = [
     { name: "gin", checked: false },
     { name: "rum", checked: false },
     { name: "vodka", checked: false },
+    { name: "tequila", checked: false},
+    { name: "whiskey", checked: false},
   ];
   const garnish = [
     { name: "lemon", checked: false },
     { name: "orange", checked: false },
-    { name: "basil", checked: false },
+    { name: "lime", checked: false },
+    { name: "sprite", checked: false},
+    { name: "sugar syrup", checked: false},
   ];
   const [alcList, setAlcList] = React.useState([...alc]);
   const [garnishList, setGarnishList] = React.useState([...garnish]);
 
-  const [colorText, setColorText] = React.useState("background.main");
-  const [colorFilter, setColorFilter] = React.useState("background.main");
+  // const [colorText, setColorText] = React.useState("background.main");
+  // const [colorFilter, setColorFilter] = React.useState("background.main");
 
   /* console.log("Searchview value of alc "+ props.alc) */
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const buttonRef = React.useRef();
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const buttonRef = React.useRef();
 
   const [expandName, setExpandName] = React.useState();
   const [expandIngredients, setExpandIngredients] = React.useState();
 
-  function handleClick() {
-    setColorText("grey");
-    setColorFilter("background.main");
-    setAnchorEl(buttonRef.current);
-  }
+  // function handleClick() {
+  //   setColorText("grey");
+  //   setColorFilter("background.main");
+  //   setAnchorEl(buttonRef.current);
+  // }
 
-  function handleClose() {
-    setAnchorEl(null);
-    setColorText("background.main");
-  }
+  // function handleClose() {
+  //   setAnchorEl(null);
+  //   setColorText("background.main");
+  // }
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  // const open = Boolean(anchorEl);
+  // const id = open ? "simple-popover" : undefined;
 
   function searchACB() {
     console.log("sw on search");
@@ -65,19 +70,23 @@ function SearchView(props) {
 
   function textInputACB(event) {
     /* console.log("inside search view") */
-    if (event.target.value == "") {
-      setColorFilter("background.main");
-    } else {
-      setColorFilter("grey");
-    }
+    // if (event.target.value == "") {
+    //   setColorFilter("background.main");
+    // } else {
+    //   setColorFilter("grey");
+    // }
     console.log(event.target.value);
     props.onTextInput(event.target.value);
   }
   function handleKeyACB(e) {
-    //if (e.key === 'Enter') {
-    props.onSearch();
+    if (e.key === 'Enter') {
+      props.onSearch();
     //alert(e.target.value);
-    //}
+    }
+  }
+
+  function handleSearchButtonACB(e) {
+    props.onSearch();
   }
 
   function setAlcACB(alc) {
@@ -122,12 +131,12 @@ function SearchView(props) {
             <Tooltip title="Search drinks by name">
               <TextField
                 onChange={textInputACB}
-                // onKeyPress={handleKeyACB}
+                onKeyPress={handleKeyACB}
                 //width=
                 sx={{ m: 0, top: 15, width: 0.5 }}
                 variant="outlined"
                 color="black"
-                placeholder="Type something..."
+                placeholder="ex Margatia or Manhattan"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -140,9 +149,9 @@ function SearchView(props) {
             <Button
               sx={{ m: 0, top: 15, height: 55, marginLeft: 1 }}
               variant="contained"
-              onClick={handleKeyACB}
+              onClick={handleSearchButtonACB}
             >
-              Search by name
+              Search
             </Button>
             <br></br>
             <br></br>
@@ -152,14 +161,24 @@ function SearchView(props) {
         <br></br>
         <Card>
           <Typography variant="h6" sx={{ m: 2, color: "black.main" }}>
-            Or By Ingredients:
+            Or By Popular Ingredients:
           </Typography>
           <IconButton onClick={handleDropDownIngredientsACB}>
             <ArrowDropDown />
           </IconButton>
           <Collapse in={expandIngredients}>
             <Tooltip title="Filter drinks by ingredients">
-              <Button
+              <Box>
+                <CheckboxesGroup
+                  alc={alcList}
+                  garnish={garnishList}
+                  onChangeAlc={setAlcACB}
+                  onChangeGar={setGarACB}
+                  onFilter={filterACB}
+                  // onClose={handleClose}
+                />
+              </Box>
+              {/* <Button
                 color="black"
                 ref={buttonRef}
                 id={1}
@@ -169,9 +188,9 @@ function SearchView(props) {
                 onClick={handleClick}
               >
                 Filter
-              </Button>
+              </Button> */}
             </Tooltip>
-            <Popover
+            {/* <Popover
               sx={{ height: 700, maxHeight: 1000, width: 700 }}
               id={id}
               open={open}
@@ -194,7 +213,7 @@ function SearchView(props) {
                 onFilter={filterACB}
                 onClose={handleClose}
               />
-            </Popover>
+            </Popover> */}
             {/* {props.drinks.map(renderDrinkCB)} */}
           </Collapse>
         </Card>

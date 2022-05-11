@@ -86,7 +86,7 @@ function ShakeitupPresenter(props) {
       <ShakeitupView onSearch={doRandomDrinkSearchACB}></ShakeitupView>
       {(promiseNoData({ promise, data, error }) && (
         <Typography align="center">
-          <Tooltip title="Generate random drink">
+          <Tooltip title="Click me to generate random drink">
             <img
               src="https://www.spiritshunters.com/wp-content/uploads/2020/09/how-to-use-a-shaker-.gif"
               height={"400"}
