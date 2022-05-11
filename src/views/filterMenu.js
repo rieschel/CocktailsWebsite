@@ -119,7 +119,7 @@ export default function CheckboxesGroup(props) {
   
 
   return (
-    <Box sx={{ display: 'flex' }} onChange={filterACB}>
+    <Box sx={{ display: 'flex' }}>
       <FormControl sx={{ m: 3}} component="fieldset" variant="standard">
         <FormLabel component="legend">Alcohol</FormLabel>
         <Divider />
@@ -144,6 +144,7 @@ export default function CheckboxesGroup(props) {
         X
       </Button>
       <Button variant='contained' onClick={resetACB}>Reset filter</Button>
+      <Button variant='contained' onClick={filterACB}>Search</Button>
       
     </Box>
     
