@@ -1,35 +1,14 @@
 import promiseNoData from "../views/promiseNoData";
-// import SearchFormView from "../views/searchFormView";
 import SearchResults from "../views/searchResults";
-// import { searchDishes } from "../dishSource";
 import SearchView from "../views/searchView";
 import NavbarView from "../views/navbarView";
-
-import { Alert } from "@mui/material";
-
 import React from "react";
-import ReactDOM from "react-dom";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-
-import theme from "../views/theme.js";
-import { ThemeProvider } from "@mui/material/styles";
 
 import {
   searchDrinkByIngredient,
   searchDrinkByName,
-  getDrinkDetails,
 } from "../drinkSource";
-
-import {
-  updateFirebaseFromModel,
-  updateModelFromFirebase,
-} from "../firebaseModel";
-import SavedPresenter from "../reactjs/SavedPresenter";
-
 
 function SearchPresenter(props) {
   const [error, setError] = React.useState();
@@ -58,8 +37,6 @@ function SearchPresenter(props) {
           if (!cancelled) setError(er);
         });
     }
-    /*   console.log("data: " + data)
-        console.log("error: " + error) */
     return changedAgainACB; // promiseChangedACB will be called for the new value!
   }
 
@@ -70,7 +47,6 @@ function SearchPresenter(props) {
   }
 
   function doDrinkSearchACB() {
-    console.log("doing drink search with s: " + s);
     setPromise(searchDrinkByName({ s }));
   }
 

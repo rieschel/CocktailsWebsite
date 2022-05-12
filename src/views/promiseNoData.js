@@ -1,6 +1,4 @@
 function promiseNoData(promiseState){
-    // console.log("inside promise no data")
-    // console.log(promiseState)
     if(!promiseState.promise){
         return (<div></div>);
     }
@@ -19,7 +17,6 @@ function promiseNoData(promiseState){
     else if (promiseState.data && !promiseState.error){
         return false;
     }
-    console.log("end of promise no data")
 }
 
 export default promiseNoData;

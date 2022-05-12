@@ -14,8 +14,6 @@ function LoginView(props){
     const [triedToLogIn, setTriedToLogIn] = useState(false);
 
     function handleSubmitACB(){
-        console.log("inside handle submit")
-        console.log("Username: " + username + " password: " + password)
         if(!username ||!password){
           setTriedToLogIn(true);
           return;

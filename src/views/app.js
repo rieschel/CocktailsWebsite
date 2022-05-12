@@ -5,7 +5,6 @@ import Show from "../reactjs/show.js"
 
 const Search=require("../reactjs/SearchPresenter.js").default;
 const Saved=require("../reactjs/SavedPresenter.js").default;
-const Navbar=require("../reactjs/navbarPresenter.js").default;
 const Details=require("../reactjs/detailsPresenter.js").default;
 const Login=require("../reactjs/loginPresenter.js").default;
 const NewAccount=require("../reactjs/newAccountPresenter.js").default;

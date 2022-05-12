@@ -36,7 +36,6 @@ function SearchView(props) {
   const [expandIngredients, setExpandIngredients] = React.useState();
 
   function filterACB(ingr) {
-    console.log("searchview ingr :" + ingr);
     props.onFilter(ingr);
   }
 
@@ -100,7 +99,7 @@ function SearchView(props) {
                 sx={{ m: 0, top: 15, width: 0.5 }}
                 variant="outlined"
                 color="black"
-                placeholder="ex Margatia or Manhattan"
+                placeholder="ex Margarita or Manhattan"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
