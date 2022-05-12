@@ -122,7 +122,7 @@ function NavbarView(props){
                 <div>
                     <Button onClick={logoutACB} sx={{m:2}} variant="outlined" color="primary" startIcon={<LogoutIcon></LogoutIcon>}>Logout</Button>
                     <br></br>
-                    <Button onClick={handleClick3} sx={{m:2}} variant="outlined" color="primary" startIcon={<DeleteIcon></DeleteIcon>}>Delete Account</Button>
+                    <Button onClick={handleClick3} sx={{m:2}} variant="outlined" color="error" startIcon={<DeleteIcon></DeleteIcon>}>Delete Account</Button>
                     <Dialog open={open3} onClose={handleClose3}>
                         <DialogContent>
                             <DialogContentText align="center" sx={{m:2}}>Are you sure?</DialogContentText>
