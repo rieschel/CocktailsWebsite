@@ -1,15 +1,9 @@
-import { Divider, Table, TableHead, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Slider from '@mui/material/Slider';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
-import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Popover } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
@@ -17,12 +11,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { Rating } from "@mui/material";
 import { Badge } from "@mui/material";
 import {Card} from "@mui/material"
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { minWidth } from "@mui/system";
-
-
 
 function detailsView(props) {
 
@@ -94,7 +84,7 @@ function detailsView(props) {
 
     function renderCB(i){
         return (
-            <Grid item>
+            <Grid item sx={{minWidth:120}}>
                 <Typography variant="body1">{i}</Typography>
             </Grid>
         );
@@ -104,7 +94,7 @@ function detailsView(props) {
         <ThemeProvider theme={theme}>
             <br></br>
             <IconButton color="black" onClick={goBackACB}><ArrowBackIosIcon></ArrowBackIosIcon></IconButton>
-            <Card sx={{ display: "flex" , flexShrink:0 , minWidth:70, maxWidth:1000  }}>
+            <Card sx={{ display: "flex" , flexShrink:0 , minWidth:400, maxWidth:1000  }}>
                 <Grid container spacing={3}>
                     <Grid xs={6} md={4} sx={{m:2}} item>
                         <Box sx={{m:2}}>
@@ -126,7 +116,7 @@ function detailsView(props) {
                                 <Grid xs={3} md={3} sx={{m:2}} item>
                                     <Typography variant="h5" align="left">Ingredients</Typography> 
                                     <Box sx={{ display: 'flex', alignItems: 'left' }}>
-                                        <table align="left" >
+                                        <table align="left">
                                             <td>
                                                 <Grid container direction='column'>
                                                     {measures.map(renderCB)}                                        

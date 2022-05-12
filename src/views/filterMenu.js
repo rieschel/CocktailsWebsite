@@ -10,20 +10,6 @@ import Grid from '@mui/material/Grid';
 
 
 export default function CheckboxesGroup(props) {
-  
-  //Alkoholer = Strawberry schnapps, Scotch, Apricot brandyTriple sec
-  //Southern Comfort, Orange bitters, Brandy, Lemon vodka, Blended whiskey, Dry Vermouth
-  // Amaretto, Tea, Champagne, Coffee liqueur, Bourbon, Tequila, Vodka, Añejo rum, Bitters, Sugar
-  // Kahlua, demerara Sugar, Dubonnet Rouge, Watermelon, Lime juice, Irish whiskey, Apple brandy
-  // Carbonated water, Cherry brandy, Creme de Cacao, Grenadine, Port, Coffee brandy, Red wine
-  // Rum, Grapefruit juice, Ricard, Sherry, Cognac, Sloe gin, Apple juice, Pineapple juice
-  // Lemon juice, Sugar syrup, Milk, Strawberries, Chocolate syrup, Yoghurt, Mango, Ginger
-  // Lime, Cantaloupe, Berries, Grapes, Kiwi, Tomato juice, Cocoa powder, Chocolate
-  // Heavy cream, Galliano, Peach Vodka, Ouzo, Coffee, Spiced rum, Water
-  // Espresso, Angelica root, Orange, Cranberries, Johnnie Walker, Apple cider, Everclear
-  // Cranberry juice, Egg yolk, Egg, Grape juice, Peach nectar, Lemon, Firewater
-  // Lemonade, Lager, Whiskey, Absolut Citron, Pisco, Irish cream, Ale,Chocolate liqueur
-  // Midori melon liqueur, Sambuca, Cider, Sprite, 7-Up, Blackberry brandy, Peppermint schnapps, Creme de Cassis
 
   const handleAlcChange = (event) => {
     const temp = [...props.alc]
@@ -116,8 +102,8 @@ export default function CheckboxesGroup(props) {
       </FormControl>
 
       <Grid container direction="column" spacing={2} sx={{mt:3}}>
-        <Grid item><Button variant='contained' onClick={resetACB}>Reset</Button></Grid>
-        <Grid item><Button variant='contained' onClick={filterACB}>Search</Button></Grid>
+        <Grid item><Button sx={{p1:3, pr:3.5}} variant='contained' color="error" onClick={resetACB}>Reset</Button></Grid>
+        <Grid item><Button variant='contained'  onClick={filterACB}>Search</Button></Grid>
       </Grid>
       
     </Box>

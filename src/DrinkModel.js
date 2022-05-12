@@ -113,13 +113,11 @@ class DrinkModel {
         
         if(drinkid !== undefined){
             resolvePromise(getDrinkDetails(drinkid), this.currentDrinkPromiseState, notifyACB);
-            console.log("made it");
             this.notifyObservers({setCurrentDrink: drinkid});
         }
 
         this.currentDrink = drinkid;
         this.notifyObservers.bind(this);
-        console.log("Current drink: " + drinkid);
     }
 
     addObserver(obs) {

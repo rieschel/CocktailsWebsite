@@ -57,7 +57,7 @@ function updateModelFromFirebase(model){
     )
 
     firebase.database().ref(REF+"/savedDrinks/" + model.currentUser.user).on("child_added",
-        function addedDishACB(firebaseData){
+        function addedDrinkACB(firebaseData){
             if(!inDrinkList(+firebaseData.key)){
                 getDrinkDetails(+firebaseData.key).then(function addDrinkToListChangedInFirebaseACB(drink){
                     model.saveDrink(drink[0]);

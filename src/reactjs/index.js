@@ -17,7 +17,7 @@ const App = require("/src/views/app.js").default;
 
 import promiseNoData from "../views/promiseNoData";
 
-const DishModel = require("/src/DrinkModel.js").default;
+const DrinkModel = require("/src/DrinkModel.js").default;
 
 const bigPromise = firebaseModelPromise();
 let firebaseModel;
