@@ -179,7 +179,7 @@ function NavbarView(props){
                             </DialogContent>
                         </Dialog>
                         <Tooltip title="Manage account">
-                            <IconButton s
+                            <IconButton 
                                 color="secondary"
                                 ref={buttonRef1}
                                 id={1}

@@ -20,9 +20,7 @@ function App(props) {
             <Show hash="#search"><Search model = {props.model}></Search></Show>
             <Show hash="#saved_drinks"><Saved model = {props.model}></Saved></Show>
             <Show hash="#details"><Details model={props.model}></Details></Show>
-        </div>
-
-        
+        </div>  
     );
 }
 

@@ -100,7 +100,6 @@ function ShakeitupPresenter(props) {
         onLogout={logoutACB}
         onDeleteUser={deleteUserACB}
       ></NavbarView>
-      {/* <ShakeitupView onSearch={doRandomDrinkSearchACB}></ShakeitupView> */}
       <ThemeProvider theme={theme}>
       <Typography
         align="center"

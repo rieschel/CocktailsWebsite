@@ -1,22 +1,17 @@
 import theme from "../views/theme.js";
 import {ThemeProvider} from '@mui/material/styles';
-import { height } from "@mui/system";
 import Box from '@mui/material/Box';
 import { Typography } from "@mui/material";
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import StarIcon from '@mui/icons-material/Star';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import { Badge } from "@mui/material";
 import {Rating} from  "@mui/material";
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import CardActionArea from '@mui/material/CardActionArea';
-import { SettingsOverscanOutlined } from "@mui/icons-material";
+import CardActionArea from '@mui/material/CardActionArea';  
 import Tooltip from '@mui/material/Tooltip';
 
 function SearchResults(props){
