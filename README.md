@@ -1,4 +1,5 @@
 # dynwebb-projekt
+Deployed at: https://shakeitup-b7699.web.app/
 
 ## Description
 Our project is a drink website that can provide users with drink recepies and inspiration. The website allows users to search for drinks by drink name and filter drinks by popular ingredients.
